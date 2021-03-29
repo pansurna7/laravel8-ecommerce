@@ -31,17 +31,17 @@
 
                       <p>
                         {{Auth::guard('admin')->user()->name}} - {{Auth::guard('admin')->user()->email}}
-                         <small>Member since {{ \Carbon\Carbon::parse(Auth::guard('admin')->user()->created_at)->format('d/m/Y')}}</small>
+                         <small>Join {{ \Carbon\Carbon::parse(Auth::guard('admin')->user()->created_at)->format('d/m/Y')}}</small>
                       </p>
                   </li>
 
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                      <a href="{{route('admin.logout')}}" class="btn btn-default btn-flat">Profile</a>
+                      <a href="#" class="btn btn-default btn-flat">Profile</a>
                       <a href="{{route('admin.logout')}}" class="btn btn-default btn-flat float-right">Sign out</a>
                   </li>
               </ul>
           </li>
-          
+
       </ul>
   </nav>

@@ -13,10 +13,17 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// ===========route  ini untuk memisahkan login admin dan tamu===========//
 Route::get('/', function () {
     return view('welcome');
 });
+// ===========route  ini untuk memisahkan login admin dan tamu===========//
+
+// =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
+// ini route home jika tidak memisahkan user dan admin
+    // Route::get('/',[AdminController::class,'index'])->name('login_form');
+// =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
+
 // ========Admin Route=========== //
 Route::prefix('admin')->group(function(){
     Route::get('/show/login/form',[AdminController::class,'index'])->name('login_form');
@@ -26,8 +33,13 @@ Route::prefix('admin')->group(function(){
 });
 // ========End admin Route=========== //
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// =============route ini untuk dashboard login tamu klu tidak ada login tamu non aktifkan saja======//
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/lol/user',[AdminController::class,'user'])->name('dashboard');
+
+});
 
 require __DIR__.'/auth.php';

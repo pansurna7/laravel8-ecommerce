@@ -17,6 +17,7 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+                background-image: url("/Source/back/dist/img/landscape.jpg");
             }
         </style>
     </head>

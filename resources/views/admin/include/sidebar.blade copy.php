@@ -77,7 +77,7 @@
 
             </li>
 
-            <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} {{($prefix=='/parmission')? 'menu-open':''}}">
+            <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} ">
                 <a href="{{route('role.index')}}" class="nav-link {{($route == 'role.index') ? 'active' : '' }}">
                     <i class="fas fa-bars"></i>
                     <p>

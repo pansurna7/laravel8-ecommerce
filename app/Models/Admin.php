@@ -12,7 +12,13 @@ class Admin extends Authenticatable
 {
     use HasFactory,Notifiable;
 
-    protected $guarded='admin';
+    protected $guard='admin';
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     protected $fillable = [
         'name',
         'type',

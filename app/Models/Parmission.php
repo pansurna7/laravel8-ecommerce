@@ -9,7 +9,7 @@ use PhpParser\Builder\Function_;
 class Parmission extends Model
 {
     use HasFactory;
-    protected $guarded=[''];
+    protected $guarded=[];
 
     protected $casts=[
         'parmission' => 'json',
@@ -17,6 +17,6 @@ class Parmission extends Model
 
     public function role()
     {
-        return $this->belongsTo(Role::class,'role_id','id');
+        return $this->belongsTo(Role::class);
     }
 }

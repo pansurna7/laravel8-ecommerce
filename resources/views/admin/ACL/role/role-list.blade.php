@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('Role')
+@section('title')
     Role List
 @endsection
 @section('content')
@@ -11,7 +11,11 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('role.index')}}">Role</a></li>
+                        <li class="breadcrumb-item">
+                           
+                                <a href="{{route('role.index')}}" class="card-title">Role List</a>
+                            
+                        </li>
                         <li class="breadcrumb-item active">Manage</li>
                     </ol>
                 </div><!-- /.col -->
@@ -38,10 +42,17 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Role List</h3>
-                                <a href="{{route('role.create')}}" class="card-title float-right">
+                                @if (@isset(auth()->guard('admin')->user()->role->parmission['parmission']['role']['create']))
+                                    <a href="{{route('role.create')}}" class="card-title float-right">
+                                        <i class="fas fa-plus-circle nav-icon"></i>
+                                        Add Role
+                                    </a>
+                                @else
+                                <a href="{{route('role.create')}}" class="card-title float-right disabled" aria-disabled="true">
                                     <i class="fas fa-plus-circle nav-icon"></i>
                                     Add Role
                                 </a>
+                                @endif
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -60,12 +71,25 @@
                                                 <td>{{$i++}}</td>
                                                 <td>{{$role->name}}</td>
                                                <td>
-                                                    <a data-toggle="modal" data-target="#RoleUpdate{{$role->id}}" title="Edit" class="btn text-success">
-                                                        <i class="fas fa-edit nav-icon"></i>
-                                                    </a>
-                                                    <a href="{{route('role.destroy',$role->id)}}" title="Delete" class="btn text-danger">
-                                                        <i class="fas fa-trash-alt nav-icon"></i>
-                                                    </a>
+                                                   @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['edit']))
+                                                        <a data-toggle="modal" data-target="#RoleUpdate{{$role->id}}" title="Edit" class="btn text-success">
+                                                            <i class="fas fa-edit nav-icon"></i>
+                                                        </a>
+                                                    @else
+                                                        <a data-toggle="modal"  data-target="#RoleUpdate{{$role->id}}" title="Edit" class="btn text-success disabled" aria-disabled="true">
+                                                            <i class="fas fa-edit nav-icon"></i>
+                                                        </a>
+                                                    @endif
+                                                
+                                                   @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['delete']))
+                                                        <a href="{{route('role.destroy',$role->id)}}" title="Delete" class="btn text-danger">
+                                                            <i class="fas fa-trash-alt nav-icon"></i>
+                                                        </a>
+                                                    @else
+                                                        <a disable="true" href="{{route('role.destroy',$role->id)}}" title="Delete" class="btn text-danger disabled" aria-disabled="true">
+                                                            <i class="fas fa-trash-alt nav-icon"></i>
+                                                        </a>
+                                                    @endif
 
                                                 </td>
                                             </tr>

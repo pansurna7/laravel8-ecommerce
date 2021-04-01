@@ -12,10 +12,17 @@
                  <div class="col-sm-6">
                      <ol class="breadcrumb float-sm-right">
                          <li class=" breadcrumb-item">
-                            <a href="{{route('role.index')}}">
-                                <i class="fas fa-list nav-icon"></i>
-                                Role List
-                            </a>
+                            @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['view']))
+                                <a href="{{route('role.index')}}" class="card-title">
+                                    <i class="fas fa-list nav-icon"></i>
+                                    Role List
+                                </a>
+                            @else
+                                <a href="{{route('role.index')}}" class="card-title disabled" aria-disabled="true">
+                                    <i class="fas fa-list nav-icon"></i>
+                                    Role List
+                                </a>
+                            @endif
                          </li>
                      </ol>
                  </div>

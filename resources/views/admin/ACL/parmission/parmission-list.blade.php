@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('parmission')
+@section('title')
     Parmission-List
 @endsection
 @section('content')

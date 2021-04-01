@@ -76,7 +76,7 @@
                 </ul>
 
             </li>
-
+            @isset(auth()->guard('admin')->user()->role->parmission['parmission']['parmission']['list'])
             <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} ">
                 <a href="{{route('role.index')}}" class="nav-link {{($route == 'role.index') ? 'active' : '' }}">
                     <i class="fas fa-bars"></i>
@@ -92,15 +92,15 @@
                             <p>Role</p>
                         </a>
                     </li>
+                    
                     <li class="nav-item">
                         <a href="{{route('parmission.index')}}" class="nav-link {{($route=='parmission.index') ? 'active':''}}">
                             <i class="far fa-circle text-danger nav-icon"></i>
                             <p>Parmission</p>
                         </a>
                     </li>
-
-
                 </ul>
+                @endisset
 
 
 

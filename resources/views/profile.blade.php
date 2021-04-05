@@ -112,7 +112,7 @@
                           <div class="card h-100">
                             <div class="card-body">
                               <h1 class="d-flex justify-content-center mb-3">Update Profile</h1>
-                             
+
                             </div>
                           </div>
                         </div>

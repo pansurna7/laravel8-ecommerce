@@ -38,10 +38,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Parmission List</h3>
-                                <a href="{{route('parmission.create')}}" class="card-title float-right">
-                                    <i class="fas fa-plus-circle nav-icon"></i>
-                                    Add Parmission
-                                </a>
+                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['add'])
+                                    <a href="{{route('parmission.create')}}" class="card-title float-right">
+                                        <i class="fas fa-plus-circle nav-icon"></i>
+                                        Add Parmission
+                                    </a>
+                                @endisset
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -62,12 +64,24 @@
                                                 <td>{{$parmission->role->name}}</td>
 
                                                <td>
+                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['edit']))
                                                     <a href="{{route('parmission.edit',$parmission->id)}}" title="Edit" class="btn text-success">
                                                         <i class="fas fa-edit nav-icon"></i>
                                                     </a>
+                                                @else
+                                                    <a href="{{route('parmission.edit',$parmission->id)}}" title="Edit" class="btn text-success disabled" aria-disabled="true">
+                                                        <i class="fas fa-edit nav-icon"></i>
+                                                    </a>
+                                                @endif
+                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['delete']))
                                                     <a href="{{route('parmission.destroy',$parmission->id)}}" title="Delete" class="btn text-danger">
                                                         <i class="fas fa-trash-alt nav-icon"></i>
                                                     </a>
+                                                @else
+                                                <a href="{{route('parmission.destroy',$parmission->id)}}" title="Delete" class="btn text-danger disabled" aria-disabled="true">
+                                                    <i class="fas fa-trash-alt nav-icon"></i>
+                                                </a>
+                                                @endif
 
                                                 </td>
                                             </tr>

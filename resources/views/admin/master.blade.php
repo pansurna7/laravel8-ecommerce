@@ -27,7 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </head>
     <body class="hold-transition sidebar-mini">
         <div class="wrapper">
-
+            {{--  message swet aler 2  --}}
+            @include('sweetalert::alert')
             <!-- Navbar -->
             @include('admin.include.nav')
             <!-- /.navbar -->
@@ -106,7 +107,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     "autoWidth": false,
                     "responsive": true,
                   });
-                });
+                })
+
+                {{--  Priview image User  --}}
+                function priviewFile(input){
+                    $("#file").attr("")
+                    var file=$("input[type=file]").get(0).files[0];
+                    if(file)
+                    {
+                        var reader=new FileReader()
+                        reader.onload = function(){
+                           $("#priviewImg").attr("src",reader.result)
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
               </script>
 
     </body>

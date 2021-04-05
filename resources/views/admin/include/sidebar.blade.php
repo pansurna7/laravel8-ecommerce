@@ -16,7 +16,7 @@ $route = Route::current()->getName();
 <!-- Sidebar user panel (optional) -->
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
     <div class="image">
-        <img src="{{asset('Source/back/dist/img')}}/{{Auth::guard('admin')->user()->image}}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{asset('Source/back/dist/img/profile')}}/{{Auth::guard('admin')->user()->image}}" class="img-circle elevation-2" alt="User Image">
     </div>
     <div class="info">
         <a href="{{route('admin.dashboard')}}" class="d-block">{{Auth::guard('admin')->user()->name}}</a>
@@ -76,8 +76,8 @@ $route = Route::current()->getName();
             </ul>
 
         </li>
-        
-        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} {{($prefix=='/parmission')? 'menu-open':''}}">
+
+        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} {{($prefix=='/parmission')? 'menu-open':''}}  {{($prefix=='/user')? 'menu-open':''}}">
             <a href="{{route('role.index')}}" class="nav-link {{($route == 'role.index') ? 'active' : '' }}">
                 <i class="fas fa-bars"></i>
                 <p>
@@ -102,11 +102,16 @@ $route = Route::current()->getName();
                         </a>
                     </li>
                 @endisset
+
+                {{--  @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['list'])  --}}
+                    <li class="nav-item">
+                        <a href="{{route('all-user')}}" class="nav-link {{($route=='all-user') ? 'active':''}}">
+                            <i class="far fa-circle text-danger nav-icon"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
+                {{--  @endisset  --}}
             </ul>
-         
-
-
-
 
 
         </li>

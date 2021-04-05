@@ -21,13 +21,13 @@
 
           <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                  <img src="{{asset('Source/back/dist/img')}}/{{Auth::guard('admin')->user()->image}}" class="user-image img-circle elevation-2" alt="User Image">
+                  <img src="{{asset('Source/back/dist/img/profile')}}/{{Auth::guard('admin')->user()->image}}" class="user-image img-circle elevation-2" alt="User Image">
                   <span class="d-none d-md-inline">{{Auth::guard('admin')->user()->name}}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                   <!-- User image -->
                   <li class="user-header bg-primary">
-                    <img src="{{asset('Source/back/dist/img')}}/{{Auth::guard('admin')->user()->image}}" class="user-image img-circle elevation-2" alt="User Image">
+                    <img src="{{asset('Source/back/dist/img/profile')}}/{{Auth::guard('admin')->user()->image}}" class="user-image img-circle elevation-2" alt="User Image">
 
                       <p>
                         {{Auth::guard('admin')->user()->name}} - {{Auth::guard('admin')->user()->email}}
@@ -37,7 +37,7 @@
 
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      <a href="{{route('profile.index')}}" class="btn btn-default btn-flat">Profile</a>
                       <a href="{{route('admin.logout')}}" class="btn btn-default btn-flat float-right">Sign out</a>
                   </li>
               </ul>

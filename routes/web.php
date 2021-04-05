@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ParmissionController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ use App\Http\Controllers\ParmissionController;
 // ini route home jika tidak memisahkan user dan admin
 
 Route::get('/',[AdminController::class,'index'])->name('login_form');
+
 // =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
 
 // ========Admin Route=========== //
@@ -62,6 +64,16 @@ Route::group(['middleware'=>'admin'],function(){
 });
 
 //===========================ACL=====================================//
+Route::prefix('user')->group(function(){
+    Route::get('/show-all-user',[AdminController::class,'users'])->name('all-user');
+    Route::get('/user-create',[AdminController::class,'create'])->name('user.create');
+    Route::post('/store',[AdminController::class,'store'])->name('user.store');
+    Route::get('/edit-{admin}',[AdminController::class,'edit'])->name('user-edit');
+    Route::post('/destroy/{id}',[AdminController::class,'destroy'])->name('user.destroy');
+    Route::post('/update/{admin}',[AdminController::class,'update'])->name('user.update');
+
+});
+
 Route::prefix('role')->group(function(){
     Route::get('/show-all-role',[RoleController::class,'index'])->name('role.index');
     Route::get('/role-create',[RoleController::class,'create'])->name('role.create');
@@ -77,6 +89,12 @@ Route::prefix('parmission')->group(function(){
     Route::get('/destroy/{id}',[ParmissionController::class,'destroy'])->name('parmission.destroy');
     Route::get('/edit/{id}',[ParmissionController::class,'edit'])->name('parmission.edit');
     Route::post('/update/{id}',[ParmissionController::class,'update'])->name('parmission.update');
+
+});
+
+Route::prefix('profile')->group(function(){
+    Route::get('/show-profile',[ProfileController::class,'index'])->name('profile.index');
+    Route::post('/update/{id}',[ProfileController::class,'update'])->name('role.update');
 
 });
 

@@ -12,9 +12,9 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                           
+
                                 <a href="{{route('role.index')}}" class="card-title">Role List</a>
-                            
+
                         </li>
                         <li class="breadcrumb-item active">Manage</li>
                     </ol>
@@ -42,17 +42,13 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Role List</h3>
-                                @if (@isset(auth()->guard('admin')->user()->role->parmission['parmission']['role']['create']))
+                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['add'])
                                     <a href="{{route('role.create')}}" class="card-title float-right">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         Add Role
                                     </a>
-                                @else
-                                <a href="{{route('role.create')}}" class="card-title float-right disabled" aria-disabled="true">
-                                    <i class="fas fa-plus-circle nav-icon"></i>
-                                    Add Role
-                                </a>
-                                @endif
+
+                                @endisset
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -80,7 +76,7 @@
                                                             <i class="fas fa-edit nav-icon"></i>
                                                         </a>
                                                     @endif
-                                                
+
                                                    @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['delete']))
                                                         <a href="{{route('role.destroy',$role->id)}}" title="Delete" class="btn text-danger">
                                                             <i class="fas fa-trash-alt nav-icon"></i>

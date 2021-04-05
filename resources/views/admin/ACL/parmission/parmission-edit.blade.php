@@ -78,6 +78,24 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">User</th>
+                                    <td><input type="checkbox" name="parmission[user][add]"
+                                        value="1" @isset($parmission['parmission']['user']['add']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[user][edit]"
+                                        value="1" @isset($parmission['parmission']['user']['edit']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[user][view]"
+                                        value="1" @isset($parmission['parmission']['user']['view']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[user][delete]"
+                                        value="1" @isset($parmission['parmission']['user']['delete']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[user][list]"
+                                        value="1" @isset($parmission['parmission']['user']['list']) checked @endisset>
+                                    </td>
+                                </tr>
+                                <tr>
                                     @error('parmission')
                                         <span class="text-danger">
                                             {{$message}}

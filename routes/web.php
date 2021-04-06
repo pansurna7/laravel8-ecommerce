@@ -94,7 +94,7 @@ Route::prefix('parmission')->group(function(){
 
 Route::prefix('profile')->group(function(){
     Route::get('/show-profile',[ProfileController::class,'index'])->name('profile.index');
-    Route::post('/update/{id}',[ProfileController::class,'update'])->name('role.update');
+    Route::post('/update/{admin}',[ProfileController::class,'update'])->name('profile.update');
 
 });
 

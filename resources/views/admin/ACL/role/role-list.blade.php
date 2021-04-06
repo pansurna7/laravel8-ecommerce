@@ -121,7 +121,7 @@
                                               </div>
                                             </div>
 
-                                            {{-- end model --}}
+                                            {{-- end modal --}}
                                         @endforeach
 
                                 </tbody>

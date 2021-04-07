@@ -12,11 +12,9 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-
-                                <a href="{{route('role.index')}}" class="card-title">Role List</a>
-
+                          <a href="{{route('profile.index')}}" class="card-title">User Profile</a>
                         </li>
-                        <li class="breadcrumb-item active">Manage</li>
+                        <li class="breadcrumb-item active">My Profile</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -30,12 +28,15 @@
                       <div class="card">
                         <div class="card-body">
                           <div class="d-flex flex-column align-items-center text-center">
-                            <img src="{{asset('Source/back/dist/img')}}/{{Auth::guard('admin')->user()->image}}" alt="Admin" class="rounded-circle" width="150">
+                            <img src="{{asset('Source/back/dist/img/profile')}}/{{Auth::guard('admin')->user()->image}}" alt="Admin" class="rounded-circle" width="150">
                             <div class="mt-3">
                               <h4>{{strtoupper(Auth::guard('admin')->user()->name)}}</h4>
                               <p class="text-secondary mb-1">{{strtoupper(Auth::guard('admin')->user()->divisi)}}</p>
                               <p class="text-muted font-size-sm">{{strtoupper(Auth::guard('admin')->user()->address)}}</p>
-                              <button class="btn btn-outline-primary" id="btnEdit">Edit</button>
+                              <button  class="btn btn-outline-primary" data-toggle="modal" data-target="#UserUpdate{{Auth::guard('admin')->user()->id}}" title="Edit">
+                                <i class="fas fa-edit nav-icon"></i> Edit Profile
+                              </button>
+                              {{-- <button class="btn btn-outline-primary" id="btnEdit"><i class="fas fa-edit nav-icon"></i>Edit Profile</button> --}}
                             </div>
                           </div>
                         </div>
@@ -86,8 +87,6 @@
                                 </div>
                             </div>
                           <hr>
-
-
                           <div class="row">
                             <div class="col-sm-3">
                               <h6 class="mb-0">Mobile</h6>
@@ -123,7 +122,99 @@
                 </div>
             </div>
     </section>
+    <div class="modal fade" id="UserUpdate{{Auth::guard('admin')->user()->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-top">
+        <div class="modal-content">
+          <div class="modal-header bg-primary justify-content-center">
+            <h5 class="modal-title" id="staticBackdropLabel">Update Profile</h5>
 
+          </div>
+          <div class="modal-body">
+            <form action={{route('profile.update',Auth::guard('admin')->user()->id)}} method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{strtoupper(Auth::guard('admin')->user()->name)}}">
+                    @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{strtoupper(Auth::guard('admin')->user()->fullname)}}">
+                    @error('fullname')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{Auth::guard('admin')->user()->email}}" readonly=true>
+                    @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="number">Phone Number</label>
+                    <input type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{Auth::guard('admin')->user()->number}}">
+                    @error('number')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{strtoupper(Auth::guard('admin')->user()->address)}}">
+                    @error('address')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="divisi">Division</label>
+                    <input type="text" class="form-control @error('divisi') is-invalid @enderror" name="divisi" value="{{strtoupper(Auth::guard('admin')->user()->divisi)}}">
+                    @error('divisi')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="password">New Password</label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                    @error('password')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="ConfirmPassword">Confirm ConfirmPassword</label>
+                    <input type="password" class="form-control @error('ConfirmPassword') is-invalid @enderror" name="ConfirmPassword">
+                    @error('ConfirmPassword')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="form-group col-md-2">
+                  </div>
+
+                  <div class="form-group col-md-8">
+                    <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="file" name="file">
+		                <label class="custom-file-label" for="contohupload2">{{Auth::guard('admin')->user()->image}}</label>
+                    <img src="{{asset('Source/back/dist/img/profile')}}/{{Auth::guard('admin')->user()->image}}" id="priviewImg" alt="profile img" style="max-width: 130px;margin-top:20px"/>
+                  </div>
+                  <div class="form-group col-md-2">
+                  </div>
+
+
+
+                <div class="modal-footer col-md-12 justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
 
 
 @endsection

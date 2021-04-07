@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use RealRashid\SweetAlert\Facades\Alert;
+// use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -23,12 +23,14 @@ class RoleController extends Controller
 
     ]);
      Role::create($request->all());
-     return redirect()->route('role.index')->with('sms','Role Created');
+     toast('Role Created Success Fully','success');
+     return redirect()->route('role.index');
     }
     public function destroy($id)
     {
         Role::destroy($id);
-        return back()->with('sms','Role Deleted');
+        toast('Role Delete','success');
+        return back();
 
     }
     public function update(Request $request)
@@ -40,7 +42,7 @@ class RoleController extends Controller
         $role=Role::find($request->id);
         $role->name = $request->name;
         $role->update();
-        toast('User Updated','success');
-        return back()->with('sms','Role updated');
+        toast('Role Updated','success');
+        return back();
     }
 }

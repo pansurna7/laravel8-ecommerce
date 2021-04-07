@@ -137,9 +137,9 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $user= Admin::find($id);
-        // unlink(public_path('/Source/back/dist/img/profile').'/'.$user->image);
+        unlink(public_path('/Source/back/dist/img/profile').'/'.$user->image);
         $user->delete();
-        Alert::success('lexadev','Uuser Destroyed success');
+        toast('User Delete','success');
         return back();
     }
 }

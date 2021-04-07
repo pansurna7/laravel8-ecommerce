@@ -82,7 +82,7 @@ $route = Route::current()->getName();
                 <i class="fas fa-bars"></i>
                 <p>
                     ACL
-                    <i class="right fas fa-angle-left"></i>
+                    <i class="right fas fa-chevron-circle-down"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
@@ -103,14 +103,23 @@ $route = Route::current()->getName();
                     </li>
                 @endisset
 
-                {{--  @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['list'])  --}}
+                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['list'])
                     <li class="nav-item">
                         <a href="{{route('all-user')}}" class="nav-link {{($route=='all-user') ? 'active':''}}">
                             <i class="far fa-circle text-danger nav-icon"></i>
                             <p>User</p>
                         </a>
                     </li>
-                {{--  @endisset  --}}
+                @endisset
+
+                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['list'])
+                    <li class="nav-item">
+                        <a href="{{route('menu.index')}}" class="nav-link {{($route=='all-user') ? 'active':''}}">
+                            <i class="far fa-circle text-danger nav-icon"></i>
+                            <p>Menu</p>
+                        </a>
+                    </li>
+                @endisset
             </ul>
 
 

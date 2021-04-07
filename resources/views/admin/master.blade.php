@@ -18,16 +18,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <link rel="stylesheet" href="{{asset('/Source/back')}}/dist/css/adminlte.min.css">
 
+
         {{-- DataTables --}}
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 
+
     </head>
-    <body class="hold-transition sidebar-mini">
+    <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
         <div class="wrapper">
-            {{--  message swet aler 2  --}}
+            message swet aler 2
             @include('sweetalert::alert')
             <!-- Navbar -->
             @include('admin.include.nav')
@@ -92,6 +94,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/Source/back')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
             <script src="{{asset('/Source/back')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
             <script src="{{asset('/Source/back')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+            <script src="{{asset('/Source/back')}}/plugins/jquery-validation/jquery.validate.min.js"></script>
+            <script src="{{asset('/vendor')}}/sweetalert/sweetalert.all.js"></script>
+            <script src="{{asset('/vendor')}}/sweetalert/sweetalert.min.js"></script>
+
+
+
+            <script src="{{asset('/Source/back/jscustom')}}/myjs.js"></script>
             <script>
                 $(function () {
                   $("#tblMaster").DataTable({
@@ -109,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   });
                 })
 
-                {{--  Priview image User  --}}
+                {{--  Priview image Profile User  --}}
                 function priviewFile(input){
                     $("#file").attr("")
                     var file=$("input[type=file]").get(0).files[0];

@@ -3,7 +3,7 @@
     Parmission-List
 @endsection
 @section('content')
-    <div class="content-header">
+<div class="content-header mt-4 fixed">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -22,26 +22,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-
-                        {{-- message --}}
-                        @if (Session::has('sms'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{Session::get('sms')}}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                        @endif
-                        {{-- end message --}}
-
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Parmission List</h3>
                                 @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['add'])
                                     <a href="{{route('parmission.create')}}" class="card-title float-right">
                                         <i class="fas fa-plus-circle nav-icon"></i>
-                                        Add Parmission
+                                        Add Data
                                     </a>
                                 @endisset
                             </div>
@@ -74,8 +61,8 @@
                                                     </a>
                                                 @endif
                                                 @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['delete']))
-                                                    <a href="{{route('parmission.destroy',$parmission->id)}}" title="Delete" class="btn text-danger">
-                                                        <i class="fas fa-trash-alt nav-icon"></i>
+                                                <a href="#" parmission-id="{{$parmission->id}}" parmission-name="{{$parmission->name}}" title="Delete" class="btn text-danger delete-parmission">
+                                                    <i class="fas fa-trash-alt nav-icon"></i>
                                                     </a>
                                                 @else
                                                 <a href="{{route('parmission.destroy',$parmission->id)}}" title="Delete" class="btn text-danger disabled" aria-disabled="true">
@@ -92,7 +79,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Role Name</th>
+                                        <th>Parmission Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>

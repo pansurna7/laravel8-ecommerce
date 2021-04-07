@@ -3,7 +3,7 @@
     Role List
 @endsection
 @section('content')
-    <div class="content-header">
+    <div class="content-header mt-4 fixed">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -78,7 +78,7 @@
                                                     @endif
 
                                                    @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['delete']))
-                                                        <a href="{{route('role.destroy',$role->id)}}" title="Delete" class="btn text-danger">
+                                                        <a href="#" role-id="{{$role->id}}" role-name="{{$role->name}}" title="Delete" class="btn text-danger delete-role">
                                                             <i class="fas fa-trash-alt nav-icon"></i>
                                                         </a>
                                                     @else

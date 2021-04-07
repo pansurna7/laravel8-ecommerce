@@ -66,6 +66,14 @@
                                     <td><input type="checkbox" name="parmission[user][list]" value="1"></td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Menu</th>
+                                    <td><input type="checkbox" name="parmission[menu][add]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[menu][edit]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[menu][view]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[menu][delete]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[menu][list]" value="1"></td>
+                                </tr>
+                                <tr>
                                     @error('parmission')
                                         <span class="text-danger">
                                             {{$message}}

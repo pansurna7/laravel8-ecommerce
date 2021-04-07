@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ParmissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +70,7 @@ Route::prefix('user')->group(function(){
     Route::get('/user-create',[AdminController::class,'create'])->name('user.create');
     Route::post('/store',[AdminController::class,'store'])->name('user.store');
     Route::get('/edit-{admin}',[AdminController::class,'edit'])->name('user-edit');
-    Route::post('/destroy/{id}',[AdminController::class,'destroy'])->name('user.destroy');
+    Route::get('/destroy/{id}',[AdminController::class,'destroy'])->name('user.destroy');
     Route::post('/update/{admin}',[AdminController::class,'update'])->name('user.update');
 
 });
@@ -89,6 +90,15 @@ Route::prefix('parmission')->group(function(){
     Route::get('/destroy/{id}',[ParmissionController::class,'destroy'])->name('parmission.destroy');
     Route::get('/edit/{id}',[ParmissionController::class,'edit'])->name('parmission.edit');
     Route::post('/update/{id}',[ParmissionController::class,'update'])->name('parmission.update');
+
+});
+
+Route::prefix('menu')->group(function(){
+    Route::get('/show-all-menu',[MenuController::class,'index'])->name('menu.index');
+    // Route::get('/menu-create',[MenuController::class,'create'])->name('menu.create');
+    Route::post('/store',[MenuController::class,'store'])->name('menu.store');
+    Route::get('/destroy/{id}',[MenuController::class,'destroy'])->name('menu.destroy');
+    Route::post('/update/{id}',[MenuController::class,'update'])->name('menu.update');
 
 });
 

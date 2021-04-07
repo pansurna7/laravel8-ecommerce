@@ -96,6 +96,24 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">User</th>
+                                    <td><input type="checkbox" name="parmission[menu][add]"
+                                        value="1" @isset($parmission['parmission']['menu']['add']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[menu][edit]"
+                                        value="1" @isset($parmission['parmission']['menu']['edit']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[menu][view]"
+                                        value="1" @isset($parmission['parmission']['menu']['view']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[menu][delete]"
+                                        value="1" @isset($parmission['parmission']['menu']['delete']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[menu][list]"
+                                        value="1" @isset($parmission['parmission']['menu']['list']) checked @endisset>
+                                    </td>
+                                </tr>
+                                <tr>
                                     @error('parmission')
                                         <span class="text-danger">
                                             {{$message}}

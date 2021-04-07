@@ -3,7 +3,7 @@
     User Profile
 @endsection
 @section('content')
-    <div class="content-header">
+    <div class="content-header mt-4 fixed">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -21,7 +21,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <section class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="main-body">
                   <div class="row gutters-sm">
                     <div class="col-md-4 mb-3">
@@ -106,17 +106,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row gutters-sm">
-                        <div class="col-sm-12 mb-3">
-                          <div class="card h-100">
-                            <div class="card-body">
-                              <h1 class="d-flex justify-content-center mb-3">Update Profile</h1>
 
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
                     </div>
                   </div>
                 </div>

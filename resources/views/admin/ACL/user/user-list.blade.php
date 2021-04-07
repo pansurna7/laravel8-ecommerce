@@ -3,7 +3,7 @@
     User List
 @endsection
 @section('content')
-    <div class="content-header">
+    <div class="content-header mt-4 fixed">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -86,7 +86,7 @@
                                                     @endif
 
                                                     @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['edit']))
-                                                        <a href="" title="Delete" class="btn text-danger"
+                                                        {{--  <a href="{{route('user.destroy',$user->id)}}" title="Delete" class="btn text-danger"
                                                         onclick="event.preventDefault()
                                                             if (confirm('Are you really want to delete this?')){
                                                                 document.getElementById('user-delete-{{$user->id}}').submit();
@@ -97,7 +97,9 @@
                                                                @csrf
                                                             </form>
 
-                                                         </a>
+                                                         </a>  --}}
+                                                         <a href="#" user-id="{{$user->id}}" user-name="{{$user->name}}" title="Delete" class="btn text-danger delete-user">
+                                                            <i class="fas fa-trash-alt nav-icon"></i>
                                                    @else
                                                         <a disable="true" href="{{route('user.destroy',$user->id)}}" title="Delete" class="btn text-danger disabled" aria-disabled="true">
                                                             <i class="fas fa-trash-alt nav-icon"></i>

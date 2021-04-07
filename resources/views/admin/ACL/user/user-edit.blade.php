@@ -3,7 +3,7 @@
     User || Edit
 @endsection
 @section('content')
-    <div class="content-header">
+    <div class="content-header mt-4 fixed">
         <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">

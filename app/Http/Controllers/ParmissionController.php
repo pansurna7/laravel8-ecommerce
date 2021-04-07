@@ -19,17 +19,19 @@ class ParmissionController extends Controller
     public function store(Request $request)
     {
      $request->validate([
-         'role_id' => 'required',
-         'parmission' => 'required',
+        //  'role_id' => 'required',
+        //  'parmission' => 'required',
 
      ]);
         Parmission::create($request->all());
-        return redirect()->route('parmission.index')->with('sms','Parmission Created');
+        toast('Parmission Created Success Fully','success');
+        return redirect()->route('parmission.index');
      }
      public function destroy($id)
      {
          Parmission::destroy($id);
-         return back()->with('sms','Parmission Deleted');
+         toast('Parmission Delete','success');
+         return back();
 
      }
      public function edit($id)
@@ -44,6 +46,7 @@ class ParmissionController extends Controller
          $parmission->role_id = $request->role_id;
          $parmission->parmission=$request->parmission;
          $parmission->update();
-         return redirect()->route('parmission.index')->with('sms','Parmission updated');
+         toast('Parmission Updated','success');
+         return redirect()->route('parmission.index');
      }
 }

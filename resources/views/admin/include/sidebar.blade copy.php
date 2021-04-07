@@ -5,7 +5,7 @@
 @endphp
 
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
     <!-- Brand Logo -->
     <a href="{{route('admin.dashboard')}}" class="brand-link">
         <img src="{{asset('Source/back')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -92,7 +92,7 @@
                             <p>Role</p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{route('parmission.index')}}" class="nav-link {{($route=='parmission.index') ? 'active':''}}">
                             <i class="far fa-circle text-danger nav-icon"></i>

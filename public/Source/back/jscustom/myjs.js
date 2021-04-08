@@ -1,8 +1,7 @@
 
 $(document).ready(function(){
     // delete form role-list wih sweet alert
-    $(document).ready(function(){
-
+  $(document).ready(function(){
         $('.delete-role').click(function(){
             var role_id=$(this).attr('role-id');
             var role_name=$(this).attr('role-name');
@@ -23,8 +22,6 @@ $(document).ready(function(){
                 }
               });
         });
-
-
     });
         // delete form parmission wih sweet alert
         $(document).ready(function(){
@@ -78,32 +75,42 @@ $(document).ready(function(){
 
 
         });
-
-        // modal Menu
+        // ===========FOR Menu========== //
+        // +++++++++++Show Modal Menu++++//
         $(document).ready(function(){
 
-            $('.MenuAdd').click(function(){
-                var modal=$('#MenuAdd')
-                modal.modal('show');
-                $('#MenuForm').find('input[type="text"]').val('');
-            });
-
-            $('.MenuEdit').click(function(){
+              $('#btnMenuAdd').click(function(){
                 // alert('ok')
-                var menu_id=$(this).attr('menu-id');
-                var modal=$('#MenuEdit');
-                modal.modal('show');
-
+                  var modal=$('#MenuAdd')
+                  modal.modal('show');
+                  $('#MenuForm').find('input[type="text"]').val('');
+              });
             });
+          // +++++++++++End Show Modal Menu++++//
+        //+++++++++++  Add Data Menu+++++++++//
+        $(document).ready(function(){
+          $('#MenuForm').on('submit',function(e) {
+            e.preventDefault();
+          
+            $.ajax({
+                type: "post",
+                url: "store",
+                data: $('#MenuForm').serialize(),
+                
+                success: function (response) {
+                  console.log(response)
+                  $('#MenuAdd').modal('hide');
+                  alert('data save')
+                },
+                error:function(error) {
+                  console.log(error);
+                  alert('data not saved')
+                }
+            });
+          });
         });
-
-
-
-
-
-
-
-
+        //+++++++++++ END Add Data Menu+++++++++//
+      // ===========End FOR Menu========== //
 
 });
 

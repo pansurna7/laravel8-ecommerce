@@ -7,9 +7,9 @@
               <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
           </li>
           <div class="container-title">
-              {{-- <div class="row">
-                  <marquee> Selamat Datang {{Auth::guard('admin')->user()->name}} Di Sistem Akademik STIE-IGI </marquee>
-              </div> --}}
+                <div class="row">
+                    <marquee> Selamat Datang {{Auth::guard('admin')->user()->name}} Di Sistem Akademik STIE-IGI </marquee>
+                </div>
           </div>
 
       </ul>

@@ -1,5 +1,5 @@
 
-$(document).ready(function(){
+
     // delete form role-list wih sweet alert
   $(document).ready(function(){
         $('.delete-role').click(function(){
@@ -75,6 +75,15 @@ $(document).ready(function(){
 
 
         });
+        // delete form menu wih sweet alert
+        $(document).ready(function(){
+
+          $('#btnDelete').click(function(){
+             alert('ok')
+          });
+
+
+      });
         // ===========FOR Menu========== //
         // +++++++++++Show Modal Menu++++//
         $(document).ready(function(){
@@ -87,6 +96,35 @@ $(document).ready(function(){
               });
             });
           // +++++++++++End Show Modal Menu++++//
+          // +++++++++++Fetch Data Table server side++++//
+          $(document).ready(function(){
+            fetch()
+          });
+          function fetch(){
+            $("#tblMenu").DataTable({
+              processing:true,
+              serverSide:true,
+              responsive:true,
+              ajax :{
+                url:"show-all-menu",
+                type:"GET"
+              },
+              columns:[
+                {"data": null,"sortable":false,
+                  render: function(data,type,row,meta){
+                    return meta.row + meta.settings._iDisplayStart + 1
+                  }
+                },
+                {data:"menu", name:"name"},
+                {data:"icon_right", name:"right_icon"},
+                {data:"icon_left", name:"left_icon"},
+                {data:"action", name:"action"}
+              ]
+            })
+          }
+             
+          // +++++++++++end Fetch Data Table++++//
+
         //+++++++++++  Add Data Menu+++++++++//
         $(document).ready(function(){
           $('#MenuForm').on('submit',function(e) {
@@ -97,14 +135,20 @@ $(document).ready(function(){
                 url: "store",
                 data: $('#MenuForm').serialize(),
                 
-                success: function (response) {
-                  console.log(response)
+                success: function (res) {
+                  console.log(res.data)
                   $('#MenuAdd').modal('hide');
-                  alert('data save')
+                  swal({
+                    title: "Success",
+                    text: res.text,
+                    icon: "success", //built in icons: success, warning, error, info
+                    timer: 3000, //timeOut for auto-close
+                    })
+                  $('#tblMenu').DataTable().ajax.reload(null,false);
                 },
-                error:function(error) {
-                  console.log(error);
-                  alert('data not saved')
+                error:function(xhr) {
+                  alert(xhr.responJason.text)
+                 
                 }
             });
           });
@@ -112,5 +156,5 @@ $(document).ready(function(){
         //+++++++++++ END Add Data Menu+++++++++//
       // ===========End FOR Menu========== //
 
-});
+
 

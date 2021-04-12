@@ -77,7 +77,10 @@ $route = Route::current()->getName();
 
         </li>
 
-        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} {{($prefix=='/parmission')? 'menu-open':''}}  {{($prefix=='/user')? 'menu-open':''}}">
+        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} 
+        {{($prefix=='/parmission')? 'menu-open':''}}  
+        {{($prefix=='/user')? 'menu-open':''}}
+        {{($prefix=='/menu')? 'menu-open':''}}">
             <a href="{{route('role.index')}}" class="nav-link {{($route == 'role.index') ? 'active' : '' }}">
                 <i class="fas fa-bars"></i>
                 <p>
@@ -112,9 +115,9 @@ $route = Route::current()->getName();
                     </li>
                 @endisset
 
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['list'])
+                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['list'])
                     <li class="nav-item">
-                        <a href="{{route('menu.index')}}" class="nav-link {{($route=='all-user') ? 'active':''}}">
+                        <a href="{{route('menu.index')}}" class="nav-link {{($route=='menu.index') ? 'active':''}}">
                             <i class="far fa-circle text-danger nav-icon"></i>
                             <p>Menu</p>
                         </a>

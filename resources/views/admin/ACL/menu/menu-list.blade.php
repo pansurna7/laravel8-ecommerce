@@ -26,68 +26,31 @@
                             <div class="card-header">
                                 {{--  <h3 class="card-title">Menu List</h3>  --}}
                                 @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['add'])
-                                    <button  class="card-title float-right btn btn-success MenuAdd" id="btnMenuAdd">
+                                    <button  class="card-title float-left btn btn-success MenuAdd" id="btnMenuAdd">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         Add Menu
+                                    </button>
+                                @endisset
+                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['add'])
+                                    <button  class="card-title float-right btn btn-success MenuAdd" id="btnMenuAdd">
+                                        <i class="fas fa-plus-circle nav-icon"></i>
+                                        Add Sub Menu
                                     </button>
                                 @endisset
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                            <table id="tblMaster" class="table table-bordered table-striped">
+                            <table id="tblMenu" class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Menu Name</th>
                                         <th>Ringht Icon</th>
                                         <th>Left Icon</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php($i=1)
-                                        @foreach ($menus as $menu)
-                                            <tr>
-                                                <td>{{$i++}}</td>
-                                                <td>{{$menu->menu}}</td>
-                                                <td>{{$menu->icon_right}}</td>
-                                                <td>{{$menu->icon_left}}</td>
-
-                                               <td>
-                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['edit']))
-                                                    <a href="#" title="Edit" class="btn text-success" id="btnMenuEdit">
-                                                        <i class="fas fa-edit nav-icon"></i>
-                                                    </a>
-                                                @else
-                                                    <a href="" title="Edit" class="btn text-success disabled" aria-disabled="true">
-                                                        <i class="fas fa-edit nav-icon"></i>
-                                                    </a>
-                                                @endif
-                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['delete']))
-                                                <a href="#" menu-id="{{$menu->id}}" menu-name="{{$menu->name}}" title="Delete" class="btn text-danger delete-menu">
-                                                    <i class="fas fa-trash-alt nav-icon"></i>
-                                                    </a>
-                                                @else
-                                                <a href="{{route('menu.destroy',$menu->id)}}" title="Delete" class="btn text-danger disabled" aria-disabled="true">
-                                                    <i class="fas fa-trash-alt nav-icon"></i>
-                                                </a>
-                                                @endif
-
-                                                </td>
-                                            </tr>
-
-                                        @endforeach
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Menu Name</th>
-                                        <th>Ringht Icon</th>
-                                        <th>Left Icon</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+                               
                             </table>
                             </div>
                             <!-- /.card-body -->

@@ -97,9 +97,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/Source/back')}}/plugins/jquery-validation/jquery.validate.min.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.all.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.min.js"></script>
-
-
-
             <script src="{{asset('/Source/back/jscustom')}}/myjs.js"></script>
             <script>
                 $(function () {

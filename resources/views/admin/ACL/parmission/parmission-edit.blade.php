@@ -96,7 +96,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">User</th>
+                                    <th scope="row">Menu</th>
                                     <td><input type="checkbox" name="parmission[menu][add]"
                                         value="1" @isset($parmission['parmission']['menu']['add']) checked @endisset>
                                     </td>

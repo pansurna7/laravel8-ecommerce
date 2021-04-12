@@ -1,8 +1,7 @@
 
-$(document).ready(function(){
-    // delete form role-list wih sweet alert
-    $(document).ready(function(){
 
+    // delete form role-list wih sweet alert
+  $(document).ready(function(){
         $('.delete-role').click(function(){
             var role_id=$(this).attr('role-id');
             var role_name=$(this).attr('role-name');
@@ -23,8 +22,6 @@ $(document).ready(function(){
                 }
               });
         });
-
-
     });
         // delete form parmission wih sweet alert
         $(document).ready(function(){
@@ -78,32 +75,86 @@ $(document).ready(function(){
 
 
         });
-
-        // modal Menu
+        // delete form menu wih sweet alert
         $(document).ready(function(){
 
-            $('.MenuAdd').click(function(){
-                var modal=$('#MenuAdd')
-                modal.modal('show');
-                $('#MenuForm').find('input[type="text"]').val('');
-            });
+          $('#btnDelete').click(function(){
+             alert('ok')
+          });
 
-            $('.MenuEdit').click(function(){
+
+      });
+        // ===========FOR Menu========== //
+        // +++++++++++Show Modal Menu++++//
+        $(document).ready(function(){
+
+              $('#btnMenuAdd').click(function(){
                 // alert('ok')
-                var menu_id=$(this).attr('menu-id');
-                var modal=$('#MenuEdit');
-                modal.modal('show');
-
+                  var modal=$('#MenuAdd')
+                  modal.modal('show');
+                  $('#MenuForm').find('input[type="text"]').val('');
+              });
             });
+          // +++++++++++End Show Modal Menu++++//
+          // +++++++++++Fetch Data Table server side++++//
+          $(document).ready(function(){
+            fetch()
+          });
+          function fetch(){
+            $("#tblMenu").DataTable({
+              processing:true,
+              serverSide:true,
+              responsive:true,
+              ajax :{
+                url:"show-all-menu",
+                type:"GET"
+              },
+              columns:[
+                {"data": null,"sortable":false,
+                  render: function(data,type,row,meta){
+                    return meta.row + meta.settings._iDisplayStart + 1
+                  }
+                },
+                {data:"menu", name:"name"},
+                {data:"icon_right", name:"right_icon"},
+                {data:"icon_left", name:"left_icon"},
+                {data:"action", name:"action"}
+              ]
+            })
+          }
+             
+          // +++++++++++end Fetch Data Table++++//
+
+        //+++++++++++  Add Data Menu+++++++++//
+        $(document).ready(function(){
+          $('#MenuForm').on('submit',function(e) {
+            e.preventDefault();
+          
+            $.ajax({
+                type: "post",
+                url: "store",
+                data: $('#MenuForm').serialize(),
+                
+                success: function (res) {
+                  console.log(res.data)
+                  $('#MenuAdd').modal('hide');
+                  swal({
+                    title: "Success",
+                    text: res.text,
+                    icon: "success", //built in icons: success, warning, error, info
+                    timer: 3000, //timeOut for auto-close
+                    })
+                  $('#tblMenu').DataTable().ajax.reload(null,false);
+                },
+                error:function(xhr) {
+                  alert(xhr.responJason.text)
+                 
+                }
+            });
+          });
         });
+        //+++++++++++ END Add Data Menu+++++++++//
+      // ===========End FOR Menu========== //
 
 
-
-
-
-
-
-
-
-});
 

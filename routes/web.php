@@ -96,9 +96,10 @@ Route::prefix('parmission')->group(function(){
 Route::prefix('menu')->group(function(){
     Route::get('/show-all-menu',[MenuController::class,'index'])->name('menu.index');
     // Route::get('/menu-create',[MenuController::class,'create'])->name('menu.create');
+    Route::get('/edit/{id}',[MenuController::class,'edit'])->name('menu.edit');
     Route::post('/store',[MenuController::class,'store'])->name('menu.store');
     Route::get('/destroy/{id}',[MenuController::class,'destroy'])->name('menu.destroy');
-    Route::post('/update/{id}',[MenuController::class,'update'])->name('menu.update');
+    Route::patch('/update/{id}',[MenuController::class,'update'])->name('menu.update');
 
 });
 

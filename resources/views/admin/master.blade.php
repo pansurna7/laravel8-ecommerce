@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
 
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
@@ -97,7 +97,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/Source/back')}}/plugins/jquery-validation/jquery.validate.min.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.all.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.min.js"></script>
-            <script src="{{asset('/Source/back/jscustom')}}/myjs.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs')}}/lexadev.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.js"
             <script>
                 $(function () {
                   $("#tblMaster").DataTable({

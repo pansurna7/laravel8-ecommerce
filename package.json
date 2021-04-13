@@ -21,6 +21,7 @@
         "tailwindcss": "^2.0.2"
     },
     "dependencies": {
-        "breeze": "^1.2.2"
+        "breeze": "^1.2.2",
+        "izitoast": "^1.4.0"
     }
 }

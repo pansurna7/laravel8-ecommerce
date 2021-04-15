@@ -33,7 +33,10 @@ class MenuController extends Controller
 
         }
         return view('admin.ACL.menu.menu-list');
+        // return view('admin.include.sidebar')->with('menus',$dbmenu);
+
     }
+
     public function store(Request $request)
     {
         $menu= new Menu();
@@ -80,4 +83,6 @@ class MenuController extends Controller
     return response()->json(['msg'=>'Record Deleted SuccessFully']);
 
     }
+
+   
 }

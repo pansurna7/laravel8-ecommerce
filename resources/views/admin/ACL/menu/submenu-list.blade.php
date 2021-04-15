@@ -25,13 +25,13 @@
                         <div class="card">
                             <div class="card-header">
                                 {{--  <h3 class="card-title">Menu List</h3>  --}}
+                                
                                 @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['add'])
-                                    <button  class="card-title float-left btn btn-success MenuAdd" id="btnMenuAdd">
+                                    <button  class="card-title float-right btn btn-success MenuAdd" id="btnMenuAdd">
                                         <i class="fas fa-plus-circle nav-icon"></i>
-                                        Add Menu
+                                        Add Sub Menu
                                     </button>
                                 @endisset
-                                
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

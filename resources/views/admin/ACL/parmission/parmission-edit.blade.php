@@ -38,6 +38,7 @@
                                     <th scope="col">View</th>
                                     <th scope="col">Delete</th>
                                     <th scope="col">List</th>
+                                    <th scope="col">Main Menu</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,6 +59,9 @@
                                     <td><input type="checkbox" name="parmission[role][list]"
                                         value="1" @isset($parmission['parmission']['role']['list']) checked @endisset>
                                     </td>
+                                    <td><input type="checkbox" name="parmission[role][main menu]"
+                                        value="1" @isset($parmission['parmission']['role']['main menu']) checked @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Parmission</th>
@@ -75,6 +79,9 @@
                                     </td>
                                     <td><input type="checkbox" name="parmission[parmission][list]"
                                         value="1" @isset($parmission['parmission']['parmission']['list']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[parmission][main menu]"
+                                        value="1" @isset($parmission['parmission']['parmission']['main menu']) checked @endisset>
                                     </td>
                                 </tr>
                                 <tr>
@@ -94,6 +101,9 @@
                                     <td><input type="checkbox" name="parmission[user][list]"
                                         value="1" @isset($parmission['parmission']['user']['list']) checked @endisset>
                                     </td>
+                                    <td><input type="checkbox" name="parmission[user][main menu]"
+                                        value="1" @isset($parmission['parmission']['user']['main menu']) checked @endisset>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Menu</th>
@@ -111,6 +121,9 @@
                                     </td>
                                     <td><input type="checkbox" name="parmission[menu][list]"
                                         value="1" @isset($parmission['parmission']['menu']['list']) checked @endisset>
+                                    </td>
+                                    <td><input type="checkbox" name="parmission[menu][main menu]"
+                                        value="1" @isset($parmission['parmission']['menu']['main menu']) checked @endisset>
                                     </td>
                                 </tr>
                                 <tr>

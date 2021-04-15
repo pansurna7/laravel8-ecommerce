@@ -38,6 +38,7 @@
                                     <th scope="col">View</th>
                                     <th scope="col">Delete</th>
                                     <th scope="col">List</th>
+                                    <th scope="col">Main Menu</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,7 @@
                                     <td><input type="checkbox" name="parmission[role][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[role][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[role][list]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[role][main menu]" value="1"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Parmission</th>
@@ -56,6 +58,7 @@
                                     <td><input type="checkbox" name="parmission[parmission][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[parmission][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[parmission][list]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[parmission][main menu]" value="1"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">User</th>
@@ -64,6 +67,7 @@
                                     <td><input type="checkbox" name="parmission[user][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[user][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[user][list]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[user][main menu]" value="1"></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Menu</th>
@@ -72,6 +76,7 @@
                                     <td><input type="checkbox" name="parmission[menu][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[menu][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[menu][list]" value="1"></td>
+                                    <td><input type="checkbox" name="parmission[menu][main menu]" value="1"></td>
                                 </tr>
                                 <tr>
                                     @error('parmission')

@@ -19,6 +19,8 @@ class Admin extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    
+
     protected $fillable = [
         'name',
         'type',

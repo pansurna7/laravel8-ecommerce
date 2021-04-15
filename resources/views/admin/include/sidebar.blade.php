@@ -1,4 +1,3 @@
-
 @php
 $prefix = Request::route()->getPrefix();
 $route = Route::current()->getName();
@@ -77,17 +76,22 @@ $route = Route::current()->getName();
 
         </li>
 
-        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}} 
-        {{($prefix=='/parmission')? 'menu-open':''}}  
+        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}}
+        {{($prefix=='/parmission')? 'menu-open':''}}
         {{($prefix=='/user')? 'menu-open':''}}
         {{($prefix=='/menu')? 'menu-open':''}}">
-            <a href="{{route('role.index')}}" class="nav-link {{($route == 'role.index') ? 'active' : '' }}">
-                <i class="fas fa-bars"></i>
+         @foreach ($menus as $menu)
+            <a class="nav-link ? 'active' : '' ">
+                <i class="{{$menu->icon_left}}"></i>
                 <p>
-                    ACL
-                    <i class="right fas fa-chevron-circle-down"></i>
+                    {{$menu->menu}}
+                    <i class="{{$menu->icon_right}}"></i>
                 </p>
             </a>
+         @endforeach
+
+
+
             <ul class="nav nav-treeview">
                 @isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['list'])
                     <li class="nav-item">

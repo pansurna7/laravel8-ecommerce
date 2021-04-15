@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Menu;
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Testing\Fluent\Concerns\Has;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Validation\Rule;
+use Illuminate\Testing\Fluent\Concerns\Has;
+
 class AdminController extends Controller
 {
     public function user()
@@ -41,7 +43,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.include.home');
+        $menus=Menu::all();
+        return view('admin.include.home',compact('menus'));
     }
 
 
@@ -142,4 +145,6 @@ class AdminController extends Controller
         toast('User Delete','success');
         return back();
     }
+
+
 }

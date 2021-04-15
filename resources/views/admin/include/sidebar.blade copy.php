@@ -125,3 +125,97 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+<!--
+<li class="nav-item {{($prefix == '/category') ? 'menu-open' : ''}} ">
+
+    <a href="#" class="nav-link {{($route == 'category.manage') ? 'active' : '' }}">
+        <i class="fas fa-bars"></i>
+        <p>
+            Category
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{route('category.manage')}}" class="nav-link {{($route == 'category.manage') ? 'active' : '' }} ">
+                <i class="far fa-circle text-danger nav-icon"></i>
+                <p>Manage</p>
+            </a>
+        </li>
+
+    </ul>
+
+</li>
+
+<li class="nav-item {{($prefix == '/items') ? 'menu-open' : ''}}">
+    <a href="#" class="nav-link {{($route == 'items.manage') ? 'active' : '' }}">
+        <i class="fas fa-bars"></i>
+        <p>
+            Item
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{route('items.manage')}}" class="nav-link {{($route == 'items.manage') ? 'active' : '' }}">
+                <i class="far fa-circle text-danger nav-icon"></i>
+                <p>Manage</p>
+            </a>
+        </li>
+
+    </ul>
+
+</li>
+
+<li class="nav-item {{($prefix=='/role')? 'menu-open':''}}
+    {{($prefix=='/parmission')? 'menu-open':''}}
+    {{($prefix=='/user')? 'menu-open':''}}
+    {{($prefix=='/menu')? 'menu-open':''}}">
+    <a href="{{route('role.index')}}" class="nav-link {{($route == 'role.index') ? 'active' : '' }}">
+        <i class="fas fa-bars"></i>
+        <p>
+            ACL
+            <i class="right fas fa-chevron-circle-down"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        @isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['list'])
+            <li class="nav-item">
+                <a href="{{route('role.index')}}" class="nav-link {{($route=='role.index') ? 'active':''}}">
+                    <i class="far fa-circle text-danger nav-icon"></i>
+                    <p>Role</p>
+                </a>
+            </li>
+        @endisset
+        @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['list'])
+            <li class="nav-item">
+                <a href="{{route('parmission.index')}}" class="nav-link {{($route=='parmission.index') ? 'active':''}}">
+                    <i class="far fa-circle text-danger nav-icon"></i>
+                    <p>Parmission</p>
+                </a>
+            </li>
+        @endisset
+
+        @isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['list'])
+            <li class="nav-item">
+                <a href="{{route('all-user')}}" class="nav-link {{($route=='all-user') ? 'active':''}}">
+                    <i class="far fa-circle text-danger nav-icon"></i>
+                    <p>User</p>
+                </a>
+            </li>
+        @endisset
+
+        @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['list'])
+            <li class="nav-item">
+                <a href="{{route('menu.index')}}" class="nav-link {{($route=='menu.index') ? 'active':''}}">
+                    <i class="far fa-circle text-danger nav-icon"></i>
+                    <p>Menu</p>
+                </a>
+            </li>
+        @endisset
+    </ul>
+
+
+</li>
+
+ -->

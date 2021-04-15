@@ -1,13 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\ParmissionController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ParmissionController;
+use App\Models\Menu;
+use Facade\FlareClient\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,13 +96,22 @@ Route::prefix('parmission')->group(function(){
 
 });
 
-Route::prefix('menu')->group(function(){
+    Route::prefix('menu')->group(function(){
     Route::get('/show-all-menu',[MenuController::class,'index'])->name('menu.index');
-    // Route::get('/menu-create',[MenuController::class,'create'])->name('menu.create');
     Route::get('/edit/{id}',[MenuController::class,'edit'])->name('menu.edit');
     Route::post('/store',[MenuController::class,'store'])->name('menu.store');
     Route::get('/destroy/{id}',[MenuController::class,'destroy'])->name('menu.destroy');
     Route::patch('/update/{id}',[MenuController::class,'update'])->name('menu.update');
+
+
+});
+    Route::prefix('submenu')->group(function(){
+    Route::get('/show-all-sumenu',[SubMenuController::class,'index'])->name('submenu.index');
+    Route::get('/edit/{id}',[SubMenuController::class,'edit'])->name('submenu.edit');
+    Route::post('/store',[SubMenuController::class,'store'])->name('submenu.store');
+    Route::get('/destroy/{id}',[SubMenuController::class,'destroy'])->name('submenu.destroy');
+    Route::patch('/update/{id}',[SubMenuController::class,'update'])->name('submenu.update');
+
 
 });
 
@@ -112,7 +124,10 @@ Route::prefix('profile')->group(function(){
 //==============P============END ACL=====================================//
 
 
-
+view()->composer('admin.include.sidebar', function ($view) {
+    $menus=Menu::all();
+    $view->with('menus',$menus);
+});
 
 
 // ========End admin Route=========== //
@@ -124,4 +139,8 @@ Route::prefix('profile')->group(function(){
 
 
 // require __DIR__.'/auth.php';
+
+// View Composer //
+
+
 

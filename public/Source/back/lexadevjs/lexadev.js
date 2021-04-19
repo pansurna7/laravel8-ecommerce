@@ -1,3 +1,4 @@
+// ====================Menu===================================//
 $(document).ready( function () {
     // Show Data Table Menu
     $("#tblMenu").DataTable({
@@ -156,18 +157,52 @@ $(document).ready( function () {
                             });
                         }
                     });
-                //   Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                //   )
                 }
               })
 
 
 
         });
-
-
 })
+//====================End Menu===================================//
+
+//====================Sub Menu===================================//
+$(document).ready( function () {
+    $("#tbl-submenu").DataTable({
+        processing:true,
+        serverSide:true,
+        responsive:true,
+        ajax :{
+          url:"show-all-submenu",
+          type:"GET"
+        },
+        columns:[
+          {"data": null,"sortable":false,
+            render: function(data,type,row,meta){
+              return meta.row + meta.settings._iDisplayStart + 1
+            }
+          },
+          {data:"id", name:"id",visible:false},
+          {data:"title", name:"sub-menu-name"},
+          {data:"parent", name:"parent"},
+          {data:"slug", name:"slug"},
+          {data:"icon", name:"icon"},
+          {data:"action", name:"action",orderable: false}
+
+        ]
+    })
+
+});
+
+ //Add modal window
+ $('#btn-submenu-add').click(function(){
+    // alert('ok')
+      var modal=$('#tambah-submenu-modal')
+      modal.modal('show');
+      $('#submenu-form').find('input[type="text"]').val('');
+      $('#id').val('');
+      $('#submitForm').html('Save')
+  });
+//====================End Sub Menu===================================//
+
 

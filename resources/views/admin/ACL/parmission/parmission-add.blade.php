@@ -14,8 +14,40 @@
             </h3><hr>
             <div class="card-body">
                 <div class="row">
-
                     <div class="col-lg-3 col-md-6 col-sm-6 form-group">
+                        <h2>Master Menu</h2>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-bordered">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th scope="col">Main Menu</th>
+                                    <th scope="col">Acccess</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @foreach ($menus as $menu)
+                                    <th scope="row">{{$menu->menu}}</th>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                              <input type="checkbox" class="custom-control-input" id="customSwitch3" name="parmission[{{$menu->menu}}]" value="1">
+                                              <label class="custom-control-label" for="customSwitch3"></label>
+                                            </div>
+                                          </div>
+                                    </td>
+                                    @endforeach
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                   <div class="col-lg-6 col-md-6 col-sm-6">
                         <select name="role_id" class="form-control">
                             <option value="">Please select a role</option>
                             @foreach(\App\Models\Role::all() as $role)
@@ -38,7 +70,7 @@
                                     <th scope="col">View</th>
                                     <th scope="col">Delete</th>
                                     <th scope="col">List</th>
-                                    <th scope="col">Main Menu</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,7 +81,7 @@
                                     <td><input type="checkbox" name="parmission[role][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[role][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[role][list]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[role][main menu]" value="1"></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Parmission</th>
@@ -58,7 +90,7 @@
                                     <td><input type="checkbox" name="parmission[parmission][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[parmission][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[parmission][list]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[parmission][main menu]" value="1"></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">User</th>
@@ -67,7 +99,7 @@
                                     <td><input type="checkbox" name="parmission[user][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[user][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[user][list]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[user][main menu]" value="1"></td>
+
                                 </tr>
                                 <tr>
                                     <th scope="row">Menu</th>
@@ -76,7 +108,7 @@
                                     <td><input type="checkbox" name="parmission[menu][view]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[menu][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[menu][list]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[menu][main menu]" value="1"></td>
+
                                 </tr>
                                 <tr>
                                     @error('parmission')

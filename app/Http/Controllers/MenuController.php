@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Menu;
-use \Auth;
+use App\Models\SubMenu;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
     public function index(Request $request)
     {
         $dbmenu=Menu::all();
-        if($request->ajax()){
+
+        // dd($dbmenu,$sbmenu);
+         if($request->ajax()){
             return datatables()->of($dbmenu)
             ->addColumn('action', function($data){
                 if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['edit'])){
@@ -31,9 +34,9 @@ class MenuController extends Controller
             ->addIndexColumn()
             ->make(true);
 
-        }
-        return view('admin.ACL.menu.menu-list');
-        // return view('admin.include.sidebar')->with('menus',$dbmenu);
+         }
+                return view('admin.ACL.menu.menu-list');
+
 
     }
 

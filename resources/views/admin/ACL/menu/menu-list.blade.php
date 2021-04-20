@@ -113,20 +113,39 @@
 
 
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="right_icon2" class="col-form-label">Right Icon</label>
                             <input type="text" class="form-control" id="right_icon2" name="right_icon2">
+                        </div> --}}
+                        <div class="row">
+                            <div class="mb-1 col-sm d-inline">
+                                <label for="left-icon2" class="col-form-label">Left Icon</label>
+                            </div>
+                            <div class="mb-1 col-sm d-inline ustify-content-right">
+                                <label for="right-icon2" class="col-form-label">Right Icon</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="left_icon2" class="col-form-label">Left Icon</label>
-                            <input type="text" class="form-control" id="left_icon2" name="left_icon2"  required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                        <div class="row">
+                            <div class="input-group col-sm">
+                                <span class="input-group-prepend">
+                                    <button class="btn btn-secondary" data-icon="fas fa-map-marker-alt" id="btn-icon-left2"></button>
+                                </span>
+                                <input type="text" class="form-control"  id="icon-left2" name="icon-left2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                            </div>
+                            
+                            <div class="input-group col-sm">
+                                <input type="text" class="form-control"  id="icon-right2" name="icon-right2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary" data-icon="fas fa-home" role="iconpicker"></button>
+                                </span>
+                            </div>
                         </div>
-
+                        
                             <div class="modal-footer col-md-12 justify-content-center">
 
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" id="submitEditForm" class="btn btn-primary">Update</button>
-                                {{-- <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Add" /> --}}
+                                                            
                             </div>
 
                     </form>
@@ -143,9 +162,9 @@
     <div class="card-header col-12">
         <div class="card-header col-12">
             @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['add'])
-                <button  class="card-title float-left btn btn-success MenuAdd" id="btn-submenu-add">
+                <button  class="card-title float-left btn btn-success" id="btn-submenu-add">
                     <i class="fas fa-plus-circle nav-icon"></i>
-                        Add Menu
+                        Add Sub Menu
                 </button>
             @endisset
             <h3 class="text-center">Sub Menu</h3>
@@ -171,11 +190,11 @@
     </div>
     <!-- /.card-body -->
      {{--Modal Sub Menu Add--}}
-    <div class="modal fade" id="tambah-submenu-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="submenu-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary justify-content-center">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add Menu</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Sub Menu</h5>
                 </div>
                 <div class="modal-body">
 
@@ -207,22 +226,16 @@
                             <input type="text" class="form-control" id="slug" name="slug" value="{{old('slug')}}" placeholder="Slug/url Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                         </div>
                         <div class="form-group">
-                            <label for="icon" class="col-form-label">Icon</label>
-                            {{--  <input type="text" class="form-control" id="icon" name="icon" value="{{old('icon')}}" placeholder="Icon SubMenu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">  --}}
-                            <select class="form-control">
-                                <option><span class="glyphicon glyphicon-cutlery"></span></option>
-                                <option><span class="glyphicon glyphicon-eye-open"></span></option>
-                                <option><span class="glyphicon glyphicon-heart-empty"></span></option>
-                                <option><span class="glyphicon glyphicon-leaf"></span></option>
-                                <option><span class="glyphicon glyphicon-music"></span></option>
-                                <option><span class="glyphicon glyphicon-send"></span></option>
-                                <option><span class="glyphicon glyphicon-star"></span></option>
-                              </select>
+                            <label for="icon" class="col-form-label">Select Icon</label>
+                            <div class="form-group" data-arrow-class="btn-success" data-arrow-prev-icon-class="fas fa-angle-left" data-arrow-next-icon-class="fas fa-angle-right" role="iconpicker" data-align="left" name="icon"></div>
                         </div>
+                        
+
+                            
 
                         <div class="modal-footer col-md-12 justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="btn-save" class="btn btn-primary">Save</button>
+                            <button type="submit" id="btn-save-submenu" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>

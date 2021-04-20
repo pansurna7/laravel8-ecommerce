@@ -13,7 +13,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         {{-- <!-- Google Font: Source Sans Pro --> --}}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <!-- Font Awesome Icons -->
-        <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/fontawesome-free/css/all.min.css">
+        {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/fontawesome-free/css/all.min.css"> --}}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/css/bootstrap-iconpicker.min.css"/>
+        
         {{-- <!-- Theme style --> --}}
 
         <link rel="stylesheet" href="{{asset('/Source/back')}}/dist/css/adminlte.min.css">
@@ -24,7 +28,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css">
+        
+       
+       
 
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
@@ -76,7 +83,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- REQUIRED SCRIPTS -->
 
         <!-- jQuery -->
-        <script src="{{asset('/Source/back')}}/plugins/jquery/jquery.min.js"></script>
+            <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <!-- Bootstrap CDN -->
+            <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap-Iconpicker Bundle -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.bundle.min.js"></script>
+            {{-- <script src="{{asset('/Source/back')}}/plugins/jquery/jquery.min.js"></script> --}}
         <!-- Bootstrap 4 -->
         <script src="{{asset('/Source/back')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
@@ -98,7 +110,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.all.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.min.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/lexadev.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.js"
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.js"></script>
+            
+            
+             <!-- jQuery CDN -->
+            
+
+
+
             <script>
                 $(function () {
                   $("#tblMaster").DataTable({

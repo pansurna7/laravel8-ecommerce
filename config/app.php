@@ -161,6 +161,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+        // App\Providers\LexaServiceProvider::class,
 
 
 
@@ -179,7 +181,7 @@ return [
 
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
-        App\Providers\LexaServiceProvider::class,
+       
     ],
 
     /*

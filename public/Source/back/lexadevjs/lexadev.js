@@ -24,6 +24,7 @@ $(document).ready( function () {
     })
 
         //Add modal window
+        $('#ambah-edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
         $('#btnMenuAdd').click(function(){
             // alert('ok')
               var modal=$('#tambah-edit-modal')
@@ -74,8 +75,10 @@ $(document).ready( function () {
 
             });
 
-
+            
         //Edit modal window
+        $('#edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+
         $('body').on('click', '.edit-menu', function () {
             var id = $(this).attr('menu-id');
 
@@ -84,9 +87,36 @@ $(document).ready( function () {
                 $('#id').val(menu.data.id);
                 $('#name2').val(menu.data.menu);
                 $('#right_icon2').val(menu.data.icon_right);
-                $('#left_icon2').val(menu.data.icon_left);
+                $('#icon-left2').val(menu.data.icon_left);
+                // ("btn-icon-left2").attr('data-icon',menu.data.icon_left)
+                $('#btn-icon-left2').iconpicker(
+                  {
+                  align: 'left', // Only in div tag
+                  arrowClass: 'btn-danger',
+                  arrowPrevIconClass: 'fas fa-angle-left',
+                  arrowNextIconClass: 'fas fa-angle-right',
+                  cols: 10,
+                  footer: true,
+                  header: true,
+                  icon: menu.data.icon_left,
+                  iconset: 'fontawesome5',
+                  labelHeader: '{0} of {1} pages',
+                  labelFooter: '{0} - {1} of {2} icons',
+                  placement: 'bottom', // Only in button tag
+                  rows: 5,
+                  search: true,
+                  // searchText: menu.data.icon_left,
+                 
+                  selectedClass: 'btn-success',
+                  unselectedClass: ''
+                })
+                // $('#target').iconpicker('setIcon', menu.data.icon_left)
+                $('#btn-icon-left2').on('change', function(e) {
+                  $('#icon-left2').val(e.icon);
+              });
 
             })
+
         });
 
 
@@ -191,18 +221,27 @@ $(document).ready( function () {
 
         ]
     })
+    
+    $('#btn-submenu-add').click(function(){
+      // alert('ok')
+        var modal=$('#submenu-modal')
+        modal.modal('show');
+        
+        $('#submenu-form').find('input[type="text"]').val('');
+        // $('#id').val('');
+        $('#btn-save-submenu').html('Save')
+        
+
+     
+    });
 
 });
 
- //Add modal window
- $('#btn-submenu-add').click(function(){
-    // alert('ok')
-      var modal=$('#tambah-submenu-modal')
-      modal.modal('show');
-      $('#submenu-form').find('input[type="text"]').val('');
-      $('#id').val('');
-      $('#submitForm').html('Save')
-  });
+ 
+ 
+      
+  
+  
 //====================End Sub Menu===================================//
 
 

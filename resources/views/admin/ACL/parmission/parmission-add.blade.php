@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 form-group">
-                        <h2>Master Menu</h2>
+                        <h3>Main Menu</h3>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <table class="table table-bordered">
@@ -27,27 +27,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    @foreach ($menus as $menu)
-                                    <th scope="row">{{$menu->menu}}</th>
-                                    <td>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                              <input type="checkbox" class="custom-control-input" id="customSwitch3" name="parmission[{{$menu->menu}}]" value="1">
-                                              <label class="custom-control-label" for="customSwitch3"></label>
-                                            </div>
-                                          </div>
-                                    </td>
-                                    @endforeach
+                                @foreach ($menus as $menu)
+                                    <tr>
+                                        <th scope="row">{{$menu->menu}}
 
-                                </tr>
+                                        </th>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                <input type="checkbox" class="custom-control-input" id="{{$menu->id}}" name="parmission[{{$menu->menu}}]" value="1">
+                                                <label class="custom-control-label" for="{{$menu->id}}"></label>
+                                            </div></div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="row">
-                   <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-6 col-sm-6 form-group">
                         <select name="role_id" class="form-control">
                             <option value="">Please select a role</option>
                             @foreach(\App\Models\Role::all() as $role)

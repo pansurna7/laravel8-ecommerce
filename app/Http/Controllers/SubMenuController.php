@@ -44,4 +44,23 @@ class SubMenuController extends Controller
         // return view('admin.include.sidebar')->with('menus',$smenu);
 
     }
+
+    public function store(Request $request)
+    {
+        $sbmenu= new SubMenu();
+        $sbmenu->menu_id=$request->parent;
+        $sbmenu->title=$request->sub_menu_name;
+        $sbmenu->slug=$request->slug;
+        $sbmenu->icon=$request->sb_icon_add;
+
+        $save=$sbmenu->save();
+        if($save){
+            return response()->json(['data'=>$sbmenu,
+            'text'=>'Menu Created Success Fully'],200);
+        }else{
+            return response()->json(['data'=>$sbmenu,
+            'text'=>'Error']);
+        }
+
+    }
 }

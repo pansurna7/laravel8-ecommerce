@@ -81,17 +81,17 @@ $route = Route::current()->getName();
         {{($prefix=='/user')? 'menu-open':''}}
         {{($prefix=='/menu')? 'menu-open':''}}">
 
-         @foreach ($menus as $menu)
-         @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$menu->menu])
-            <a class="nav-link ? 'active' : '' ">
-                <i class="{{$menu->icon_left}}"></i>
-                <p>
-                    {{$menu->menu}}
-                    <i class="{{$menu->icon_right}}"></i>
-                </p>
-            </a>
+        @foreach ($menus as $menu)
+            @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$menu->menu])
+                <a class="nav-link ? 'active' : '' ">
+                    <i class="{{$menu->icon_left}}"></i>
+                    <p>
+                        {{$menu->menu}}
+                        <i class="right {{$menu->icon_right}}"></i>
+                    </p>
+                </a>
             @endisset
-         @endforeach
+        @endforeach
 
 
 

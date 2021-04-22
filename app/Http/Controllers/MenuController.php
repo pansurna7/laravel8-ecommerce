@@ -67,8 +67,8 @@ class MenuController extends Controller
 
         $menu=Menu::find($request->id);
         $menu->menu=$request->name2;
-        $menu->icon_left=$request->left_icon2;
-        $menu->icon_right=$request->right_icon2;
+        $menu->icon_left=$request->icon_left2;
+        $menu->icon_right=$request->icon_right2;
         $save=$menu->save();
 
         if($save){
@@ -87,5 +87,5 @@ class MenuController extends Controller
 
     }
 
-   
+
 }

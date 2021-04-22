@@ -40,8 +40,8 @@
                                             <th>No</th>
                                             <th>ID</th>
                                             <th>Menu Name</th>
-                                            <th>Ringht Icon</th>
                                             <th>Left Icon</th>
+                                            <th>Right Icon</th>
                                             <th width="140px">Action</th>
                                         </tr>
                                     </thead>
@@ -70,24 +70,35 @@
                         <div class="form-group">
                             <label for="name" class="col-form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" placeholder="write Title Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
-
-
                         </div>
-                        <div class="form-group">
-                            <label for="right_icon" class="col-form-label">Right Icon</label>
-                            <input type="text" class="form-control" id="right_icon" name="right_icon" value="{{old('right_icon')}}" placeholder="Right Icon Menu">
-                        </div>
-                        <div class="form-group">
-                            <label for="left_icon" class="col-form-label">Left Icon</label>
-                            <input type="text" class="form-control" id="left_icon" name="left_icon" value="{{old('left_icon')}}" placeholder="Left Icon Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
-                        </div>
-
-                            <div class="modal-footer col-md-12 justify-content-center">
-
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="submitForm" class="btn btn-primary">Save</button>
-                                {{-- <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Add" /> --}}
+                        <div class="row">
+                            <div class="mb-1 col-sm d-inline">
+                                <label for="left_icon" class="col-form-label">Left Icon</label>
                             </div>
+                            <div class="mb-1 col-sm d-inline ustify-content-right">
+                                <label for="right_icon" class="col-form-label">Right Icon</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-sm">
+                                <span class="input-group-prepend">
+                                    <button class="btn btn-secondary" data-icon="fas fa-map-marker-alt" id="btn-icon-left"></button>
+                                </span>
+                                <input type="text" class="form-control"  id="left_icon" name="left_icon" value="{{old('left_icon')}}" placeholder="Left Icon Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                            </div>
+
+                            <div class="input-group col-sm">
+                                <input type="text" class="form-control"  id="right_icon" name="icon_right2" value="{{old('left_icon')}}" placeholder="Right Icon Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary" data-icon="fas fa-home" id="btn-icon-right"></button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer col-md-12 justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" id="submitForm" class="btn btn-primary">Save</button>
+                        </div>
 
                     </form>
                 </div>
@@ -130,22 +141,22 @@
                                 <span class="input-group-prepend">
                                     <button class="btn btn-secondary" data-icon="fas fa-map-marker-alt" id="btn-icon-left2"></button>
                                 </span>
-                                <input type="text" class="form-control"  id="icon-left2" name="icon-left2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                <input type="text" class="form-control"  id="icon-left2" name="icon_left2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
-                            
+
                             <div class="input-group col-sm">
-                                <input type="text" class="form-control"  id="icon-right2" name="icon-right2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                <input type="text" class="form-control"  id="icon-right2" name="icon_right2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-secondary" data-icon="fas fa-home" role="iconpicker"></button>
+                                    <button class="btn btn-outline-secondary" data-icon="fas fa-home" id="btn-icon-right2"></button>
                                 </span>
                             </div>
                         </div>
-                        
+
                             <div class="modal-footer col-md-12 justify-content-center">
 
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" id="submitEditForm" class="btn btn-primary">Update</button>
-                                                            
+
                             </div>
 
                     </form>
@@ -198,12 +209,12 @@
                 </div>
                 <div class="modal-body">
 
-                    <form  id="submenu-form">
+                    <form id="submenu-form">
                         @csrf
                         {{-- <input type="hidden" name="id" id="id"> --}}
                         <div class="form-group">
                             <label for="sub-menu-name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="sub-menu-name" name="sub-menu-name" value="{{old('sub-menu-name')}}" placeholder="write Title Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control" id="sub-menu-name" name="sub_menu_name" value="{{old('sub-menu-name')}}" placeholder="write Title Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
 
 
                         </div>
@@ -225,13 +236,25 @@
                             <label for="slug" class="col-form-label">Slug</label>
                             <input type="text" class="form-control" id="slug" name="slug" value="{{old('slug')}}" placeholder="Slug/url Menu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                         </div>
-                        <div class="form-group">
-                            <label for="icon" class="col-form-label">Select Icon</label>
-                            <div class="form-group" data-arrow-class="btn-success" data-arrow-prev-icon-class="fas fa-angle-left" data-arrow-next-icon-class="fas fa-angle-right" role="iconpicker" data-align="left" name="icon"></div>
-                        </div>
-                        
+                        <div class="row">
+                            <div class="mb-1 col-sm d-inline">
+                                <label for="sb_icon_add" class="col-form-label">Select Icon</label>
+                            </div>
 
-                            
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-sm">
+                                <span class="input-group-prepend">
+                                    <button class="btn btn-secondary" data-icon="fas fa-map-marker-alt" id="btn-icon-sbmenu"></button>
+                                </span>
+                                <input type="text" class="form-control"  id="sb_icon_add" name="sb_icon_add" value="{{old('sb_icon_add')}}" placeholder="Select Icon SubMenu" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                            </div>
+
+
+                        </div>
+
+
+
 
                         <div class="modal-footer col-md-12 justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

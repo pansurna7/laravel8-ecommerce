@@ -99,14 +99,15 @@ Route::prefix('parmission')->group(function(){
 
     Route::prefix('menu')->group(function(){
     Route::get('/show-all-menu',[MenuController::class,'index'])->name('menu.index');
-    Route::get('/show-all-submenu',[SubMenuController::class,'index'])->name('menu.index');
     Route::get('/edit/{id}',[MenuController::class,'edit'])->name('menu.edit');
     Route::post('/store',[MenuController::class,'store'])->name('menu.store');
     Route::get('/destroy/{id}',[MenuController::class,'destroy'])->name('menu.destroy');
     Route::patch('/update/{id}',[MenuController::class,'update'])->name('menu.update');
 
+
     // submenu
-    //  Route::get('/show-all-submenu',[MenuController::class,'submenu_list'])->name('submenu.index');
+    Route::get('/show-all-submenu',[SubMenuController::class,'index'])->name('menu.index');
+    Route::post('/smstore',[SubMenuController::class,'store'])->name('submenu.store');
 
 
 });

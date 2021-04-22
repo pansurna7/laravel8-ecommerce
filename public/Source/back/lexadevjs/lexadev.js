@@ -1,5 +1,27 @@
 // ====================Menu===================================//
 $(document).ready( function () {
+
+    let icon_picker=
+    ({
+        align: 'left', // Only in div tag
+        arrowClass: 'btn-danger',
+        arrowPrevIconClass: 'fas fa-angle-left',
+        arrowNextIconClass: 'fas fa-angle-right',
+        cols: 10,
+        footer: true,
+        header: true,
+
+        iconset: 'fontawesome5',
+        labelHeader: '{0} of {1} pages',
+        labelFooter: '{0} - {1} of {2} icons',
+        placement: 'bottom', // Only in button tag
+        rows: 5,
+        search: true,
+        // searchText: menu.data.icon_left,
+
+        selectedClass: 'btn-success',
+        unselectedClass: ''
+    });
     // Show Data Table Menu
     $("#tblMenu").DataTable({
         processing:true,
@@ -17,22 +39,32 @@ $(document).ready( function () {
           },
           {data:"id", name:"id",visible:false},
           {data:"menu", name:"name"},
-          {data:"icon_right", name:"right_icon"},
           {data:"icon_left", name:"left_icon"},
+          {data:"icon_right", name:"right_icon"},
           {data:"action", name:"action",orderable: false}
         ]
     })
 
         //Add modal window
-        $('#ambah-edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
         $('#btnMenuAdd').click(function(){
             // alert('ok')
-              var modal=$('#tambah-edit-modal')
-              modal.modal('show');
-              $('#MenuForm').find('input[type="text"]').val('');
-              $('#id').val('');
-              $('#submitForm').html('Save')
-          });
+            var modal=$('#tambah-edit-modal')
+            modal.modal('show');
+            $('#tambah-edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+            $('#MenuForm').find('input[type="text"]').val('');
+            $('#id').val('');
+            $('#left_icon').val('');
+            $('#right_icon').val('');
+            $('#btn-icon-left').iconpicker(icon_picker)
+            $('#btn-icon-right').iconpicker(icon_picker)
+            $('#submitForm').html('Save')
+            $('#btn-icon-left').on('change', function(e) {
+                $('#left_icon').val(e.icon);
+            });
+            $('#btn-icon-right').on('change', function(e) {
+                $('#right_icon').val(e.icon);
+            });
+        });
 
         // POST DATA TO MENUCONTROLLER(store)
 
@@ -75,45 +107,33 @@ $(document).ready( function () {
 
             });
 
-            
+
         //Edit modal window
         $('#edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
 
         $('body').on('click', '.edit-menu', function () {
             var id = $(this).attr('menu-id');
-
             $.get("edit/"+id, function (menu) {
                 $('#edit-modal').modal('show');
                 $('#id').val(menu.data.id);
                 $('#name2').val(menu.data.menu);
-                $('#right_icon2').val(menu.data.icon_right);
+                $('#icon-right2').val(menu.data.icon_right);
                 $('#icon-left2').val(menu.data.icon_left);
                 // ("btn-icon-left2").attr('data-icon',menu.data.icon_left)
-                $('#btn-icon-left2').iconpicker(
-                  {
-                  align: 'left', // Only in div tag
-                  arrowClass: 'btn-danger',
-                  arrowPrevIconClass: 'fas fa-angle-left',
-                  arrowNextIconClass: 'fas fa-angle-right',
-                  cols: 10,
-                  footer: true,
-                  header: true,
-                  icon: menu.data.icon_left,
-                  iconset: 'fontawesome5',
-                  labelHeader: '{0} of {1} pages',
-                  labelFooter: '{0} - {1} of {2} icons',
-                  placement: 'bottom', // Only in button tag
-                  rows: 5,
-                  search: true,
-                  // searchText: menu.data.icon_left,
-                 
-                  selectedClass: 'btn-success',
-                  unselectedClass: ''
-                })
-                // $('#target').iconpicker('setIcon', menu.data.icon_left)
+                $('#btn-icon-left2').iconpicker(icon_picker)
+                $('#btn-icon-left2').iconpicker('setIcon',menu.data.icon_left)
+                $('#btn-icon-right2').iconpicker(icon_picker)
+                $('#btn-icon-right2').iconpicker('setIcon',menu.data.icon_right)
+
+
                 $('#btn-icon-left2').on('change', function(e) {
-                  $('#icon-left2').val(e.icon);
-              });
+                    $('#icon-left2').val(e.icon);
+
+                });
+                $('#btn-icon-right2').on('change', function(e) {
+
+                    $('#icon-right2').val(e.icon);
+                });
 
             })
 
@@ -198,6 +218,27 @@ $(document).ready( function () {
 
 //====================Sub Menu===================================//
 $(document).ready( function () {
+    let icon_picker=
+    ({
+        align: 'left', // Only in div tag
+        arrowClass: 'btn-danger',
+        arrowPrevIconClass: 'fas fa-angle-left',
+        arrowNextIconClass: 'fas fa-angle-right',
+        cols: 10,
+        footer: true,
+        header: true,
+
+        iconset: 'fontawesome5',
+        labelHeader: '{0} of {1} pages',
+        labelFooter: '{0} - {1} of {2} icons',
+        placement: 'bottom', // Only in button tag
+        rows: 5,
+        search: true,
+        // searchText: menu.data.icon_left,
+
+        selectedClass: 'btn-success',
+        unselectedClass: ''
+    });
     $("#tbl-submenu").DataTable({
         processing:true,
         serverSide:true,
@@ -221,27 +262,66 @@ $(document).ready( function () {
 
         ]
     })
-    
+
+       //Add modal window
     $('#btn-submenu-add').click(function(){
-      // alert('ok')
+        // alert('ok')
         var modal=$('#submenu-modal')
         modal.modal('show');
-        
-        $('#submenu-form').find('input[type="text"]').val('');
-        // $('#id').val('');
-        $('#btn-save-submenu').html('Save')
-        
+        $('#submenu-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+        $('#MenuForm').find('input[type="text"]').val('');
+        $('#id').val('');
+        $('#sb_icon').val('');
+        $('#btn-icon-sbmenu').iconpicker(icon_picker)
 
-     
+        $('#btn-save-submenu').html('Save')
+        $('#btn-icon-sbmenu').on('change', function(e) {
+            $('#sb_icon_add').val(e.icon);
+        });
+
+    });
+
+    // POST DATA TO SUbMENU CONTROLLER(store)
+
+    $('#submenu-form').on('submit',function(e) {
+        e.preventDefault();
+
+            $.ajax({
+                type: "post",
+                url: "smstore",
+                data: $('#submenu-form').serialize(),
+                // cache: false,
+                // contentType:false,
+                // processData:false,
+                dataType:"JSON",
+
+                success: function (res) {
+                    // console.log(res.data)
+                    iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                        title: 'Success',
+                        message: res.text,
+                        position: 'bottomRight'
+                    });
+                    $('#submenu-modal').modal('hide');
+                    $('#submenu-form').find('input[type="text"]').val('');
+                    // $('#tbl-submenu').DataTable().ajax.reload(null,false);
+                    window.location.reload();
+                },
+                error: function (data) { //jika error tampilkan error pada console
+                    console.log('Error:', data);
+
+                }
+            });
+
     });
 
 });
 
- 
- 
-      
-  
-  
+
+
+
+
+
 //====================End Sub Menu===================================//
 
 

@@ -16,7 +16,7 @@
                 <div class="row">
 
                     <div class="col-lg-3 col-md-6 col-sm-6 form-group">
-                       <h2>Master Menu</h2>
+                       <h3>Main Menu</h3>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <table class="table table-bordered">
@@ -27,23 +27,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($menus as $menu)
                                 <tr>
-                                    @foreach ($menus as $menu)
+
                                     <th scope="row">{{$menu->menu}}</th>
                                     <td>
                                         <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" class="custom-control-input" id="customSwitch3" name="parmission[{{$menu->menu}}]" value="1" @isset($parmission['parmission'][$menu->menu]) checked @endisset>
-                                            <label class="custom-control-label" for="customSwitch3"></label>
+                                            <input type="checkbox" class="custom-control-input" id="{{$menu->id}}" name="parmission[{{$menu->menu}}]" value="1" @isset($parmission['parmission'][$menu->menu]) checked @endisset>
+                                            <label class="custom-control-label" for="{{$menu->id}}"></label>
                                         </div>
 
 
                                         {{--  <input type="checkbox" name="parmission[role][add]"
                                         value="1" @isset($parmission['parmission']['role']['add']) checked @endisset>  --}}
                                     </td>
-                                    @endforeach
+
                                 </tr>
 
-
+                                @endforeach
                                 <tr>
                                     @error('parmission')
                                         <span class="text-danger">

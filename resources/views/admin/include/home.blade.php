@@ -1,13 +1,14 @@
+
 @extends('admin.master')
 @section('title')
     Dashboard
 @endsection
 @section('content')
-<div class="content-header">
+<div class="content-header mt-4 fixed">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">@yield('title')</h1>
+                <h1 class="m-0">WELCOME</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -81,4 +82,8 @@
         </div><!-- /.container-fluid -->
     </div>
 @endsection
+
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+
+
 

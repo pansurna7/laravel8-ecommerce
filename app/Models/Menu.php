@@ -11,9 +11,9 @@ class Menu extends Model
     // protected $guarded=[];
     protected $table='user_menu';
 
-    // public function subMenu()
-    // {
-    //     return $this->belongsTo(SubMenu::class);
-    // }
+    public function subMenu()
+    {
+        return $this->belongsTo(SubMenu::class);
+    }
 
 }

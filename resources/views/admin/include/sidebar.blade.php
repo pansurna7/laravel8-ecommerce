@@ -35,105 +35,61 @@ $route = Route::current()->getName();
                 </p>
             </a>
         </li>
-        <li class="nav-item {{($prefix == '/category') ? 'menu-open' : ''}} ">
-
-            <a href="#" class="nav-link {{($route == 'category.manage') ? 'active' : '' }}">
-                <i class="fas fa-bars"></i>
+        @foreach ($menus as $menu )
+        @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$menu->menu])
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                <i class="nav-icon {{$menu->icon_left}}"></i>
                 <p>
-                    Category
-                    <i class="right fas fa-angle-left"></i>
+                    {{$menu->menu}}
+                    <i class="right {{$menu->icon_right}}"></i>
                 </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('category.manage')}}" class="nav-link {{($route == 'category.manage') ? 'active' : '' }} ">
-                        <i class="far fa-circle text-danger nav-icon"></i>
-                        <p>Manage</p>
-                    </a>
-                </li>
-
-            </ul>
-
-        </li>
-
-        <li class="nav-item {{($prefix == '/items') ? 'menu-open' : ''}}">
-            <a href="#" class="nav-link {{($route == 'items.manage') ? 'active' : '' }}">
-                <i class="fas fa-bars"></i>
-                <p>
-                    Item
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('items.manage')}}" class="nav-link {{($route == 'items.manage') ? 'active' : '' }}">
-                        <i class="far fa-circle text-danger nav-icon"></i>
-                        <p>Manage</p>
-                    </a>
-                </li>
-
-            </ul>
-
-        </li>
-
-        <li class="nav-item {{($prefix=='/role')? 'menu-open':''}}
-        {{($prefix=='/parmission')? 'menu-open':''}}
-        {{($prefix=='/user')? 'menu-open':''}}
-        {{($prefix=='/menu')? 'menu-open':''}}">
-
-        @foreach ($menus as $menu)
-            @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$menu->menu])
-                <a class="nav-link ? 'active' : '' ">
-                    <i class="{{$menu->icon_left}}"></i>
-                    <p>
-                        {{$menu->menu}}
-                        <i class="right {{$menu->icon_right}}"></i>
-                    </p>
                 </a>
+                @foreach(\App\Models\SubMenu::where('menu_id',$menu->id)->get() as $sbmenu)
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="{{url($sbmenu->slug)}}" class="nav-link">
+                            <i class="{{$sbmenu->icon}}"></i>
+                            <p>{{$sbmenu->title}}</p>
+                            </a>
+                      </li>
+
+                  </ul>
+                  @endforeach
+
+            </li>
             @endisset
         @endforeach
 
-
-
-            <ul class="nav nav-treeview">
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['list'])
-                    <li class="nav-item">
-                        <a href="{{route('role.index')}}" class="nav-link {{($route=='role.index') ? 'active':''}}">
-                            <i class="far fa-circle text-danger nav-icon"></i>
-                            <p>Role</p>
-                        </a>
-                    </li>
-                @endisset
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['list'])
-                    <li class="nav-item">
-                        <a href="{{route('parmission.index')}}" class="nav-link {{($route=='parmission.index') ? 'active':''}}">
-                            <i class="far fa-circle text-danger nav-icon"></i>
-                            <p>Parmission</p>
-                        </a>
-                    </li>
+        {{--  @foreach ($menus as $menu)
+            <li class="nav-item">
+                @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$menu->menu])
+                    <a class="nav link">
+                        < class="{{$menu->icon_left}}"></>
+                        <p>
+                            {{$menu->menu}}
+                            <i class="right {{$menu->icon_right}}"></i>
+                        </p>
+                    </a>
                 @endisset
 
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['list'])
-                    <li class="nav-item">
-                        <a href="{{route('all-user')}}" class="nav-link {{($route=='all-user') ? 'active':''}}">
-                            <i class="far fa-circle text-danger nav-icon"></i>
-                            <p>User</p>
-                        </a>
-                    </li>
-                @endisset
-
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['list'])
-                    <li class="nav-item">
-                        <a href="{{route('menu.index')}}" class="nav-link {{($route=='menu.index') ? 'active':''}}">
-                            <i class="far fa-circle text-danger nav-icon"></i>
-                            <p>Menu</p>
-                        </a>
-                    </li>
-                @endisset
-            </ul>
+                @foreach(\App\Models\SubMenu::where('menu_id',$menu->id)->get() as $sm)
+                    <ul class="nav nav-treeview">
+                        @isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['list'])
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <i class="far fa-circle text-danger nav-icon"></i>
+                                    <p>{{$sm->title}}</p>
+                                </a>
+                            </li>
+                        @endisset
+                    </ul>
+                @endforeach
+            </li>
+        @endforeach  --}}
 
 
-        </li>
 
         <li class="nav-item">
             <a href="{{route('admin.logout')}}" class="nav-link">

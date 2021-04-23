@@ -97,7 +97,8 @@ $(document).ready( function () {
                             });
                             $('#tambah-edit-modal').modal('hide');
                             $('#MenuForm').find('input[type="text"]').val('');
-                            $('#tblMenu').DataTable().ajax.reload(null,false);
+                            // $('#tblMenu').DataTable().ajax.reload(null,false);
+                            window.location.reload();
                         },
                         error: function (data) { //jika error tampilkan error pada console
                             console.log('Error:', data);
@@ -119,7 +120,6 @@ $(document).ready( function () {
                 $('#name2').val(menu.data.menu);
                 $('#icon-right2').val(menu.data.icon_right);
                 $('#icon-left2').val(menu.data.icon_left);
-                // ("btn-icon-left2").attr('data-icon',menu.data.icon_left)
                 $('#btn-icon-left2').iconpicker(icon_picker)
                 $('#btn-icon-left2').iconpicker('setIcon',menu.data.icon_left)
                 $('#btn-icon-right2').iconpicker(icon_picker)
@@ -169,7 +169,8 @@ $(document).ready( function () {
                 });
                 $('#edit-modal').modal('hide');
 
-                  $('#tblMenu').DataTable().ajax.reload(null,false);
+                //   $('#tblMenu').DataTable().ajax.reload(null,false);
+                window.location.reload();
                 },
                 error: function (data) { //jika error tampilkan error pada console
                     console.log('Error:', data);
@@ -315,13 +316,150 @@ $(document).ready( function () {
 
     });
 
+    //Edit modal window
+    $('#edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+
+    $('body').on('click', '.edit-sbmenu', function () {
+        var id = $(this).attr('sbmenu-id');
+        $.get("smedit/"+id, function (sbmenu) {
+         $('#sub-menu-modal-edit').modal('show');
+         $('#id_edit').val(sbmenu.data.id);
+         $('#sub-menu-edit-name').val(sbmenu.data.title);
+         $('#parent_edit').val(sbmenu.data.menu_id);
+         $('#slug-edit').val(sbmenu.data.slug);
+         $('#sb_icon_edit').val(sbmenu.data.icon);
+         $('#btn-icon-sbmenu-edit').iconpicker(icon_picker)
+         $('#btn-icon-sbmenu-edit').iconpicker('setIcon',sbmenu.data.icon)
+
+         $('#btn-icon-sbmenu-edit').on('change', function(e) {
+             $('#sb_icon_edit').val(e.icon);
+
+         });
+
+
+        })
+
+    });
+
+    // save Edit Data
+    $('#MenuEditForm').on('submit',function(e) {
+        e.preventDefault();
+        let id=$('#MenuEditForm').find('#id').val()
+        let formData=$('#MenuEditForm').serialize()
+        console.log(formData)
+        // alert(id)
+        $.ajax({
+            type: "PATCH",
+            url: "update/" + id,
+            data: formData,
+
+            success: function (res) {
+
+
+            //   swal({
+            //     type:"Success",
+            //     title: "Success",
+            //     text: res.text,
+            //     icon: "success", //built in icons: success, warning, error, info
+            //     timer: 3000, //timeOut for auto-close
+            //     })
+            iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                title: 'Success',
+                message: res.msg,
+                position: 'bottomRight'
+            });
+            $('#edit-modal').modal('hide');
+
+            //   $('#tblMenu').DataTable().ajax.reload(null,false);
+            window.location.reload();
+            },
+            error: function (data) { //jika error tampilkan error pada console
+                console.log('Error:', data);
+
+             }
+        });
+      });
+
+
+      //Delete Record
+      $('body').on('click', '.delete-sbmenu', function () {
+        var sbmenu_id=$(this).attr('sbmenu-id');
+        var sbmenu_name=$(this).attr('sbmenu-name');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete Sub Menu " + sbmenu_name + "?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          })
+
+          .then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "get",
+                    url: "smdestroy/"+sbmenu_id,
+                    data: {id:sbmenu_id},
+                    success: function (res) {
+                        // $('#tblMenu').DataTable().ajax.reload(null,false);
+                        window.location.reload();
+                        iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                            title: 'Success',
+                            message: res.msg,
+                            position: 'bottomRight'
+                        });
+                    }
+                });
+            }
+          })
+
+
+
+    });
+
+
 });
-
-
-
-
-
-
 //====================End Sub Menu===================================//
+//====================Akfit/nonakti MENU and SUBMENU SIDEBAR===================================//
+$(document).ready(function(){
+    // VERISI I TIDAK BISA MENGHENDEL TREEVIEW JADI LOOPNYA HARUS DI DALAM TREEVIEW
+            //    /** add active class and stay opened when selected */
+            //    var url = window.location;
+
+            //    // for sidebar menu entirely but not cover treeview
+            //    $('ul.nav-sidebar a').filter(function() {
+            //        return this.href == url;
+            //    }).addClass('active');
+
+            //    // for treeview
+            //    $('ul.nav-treeview a').filter(function() {
+            //        return this.href == url;
+            //    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+
+    // VERSI 2 SUDAH BISA HANDEL TREEVIEW JADI LOOPNYA DILUAR TREEVIEEW
+            const url = window.location;
+
+            $('ul.nav-sidebar a').filter(function() {
+                return this.href == url;
+            }).parent().addClass('active');
+
+            $('ul.nav-treeview a').filter(function() {
+                return this.href == url;
+            }).parentsUntil(".sidebar-menu > .nav-treeview").addClass('menu-open');
+
+            $('ul.nav-treeview a').filter(function() {
+                return this.href == url;
+            }).addClass('active');
+
+            $('li.has-treeview a').filter(function() {
+                return this.href == url;
+            }).addClass('active');
+
+            $('ul.nav-treeview a').filter(function() {
+                return this.href == url;
+            }).parentsUntil(".sidebar-menu > .nav-treeview").children(0).addClass('active')
+});
+//====================END Akfit/nonakti MENU AND SUBMENU SIDEBAR===================================//
 
 

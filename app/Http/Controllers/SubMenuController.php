@@ -63,4 +63,34 @@ class SubMenuController extends Controller
         }
 
     }
+    public function edit($id)
+    {
+        $data=SubMenu::find($id);
+        // dd($data);
+        return response()->json(['data' => $data]);
+    }
+    public function update(Request $request)
+    {
+
+        $menu=SubMenu::find($request->id);
+        $menu->menu=$request->name2;
+        $menu->icon_left=$request->icon_left2;
+        $menu->icon_right=$request->icon_right2;
+        $save=$menu->save();
+
+        if($save){
+            return response()->json(['data'=>$menu,
+            'msg'=>'Menu UpdateSuccess Fully'],200);
+        }else{
+            return response()->json(['data'=>$menu,
+            'msg'=>'Error']);
+        }
+    }
+    public function destroy($id)
+    {
+
+    SubMenu::destroy($id);
+    return response()->json(['msg'=>'Record Deleted SuccessFully']);
+
+    }
 }

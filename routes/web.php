@@ -1,17 +1,18 @@
 <?php
 
+use App\Models\Menu;
+use App\Models\SubMenu;
+use Facade\FlareClient\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
-use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ParmissionController;
-use App\Models\Menu;
-use Facade\FlareClient\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,26 +48,26 @@ Route::prefix('admin')->group(function(){
 
 
 
-Route::group(['middleware'=>'admin'],function(){
+// Route::group(['middleware'=>'admin'],function(){
 
-    Route::prefix('category')->group(function(){
-        Route::get('/show/form',[CategoryController::class, 'show'])->name('category.add');
-        Route::post('/store/data',[CategoryController::class,'store'])->name('category.store');
-        Route::get('/manage',[CategoryController::class,'manage'])->name('category.manage');
-        Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
-        Route::get('/hide/{id}',[CategoryController::class,'hide'])->name('category.hide');
-        Route::get('/public/{id}',[CategoryController::class,'public'])->name('category.public');
-        Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
-    });
+//     Route::prefix('category')->group(function(){
+//         Route::get('/show/form',[CategoryController::class, 'show'])->name('category.add');
+//         Route::post('/store/data',[CategoryController::class,'store'])->name('category.store');
+//         Route::get('/manage',[CategoryController::class,'manage'])->name('category.manage');
+//         Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
+//         Route::get('/hide/{id}',[CategoryController::class,'hide'])->name('category.hide');
+//         Route::get('/public/{id}',[CategoryController::class,'public'])->name('category.public');
+//         Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
+//     });
 
-    Route::prefix('items')->group(function(){
-        Route::get('/show/form',[ItemController::class,'index'])->name('show.items.form');
-        Route::get('/manage',[ItemController::class,'manage'])->name('items.manage');
+//     Route::prefix('items')->group(function(){
+//         Route::get('/show/form',[ItemController::class,'index'])->name('show.items.form');
+//         Route::get('/manage',[ItemController::class,'manage'])->name('items.manage');
 
-    });
+//     });
 
 
-});
+// });
 
 //===========================ACL=====================================//
 Route::prefix('user')->group(function(){
@@ -108,18 +109,13 @@ Route::prefix('parmission')->group(function(){
     // submenu
     Route::get('/show-all-submenu',[SubMenuController::class,'index'])->name('menu.index');
     Route::post('/smstore',[SubMenuController::class,'store'])->name('submenu.store');
+    Route::get('/smedit/{id}',[SubMenuController::class,'edit'])->name('submenu.edit');
+    Route::patch('/smupdate/{id}',[SubMenuController::class,'update'])->name('submenu.update');
+    Route::get('/smdestroy/{id}',[SubMenuController::class,'destroy'])->name('submenu.destroy');
 
 
 });
-    // Route::prefix('submenu')->group(function(){
-    // Route::get('/show-all-submenu',[SubMenuController::class,'index'])->name('submenu.index');
-    // Route::get('/edit/{id}',[SubMenuController::class,'edit'])->name('submenu.edit');
-    // Route::post('/store',[SubMenuController::class,'store'])->name('submenu.store');
-    // Route::get('/destroy/{id}',[SubMenuController::class,'destroy'])->name('submenu.destroy');
-    // Route::patch('/update/{id}',[SubMenuController::class,'update'])->name('submenu.update');
 
-
-// });
 
 Route::prefix('profile')->group(function(){
     Route::get('/show-profile',[ProfileController::class,'index'])->name('profile.index');
@@ -133,6 +129,10 @@ Route::prefix('profile')->group(function(){
 view()->composer('*', function ($view) {
     $menus=Menu::all();
     $view->with('menus',$menus);
+});
+view()->composer('*', function ($view) {
+    $sbmenus=SubMenu::all();
+    $view->with('sbmenus',$sbmenus);
 });
 
 

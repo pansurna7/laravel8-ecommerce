@@ -24,8 +24,9 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-                  
         @endif
+       
+
         {{-- end message --}}
         <div class="login-box">
             <div class="login-logo">
@@ -71,7 +72,7 @@
                             <!-- /.col -->
                         </div>
                     </form>
-                        {{--  
+                        {{--
                         <div class="social-auth-links text-center mb-3">
                             <p>- OR -</p>
                             <a href="#" class="btn btn-block btn-primary">
@@ -95,7 +96,9 @@
         </div>
         <!-- /.login-box -->
         <!-- jQuery -->
-        <script src="{{asset('Source/back')}}/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="{{asset('/Source/back/lexadevjs')}}/lexadev_auto_logout.js"></script>
+
         <!-- Bootstrap 4 -->
         <script src="{{asset('Source/back')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
@@ -111,7 +114,7 @@
                 {
                     $("#eye").attr('class', 'fa fa-eye-slash');
                 }
-               
+
             });
             $(function () {
             $("#eye").click(function () {
@@ -119,6 +122,7 @@
                var type = $(this).hasClass("fa-eye-slash") ? "password" : "text";
                 $("#password").attr("type", type);
             });
+
         });
         </script>
     </body>

@@ -463,3 +463,39 @@ $(document).ready(function(){
 //====================END Akfit/nonakti MENU AND SUBMENU SIDEBAR===================================//
 
 
+// auto logout Jika Mouse dan key boar tidak bekerja
+
+function idleLogout() {
+
+    var t;
+    window.onload = resetTimer;
+    window.onmousemove = resetTimer;
+    window.onmousedown = resetTimer;  // catches touchscreen presses as well
+    window.ontouchstart = resetTimer; // catches touchscreen swipes as well
+    window.onclick = resetTimer;      // catches touchpad clicks as well
+    window.onkeydown = resetTimer;
+    window.addEventListener('scroll', resetTimer, true); // improved; see comments
+
+    function yourFunction() {
+
+        //  $('#pesan').innerHTML='ok'
+        //  document.getElementById("#pesan").innerHTML = "my text"
+
+        window.location.href = 'dashboar/logout';
+        window.location.href = '/';
+        localStorage.setItem("logoutMessage", true);
+
+
+
+    }
+
+    function resetTimer() {
+        clearTimeout(t);
+        t = setTimeout(yourFunction, 1000*);  // time is in milliseconds
+    }
+}
+idleLogout();
+
+
+
+

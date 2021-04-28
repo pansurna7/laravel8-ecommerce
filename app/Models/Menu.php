@@ -13,7 +13,7 @@ class Menu extends Model
 
     public function subMenu()
     {
-        return $this->belongsTo(SubMenu::class);
+        return $this->belongsTo('App\Models\SubMenu',);
     }
 
 }

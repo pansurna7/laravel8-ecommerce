@@ -278,7 +278,7 @@
                                 <input type="text" class="form-control" id="sub-menu-edit-name" name="sub_menu_edit_name"  required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <label for="slug" class="col-form-label">Parent Menu</label>
+                                <label for="parent" class="col-form-label">Parent Menu</label>
                                 <select name="parent" id="parent_edit" class="form-control">
                                     <option value=""></option>
                                     @foreach($menus as $menu)
@@ -305,7 +305,7 @@
                                     <span class="input-group-prepend">
                                         <button class="btn btn-secondary" data-icon="fas fa-map-marker-alt" id="btn-icon-sbmenu-edit"></button>
                                     </span>
-                                    <input type="text" class="form-control"  id="sb_icon_edit" name="sb_icon-edit" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                    <input type="text" class="form-control"  id="sb_icon_edit" name="sb_icon_edit" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
                             <div class="modal-footer col-md-12 justify-content-center">

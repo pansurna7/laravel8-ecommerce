@@ -27,6 +27,7 @@ $(document).ready( function () {
         processing:true,
         serverSide:true,
         responsive:true,
+        autoWidth: true,
         ajax :{
           url:"show-all-menu",
           type:"GET"
@@ -152,7 +153,7 @@ $(document).ready( function () {
                 url: "update/" + id,
                 data: formData,
 
-                success: function (res) {
+                success: function (res2) {
 
 
                 //   swal({
@@ -164,7 +165,7 @@ $(document).ready( function () {
                 //     })
                 iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
                     title: 'Success',
-                    message: res.msg,
+                    message: res2.msg,
                     position: 'bottomRight'
                 });
                 $('#edit-modal').modal('hide');
@@ -342,19 +343,17 @@ $(document).ready( function () {
     });
 
     // save Edit Data
-    $('#MenuEditForm').on('submit',function(e) {
+    $('#sub-menu-edit-form').on('submit',function(e) {
         e.preventDefault();
-        let id=$('#MenuEditForm').find('#id').val()
-        let formData=$('#MenuEditForm').serialize()
+        let id=$('#sub-menu-edit-form').find('#id_edit').val()
+        let formData=$('#sub-menu-edit-form').serialize()
         console.log(formData)
         // alert(id)
         $.ajax({
             type: "PATCH",
-            url: "update/" + id,
+            url: "smupdate/" + id,
             data: formData,
-
             success: function (res) {
-
 
             //   swal({
             //     type:"Success",
@@ -368,10 +367,10 @@ $(document).ready( function () {
                 message: res.msg,
                 position: 'bottomRight'
             });
-            $('#edit-modal').modal('hide');
+            $('#sub-menu-modal-edit').modal('hide');
 
             //   $('#tblMenu').DataTable().ajax.reload(null,false);
-            window.location.reload();
+            window.location.href="/menu/show-all-menu";
             },
             error: function (data) { //jika error tampilkan error pada console
                 console.log('Error:', data);
@@ -491,7 +490,7 @@ function idleLogout() {
 
     function resetTimer() {
         clearTimeout(t);
-        t = setTimeout(yourFunction, 1000*);  // time is in milliseconds
+        t = setTimeout(yourFunction, 25000000);  // time is in milliseconds
     }
 }
 idleLogout();

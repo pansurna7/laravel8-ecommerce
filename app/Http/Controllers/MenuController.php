@@ -11,8 +11,9 @@ class MenuController extends Controller
 {
     public function index(Request $request)
     {
-        $dbmenu=Menu::all();
-
+        // $dbmenu=Menu::all();
+$dbmenu=Menu::with('SubMenu')->get();
+dd($dbmenu);
         // dd($dbmenu,$sbmenu);
          if($request->ajax()){
             return datatables()->of($dbmenu)

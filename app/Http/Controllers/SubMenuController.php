@@ -72,17 +72,17 @@ class SubMenuController extends Controller
     public function update(Request $request)
     {
 
-        $menu=SubMenu::find($request->id);
-        $menu->menu=$request->name2;
-        $menu->icon_left=$request->icon_left2;
-        $menu->icon_right=$request->icon_right2;
-        $save=$menu->save();
-
+        $sbmenu=SubMenu::find($request->id);
+        $sbmenu->menu_id=$request->parent;
+        $sbmenu->title=$request->sub_menu_edit_name;
+        $sbmenu->slug=$request->slug_edit;
+        $sbmenu->icon=$request->sb_icon_edit;
+        $save=$sbmenu->save();
         if($save){
-            return response()->json(['data'=>$menu,
-            'msg'=>'Menu UpdateSuccess Fully'],200);
+            return response()->json(['data'=>$sbmenu,
+            'msg'=>'Sub Menu UpdateSuccess Fully'],200);
         }else{
-            return response()->json(['data'=>$menu,
+            return response()->json(['data'=>$sbmenu,
             'msg'=>'Error']);
         }
     }

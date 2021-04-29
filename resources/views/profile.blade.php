@@ -196,7 +196,6 @@
                   </div>
 
 
-
                 <div class="modal-footer col-md-12 justify-content-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Update</button>

@@ -40,6 +40,7 @@
                                             <th>No</th>
                                             <th>ID</th>
                                             <th>Menu Name</th>
+                                            <th>Sub Menu</th>
                                             <th>Left Icon</th>
                                             <th>Right Icon</th>
                                             <th width="140px">Action</th>

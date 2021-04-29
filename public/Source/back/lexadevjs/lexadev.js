@@ -40,6 +40,7 @@ $(document).ready( function () {
           },
           {data:"id", name:"id",visible:false},
           {data:"menu", name:"name"},
+          {data:"submenu", name:"submenu"},
           {data:"icon_left", name:"left_icon"},
           {data:"icon_right", name:"right_icon"},
           {data:"action", name:"action",orderable: false}
@@ -210,7 +211,7 @@ $(document).ready( function () {
                         }
                     });
                 }
-              })
+            })
 
 
 

@@ -5,16 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
+    public function __construct()
+    {
+        $this->dbmenu=new Menu;
+    }
     public function index(Request $request)
     {
-        // $dbmenu=Menu::all();
-$dbmenu=Menu::with('SubMenu')->get();
-dd($dbmenu);
-        // dd($dbmenu,$sbmenu);
+        //  $dbmenu=Menu::all();
+    $dbmenu= Menu::JoinTable();
+
+    // $dbmenu=Menu::join('SubMenu','menu.menu_id','=','SubMenu.id')->get('menu.*','SubMenu.title');
+    // $dbmenu=DB::table('user_menu as a')->join('user_sub_menu as b','a.id','=','b.menu_id')->select('a.*','b.title as submenu')->get();
+//  dd($dbmenu);
+// dd($dbmenu,$sbmenu);
          if($request->ajax()){
             return datatables()->of($dbmenu)
             ->addColumn('action', function($data){

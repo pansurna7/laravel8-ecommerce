@@ -74,16 +74,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">Role</th>
-                                    <td><input type="checkbox" name="parmission[role][add]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[role][edit]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[role][view]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[role][delete]" value="1"></td>
-                                    <td><input type="checkbox" name="parmission[role][list]" value="1"></td>
+                                @foreach ($sbmenus as $sb)
+                                    <tr>
+                                        <th scope="row">{{$sb->title}}</th>
+                                        <td><input type="checkbox" name="parmission[{{$sb->title}}][add]" value="1"></td>
+                                        <td><input type="checkbox" name="parmission[{{$sb->title}}][edit]" value="1"></td>
+                                        <td><input type="checkbox" name="parmission[{{$sb->title}}][view]" value="1"></td>
+                                        <td><input type="checkbox" name="parmission[{{$sb->title}}][delete]" value="1"></td>
+                                        <td><input type="checkbox" name="parmission[{{$sb->title}}][list]" value="1"></td>
 
-                                </tr>
-                                <tr>
+                                    </tr>
+                                @endforeach
+
+                                {{--  <tr>
                                     <th scope="row">Parmission</th>
                                     <td><input type="checkbox" name="parmission[parmission][add]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[parmission][edit]" value="1"></td>
@@ -109,7 +112,7 @@
                                     <td><input type="checkbox" name="parmission[menu][delete]" value="1"></td>
                                     <td><input type="checkbox" name="parmission[menu][list]" value="1"></td>
 
-                                </tr>
+                                </tr>  --}}
                                 <tr>
                                     @error('parmission')
                                         <span class="text-danger">

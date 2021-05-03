@@ -85,26 +85,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($sbmenus as $sb)
                                 <tr>
-                                    <th scope="row">Role</th>
-                                    <td><input type="checkbox" name="parmission[role][add]"
-                                        value="1" @isset($parmission['parmission']['role']['add']) checked @endisset>
+
+                                    <th scope="row">{{$sb->title}}</th>
+                                    <td><input type="checkbox" name="parmission[{{$sb->title}}][add]"
+                                        value="1" @isset($parmission['parmission'][$sb->title]['add']) checked @endisset>
                                     </td>
-                                    <td><input type="checkbox" name="parmission[role][edit]"
-                                        value="1" @isset($parmission['parmission']['role']['edit']) checked @endisset>
+                                    <td><input type="checkbox" name="parmission[{{$sb->title}}][edit]"
+                                        value="1" @isset($parmission['parmission'][$sb->title]['edit']) checked @endisset>
                                     </td>
-                                    <td><input type="checkbox" name="parmission[role][view]"
-                                        value="1" @isset($parmission['parmission']['role']['view']) checked @endisset>
+                                    <td><input type="checkbox" name="parmission[{{$sb->title}}][view]"
+                                        value="1" @isset($parmission['parmission'][$sb->title]['view']) checked @endisset>
                                     </td>
-                                    <td><input type="checkbox" name="parmission[role][delete]"
-                                        value="1" @isset($parmission['parmission']['role']['delete']) checked @endisset>
+                                    <td><input type="checkbox" name="parmission[{{$sb->title}}][delete]"
+                                        value="1" @isset($parmission['parmission'][$sb->title]['delete']) checked @endisset>
                                     </td>
-                                    <td><input type="checkbox" name="parmission[role][list]"
-                                        value="1" @isset($parmission['parmission']['role']['list']) checked @endisset>
+                                    <td><input type="checkbox" name="parmission[{{$sb->title}}][list]"
+                                        value="1" @isset($parmission['parmission'][$sb->title]['list']) checked @endisset>
                                     </td>
 
                                 </tr>
-                                <tr>
+                               
+                                @endforeach
+
+                                {{--  <tr>
                                     <th scope="row">Parmission</th>
                                     <td><input type="checkbox" name="parmission[parmission][add]"
                                         value="1" @isset($parmission['parmission']['parmission']['add']) checked @endisset>
@@ -122,8 +127,8 @@
                                         value="1" @isset($parmission['parmission']['parmission']['list']) checked @endisset>
                                     </td>
 
-                                </tr>
-                                <tr>
+                                </tr>  --}}
+                                {{--  <tr>
                                     <th scope="row">User</th>
                                     <td><input type="checkbox" name="parmission[user][add]"
                                         value="1" @isset($parmission['parmission']['user']['add']) checked @endisset>
@@ -160,7 +165,7 @@
                                         value="1" @isset($parmission['parmission']['menu']['list']) checked @endisset>
                                     </td>
 
-                                </tr>
+                                </tr>  --}}
                                 <tr>
                                     @error('parmission')
                                         <span class="text-danger">

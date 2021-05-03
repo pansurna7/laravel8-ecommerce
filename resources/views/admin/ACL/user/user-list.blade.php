@@ -42,7 +42,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">user List</h3>
-                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['add'])
+                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['User']['add'])
                                     <a href="{{route('user.create')}}" class="card-title float-right">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         Add user
@@ -75,7 +75,7 @@
                                                 </td>
 
                                                <td>
-                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['edit']))
+                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['User']['edit']))
                                                         <a href="{{route('user-edit',$user->id)}}" title="Change this" class="btn text-success ">
                                                             <i class="fas fa-edit nav-icon"></i>
                                                         </a>
@@ -85,19 +85,8 @@
                                                         </a>
                                                     @endif
 
-                                                    @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['user']['edit']))
-                                                        {{--  <a href="{{route('user.destroy',$user->id)}}" title="Delete" class="btn text-danger"
-                                                        onclick="event.preventDefault()
-                                                            if (confirm('Are you really want to delete this?')){
-                                                                document.getElementById('user-delete-{{$user->id}}').submit();
-                                                            }
-                                                            ">
-                                                            <i class="fas fa-trash-alt nav-icon"></i>
-                                                            <form action="{{route('user.destroy',$user->id)}}" method="post" id={{'user-delete-'.$user->id}}>
-                                                               @csrf
-                                                            </form>
-
-                                                         </a>  --}}
+                                                    @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['User']['edit']))
+                                                        
                                                          <a href="#" user-id="{{$user->id}}" user-name="{{$user->name}}" title="Delete" class="btn text-danger delete-user">
                                                             <i class="fas fa-trash-alt nav-icon"></i>
                                                    @else

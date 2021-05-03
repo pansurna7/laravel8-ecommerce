@@ -17,7 +17,9 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         //  $dbmenu=Menu::all();
-    $dbmenu= Menu::JoinTable();
+    $dbmenu= Menu::JoinSubMenuTable();
+
+
 
     // $dbmenu=Menu::join('SubMenu','menu.menu_id','=','SubMenu.id')->get('menu.*','SubMenu.title');
     // $dbmenu=DB::table('user_menu as a')->join('user_sub_menu as b','a.id','=','b.menu_id')->select('a.*','b.title as submenu')->get();
@@ -26,13 +28,13 @@ class MenuController extends Controller
          if($request->ajax()){
             return datatables()->of($dbmenu)
             ->addColumn('action', function($data){
-                if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['edit'])){
+                if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Menu']['edit'])){
                     $button = '<a href="javascript:void(0)" data-toggle="tooltip"  menu-id="'.$data->id.'"  menu-name="'.$data->menu.'" data-original-title="Edit"  class="edit-menu btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>';
                 }else{
                     $button = '<a href="javascript:void(0)" data-toggle="tooltip"  menu-id="'.$data->id.'" data-original-title="Edit" class="edit-menu btn btn-info btn-sm edit-menu disabled" aria-disabled="true"><i class="far fa-edit"></i> Edit</a>';
                 }
                 $button .= '&nbsp;&nbsp;';
-                if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['delete'])){
+                if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['Menu']['delete'])){
                     $button .= '<a  href="javascript:void(0)" menu-id="'.$data->id.'" menu-name="'.$data->menu.'" id="'.$data->id.'" class="delete-menu btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>';
                 }else{
                     $button .= '<a href="javascript:void(0)"  manu-id="'.$data->id.'" class="delete-menu btn btn-danger btn-sm disabled" aria-disabled="true"><i class="far fa-trash-alt"></i> Delete</a>';

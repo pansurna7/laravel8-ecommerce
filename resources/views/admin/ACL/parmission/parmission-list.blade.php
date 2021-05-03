@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Parmission List</h3>
-                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['add'])
+                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['Parmission']['add'])
                                     <a href="{{route('parmission.create')}}" class="card-title float-right">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         Add Data
@@ -40,6 +40,7 @@
                                         <th>#</th>
 
                                         <th>Role Name</th>
+                                        <th>Parmission</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -49,9 +50,23 @@
                                             <tr>
                                                 <td>{{$i++}}</td>
                                                 <td>{{$parmission->role->name}}</td>
+                                                {{--  <td>{{json_encode($parmission->parmission)}}</td>  --}}
+                                                <td>
+
+                                                        $pointsArray[$parmission]['id']  = $id = $id + 1 ;
+                                                       
+
+
+
+                                                        $arrayEncoded = json_encode($pointsArray);
+
+                                                        $decoded = (json_encode(array_values(json_decode($arrayEncoded,true))));
+
+
+                                                </td>
 
                                                <td>
-                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['edit']))
+                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Parmission']['edit']))
                                                     <a href="{{route('parmission.edit',$parmission->id)}}" title="Edit" class="btn text-success">
                                                         <i class="fas fa-edit nav-icon"></i>
                                                     </a>
@@ -60,7 +75,7 @@
                                                         <i class="fas fa-edit nav-icon"></i>
                                                     </a>
                                                 @endif
-                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['parmission']['delete']))
+                                                @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Parmission']['delete']))
                                                 <a href="#" parmission-id="{{$parmission->id}}" parmission-name="{{$parmission->name}}" title="Delete" class="btn text-danger delete-parmission">
                                                     <i class="fas fa-trash-alt nav-icon"></i>
                                                     </a>

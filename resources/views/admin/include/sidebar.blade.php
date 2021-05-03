@@ -46,6 +46,7 @@ $route = Route::current()->getName();
                 </p>
                 </a>
                 @foreach(\App\Models\SubMenu::where('menu_id',$menu->id)->get() as $sbmenu)
+                @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$sbmenu->title]['list'])
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
@@ -56,6 +57,7 @@ $route = Route::current()->getName();
                       </li>
 
                   </ul>
+                  @endisset
                   @endforeach
 
             </li>

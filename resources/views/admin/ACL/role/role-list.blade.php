@@ -42,7 +42,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Role List</h3>
-                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['add'])
+                                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['Role']['add'])
                                     <a href="{{route('role.create')}}" class="card-title float-right">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         Add Role
@@ -67,7 +67,7 @@
                                                 <td>{{$i++}}</td>
                                                 <td>{{$role->name}}</td>
                                                <td>
-                                                   @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['edit']))
+                                                   @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Role']['edit']))
                                                         <a data-toggle="modal" data-target="#RoleUpdate{{$role->id}}" title="Edit" class="btn text-success">
                                                             <i class="fas fa-edit nav-icon"></i>
                                                         </a>
@@ -77,7 +77,7 @@
                                                         </a>
                                                     @endif
 
-                                                   @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['role']['delete']))
+                                                   @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Role']['delete']))
                                                         <a href="#" role-id="{{$role->id}}" role-name="{{$role->name}}" title="Delete" class="btn text-danger delete-role">
                                                             <i class="fas fa-trash-alt nav-icon"></i>
                                                         </a>

@@ -10,6 +10,7 @@ class ParmissionController extends Controller
     public function index()
     {
         $data['parmissions']= Parmission::all();
+        // dd($data);
         return view('admin.ACL.parmission.parmission-list',$data);
     }
 

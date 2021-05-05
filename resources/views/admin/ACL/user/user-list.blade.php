@@ -86,7 +86,7 @@
                                                     @endif
 
                                                     @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['User']['edit']))
-                                                        
+
                                                          <a href="#" user-id="{{$user->id}}" user-name="{{$user->name}}" title="Delete" class="btn text-danger delete-user">
                                                             <i class="fas fa-trash-alt nav-icon"></i>
                                                    @else

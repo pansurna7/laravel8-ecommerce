@@ -6,14 +6,11 @@
           <li class="nav-item">
               <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
           </li>
-          <div class="container-title">
-                <div class="row">
-                    <marquee> Selamat Datang {{Auth::guard('admin')->user()->name}} Di Sistem Akademik STIE-IGI </marquee>
-                </div>
-          </div>
+      </ul>
 
-      </ul>
-      </ul>
+        <marquee style="color: yellowgreen; font-weight: bold; font-size=40px"> Welcome {{Auth::guard('admin')->user()->name}} To Lexadev Management System   </marquee>
+
+
       <ul class="navbar-nav ml-auto">
           <!-- Messages Dropdown Menu -->
 

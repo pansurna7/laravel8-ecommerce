@@ -39,7 +39,7 @@
                                     <tr>
                                         <th>#</th>
 
-                                        <th>Role Name</th>
+                                        <th>Role</th>
                                         <th>Parmission</th>
                                         <th>Action</th>
                                     </tr>
@@ -50,21 +50,8 @@
                                             <tr>
                                                 <td>{{$i++}}</td>
                                                 <td>{{$parmission->role->name}}</td>
-                                                {{--  <td>{{json_encode($parmission->parmission)}}</td>  --}}
-                                                <td>
-
-                                                        $pointsArray[$parmission]['id']  = $id = $id + 1 ;
-                                                       
-
-
-
-                                                        $arrayEncoded = json_encode($pointsArray);
-
-                                                        $decoded = (json_encode(array_values(json_decode($arrayEncoded,true))));
-
-
-                                                </td>
-
+                                            <td>{{json_encode($parmission->parmission)}}</td>
+                                            
                                                <td>
                                                 @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Parmission']['edit']))
                                                     <a href="{{route('parmission.edit',$parmission->id)}}" title="Edit" class="btn text-success">
@@ -76,7 +63,7 @@
                                                     </a>
                                                 @endif
                                                 @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Parmission']['delete']))
-                                                <a href="#" parmission-id="{{$parmission->id}}" parmission-name="{{$parmission->name}}" title="Delete" class="btn text-danger delete-parmission">
+                                                <a href="javascript:void(0)" parmission-id="{{$parmission->id}}"  title="Delete" class="btn text-danger delete-parmission">
                                                     <i class="fas fa-trash-alt nav-icon"></i>
                                                     </a>
                                                 @else
@@ -94,7 +81,8 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Parmission Name</th>
+                                        <th>Role</th>
+                                        <th>Parmission</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>

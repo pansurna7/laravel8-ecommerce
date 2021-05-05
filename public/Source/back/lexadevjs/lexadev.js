@@ -496,6 +496,86 @@ function idleLogout() {
 }
 idleLogout();
 
+// Delete Parmission
+
+$('body').on('click', '.delete-parmission', function () {
+    var parmission_id=$(this).attr('parmission-id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Delete Parmission id " + parmission_id + "?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+
+      .then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "get",
+                url: "destroy/"+parmission_id,
+                data: {id:parmission_id},
+                success: function (res) {
+                    // $('#tblMenu').DataTable().ajax.reload(null,false);
+                    window.location.reload();
+                    iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                        title: 'Success',
+                        message: res.msg,
+                        position: 'bottomRight'
+                    });
+                }
+            });
+        }
+      })
+
+
+
+});
+
+//End Delete Parmission
+
+// Delete Role
+
+$('body').on('click', '.delete-role', function () {
+    var role_id=$(this).attr('role-id');
+    var role_name=$(this).attr('role-name');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Delete Role Name " + role_name + "?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+
+      .then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "get",
+                url: "destroy/"+role_id,
+                data: {id:role_id},
+                success: function (res) {
+                    // $('#tblMenu').DataTable().ajax.reload(null,false);
+                    window.location.reload();
+                    iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                        title: 'Success',
+                        message: res.msg,
+                        position: 'bottomRight'
+                    });
+                }
+            });
+        }
+      })
+
+
+
+});
+
+//End Delete Parmission
 
 
 

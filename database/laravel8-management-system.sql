@@ -107,7 +107,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -122,7 +122,9 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (8,'2021_03_29_145832_create_permissions_table',1),
 (9,'2021_04_05_100859_create_profiles_table',2),
 (11,'2021_04_07_065322_create_user_menu',3),
-(12,'2021_04_07_065322_create_user_sub_menu',4);
+(12,'2021_04_07_065322_create_user_sub_menu',4),
+(13,'2019_12_14_000001_create_personal_access_tokens_table',5),
+(14,'2021_05_11_140042_create_students_table',6);
 
 /*Table structure for table `parmissions` */
 
@@ -143,7 +145,7 @@ CREATE TABLE `parmissions` (
 
 insert  into `parmissions`(`id`,`parmission`,`role_id`,`created_at`,`updated_at`) values 
 (3,'{\"System Management\":\"1\",\"Master Data\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Menu\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Item\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"User\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"}}',2,'2021-04-03 03:38:50','2021-05-03 16:53:38'),
-(11,'{\"System Management\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"list\":\"1\"},\"Menu\":{\"list\":\"1\"},\"User\":{\"list\":\"1\"}}',10,'2021-05-03 16:44:47','2021-05-03 16:52:51');
+(11,'{\"System Management\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"list\":\"1\"},\"User\":{\"list\":\"1\"}}',10,'2021-05-03 16:44:47','2021-05-07 12:26:36');
 
 /*Table structure for table `password_resets` */
 
@@ -157,6 +159,50 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `password_resets` */
+
+/*Table structure for table `payments` */
+
+DROP TABLE IF EXISTS `payments`;
+
+CREATE TABLE `payments` (
+  `external_id` varchar(100) NOT NULL,
+  `payment_channel` varchar(100) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `status` int(11) DEFAULT 0,
+  `create_at` timestamp NULL DEFAULT NULL,
+  `update_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`external_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `payments` */
+
+insert  into `payments`(`external_id`,`payment_channel`,`email`,`price`,`status`,`create_at`,`update_at`) values 
+('va-1620393464','Virtual Account','lexalexadevcom',120000,0,NULL,NULL);
+
+/*Table structure for table `personal_access_tokens` */
+
+DROP TABLE IF EXISTS `personal_access_tokens`;
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `personal_access_tokens` */
+
+insert  into `personal_access_tokens`(`id`,`tokenable_type`,`tokenable_id`,`name`,`token`,`abilities`,`last_used_at`,`created_at`,`updated_at`) values 
+(10,'App\\Models\\User',1,'token','d177c79ff8e0717616449b451ebdc2986a8fbb6e399965171b8b81da8dddf206','[\"*\"]','2021-05-11 15:05:36','2021-05-11 14:16:42','2021-05-11 15:05:36');
 
 /*Table structure for table `profiles` */
 
@@ -188,6 +234,25 @@ CREATE TABLE `roles` (
 insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values 
 (2,'Admin','2021-03-31 08:50:42','2021-03-31 08:50:42'),
 (10,'Author','2021-04-07 04:57:07','2021-04-07 04:57:23');
+
+/*Table structure for table `students` */
+
+DROP TABLE IF EXISTS `students`;
+
+CREATE TABLE `students` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_telp` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `students` */
+
+insert  into `students`(`id`,`nama`,`alamat`,`no_telp`,`created_at`,`updated_at`) values 
+(1,'surya panggabean','tangerang','081395174571','2021-05-11 14:30:09','2021-05-11 14:30:09');
 
 /*Table structure for table `user_menu` */
 
@@ -252,9 +317,12 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
+
+insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`) values 
+(1,'dev','dev@lexadev.com',NULL,'$2y$10$oBw7ASV7M1GUypVnWbDKoOFyc413nHT0sdulcb.MlEcHI3ll12d1q',NULL,'2021-05-11 13:18:26','2021-05-11 13:18:26');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

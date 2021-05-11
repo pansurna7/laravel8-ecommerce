@@ -9,10 +9,12 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\Payment\XenditController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ParmissionController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +27,17 @@ use App\Http\Controllers\ParmissionController;
 |
 */
 // // ===========route  ini untuk memisahkan login admin dan tamu===========//
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 // ===========route  ini untuk memisahkan login admin dan tamu===========//
 
 // =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
 // ini route home jika tidak memisahkan user dan admin
 
-Route::get('/',[AdminController::class,'index'])->name('login_form');
+// Route::get('/',[AdminController::class,'index'])->name('login_form');
+
+
 
 // =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
 
@@ -122,6 +126,20 @@ Route::prefix('profile')->group(function(){
     Route::post('/update/{admin}',[ProfileController::class,'update'])->name('profile.update');
 
 });
+Route::prefix('xendit')->group(function(){
+    Route::get('/list',[XenditController::class,'getListVa']);
+    Route::post('/invoice',[XenditController::class,'create']);
+    Route::post('/callback',[XenditController::class,'callbackVa']);
+
+
+
+
+});
+
+
+Route::get('/token', function () {
+    return csrf_token();
+});
 
 //==============P============END ACL=====================================//
 
@@ -139,14 +157,14 @@ view()->composer('*', function ($view) {
 // ========End admin Route=========== //
 
 // // =============route ini untuk dashboard login tamu klu tidak ada login tamu non aktifkan saja======//
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
 
-// View Composer //
+
 
 
 

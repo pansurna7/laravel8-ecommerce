@@ -10,9 +10,12 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
+        "laravel/sanctum": "^2.10",
         "laravel/tinker": "^2.5",
+        "nesbot/carbon": "^2.47",
         "rasteiner/k3-awesome-picker": "^0.1.0",
         "realrashid/sweet-alert": "^3.2",
+        "xendit/xendit-php": "^2.10",
         "yajra/laravel-datatables-buttons": "^4.12",
         "yajra/laravel-datatables-oracle": "^9.17",
         "yoeunes/toastr": "^1.2"

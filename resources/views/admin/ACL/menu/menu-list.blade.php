@@ -174,7 +174,7 @@
         <!-- /.card-header -->
         <div class="card-header col-12">
             <div class="card-header col-12">
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['menu']['add'])
+                @isset(Auth::guard('admin')->user()->role->parmission['parmission']['Menu']['add'])
                     <button  class="card-title float-left btn btn-success" id="btn-submenu-add">
                         <i class="fas fa-plus-circle nav-icon"></i>
                             Add Sub Menu

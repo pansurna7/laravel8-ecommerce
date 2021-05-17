@@ -27,15 +27,15 @@ use Illuminate\Http\Request;
 |
 */
 // // ===========route  ini untuk memisahkan login admin dan tamu===========//
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 // ===========route  ini untuk memisahkan login admin dan tamu===========//
 
 // =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
 // ini route home jika tidak memisahkan user dan admin
 
-// Route::get('/',[AdminController::class,'index'])->name('login_form');
+Route::get('/',[AdminController::class,'index'])->name('login_form');
 
 
 
@@ -157,12 +157,12 @@ view()->composer('*', function ($view) {
 // ========End admin Route=========== //
 
 // // =============route ini untuk dashboard login tamu klu tidak ada login tamu non aktifkan saja======//
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
 
 
 

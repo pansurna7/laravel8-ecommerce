@@ -30,7 +30,8 @@ $(document).ready( function () {
         autoWidth: true,
         ajax :{
           url:"show-all-menu",
-          type:"GET"
+          type:"GET",
+          dataType:"JSON"
         },
         columns:[
           {"data": null,"sortable":false,
@@ -246,9 +247,11 @@ $(document).ready( function () {
         processing:true,
         serverSide:true,
         responsive:true,
+        autoWidth: true,
         ajax :{
           url:"show-all-submenu",
-          type:"GET"
+          type:"GET",
+          dataType:"JSON"
         },
         columns:[
           {"data": null,"sortable":false,
@@ -491,7 +494,7 @@ function idleLogout() {
 
     function resetTimer() {
         clearTimeout(t);
-        t = setTimeout(yourFunction, 25000000);  // time is in milliseconds
+        t = setTimeout(yourFunction, 900000);  // time is in milliseconds
     }
 }
 idleLogout();

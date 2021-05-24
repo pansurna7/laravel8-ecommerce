@@ -68,7 +68,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form  id="CategoryForm" enctype="multipart/form-data">
+                        <form  id="CategoryForm" enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
                             <div class="form-group">
                                 <label for="name" class="col-form-label">Name</label>
@@ -78,14 +78,21 @@
 
                             <label for="banner" class="col-form-label">Image Banner</label>
 
-                            <div class="input-group mb-3">
+                            {{--  ini untuk upload multiple image  menggunakan library upload cek di master js dan css nya --}}
+                            {{--  <div class="input-group mb-3">
                                 <input id="input-fa" name="file" type="file"  class="form-control file" data-max-file-count="1" data-browse-on-zone-click="true">
+                            </div>  --}}
+                        {{--  upload single image  --}}
+                            <div class="form-group col-md-12">
+                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image" name="image">
+                                <label class="custom-file-label" for="image">Upload Image</label>
+                                <img src="" id="priviewImg"  style="max-height: 150px;width: 100%;margin-top:30px"/>
                             </div>
 
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="status" name="status" wire:model="active" value="1">
                                 <label class="form-check-label" for="status">Active</label>
-                              </div>
+                            </div>
 
                             <div class="modal-footer col-md-12 justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -100,56 +107,51 @@
         {{-- end modal ADD--}}
 
         {{-- Modal Edit --}}
-        <div class="modal fade" id="edit-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-edit-category" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Menu</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Category</h5>
+
                     </div>
                     <div class="modal-body">
-                        <form  id="MenuEditForm">
+
+                        <form  id="category-edit-form" enctype="multipart/form-data" action="javascript:void(0)">
+
                             @csrf
-                            <input type="hidden" name="id" id="id">
+
                             <div class="form-group">
-                                <label for="name2" class="col-form-label">Name</label>
-                                <input type="text" class="form-control" id="name2" name="name2"  required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
-
-
+                                <label for="id" class="col-form-label">id</label>
+                                <input type="text" class="form-control" id="id" name="id" value="{{old('id')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="right_icon2" class="col-form-label">Right Icon</label>
-                                <input type="text" class="form-control" id="right_icon2" name="right_icon2">
-                            </div> --}}
-                            <div class="row">
-                                <div class="mb-1 col-sm d-inline">
-                                    <label for="left-icon2" class="col-form-label">Left Icon</label>
-                                </div>
-                                <div class="mb-1 col-sm d-inline ustify-content-right">
-                                    <label for="right-icon2" class="col-form-label">Right Icon</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-group col-sm">
-                                    <span class="input-group-prepend">
-                                        <button class="btn btn-secondary" data-icon="fas fa-map-marker-alt" id="btn-icon-left2"></button>
-                                    </span>
-                                    <input type="text" class="form-control"  id="icon-left2" name="icon_left2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
-                                </div>
-
-                                <div class="input-group col-sm">
-                                    <input type="text" class="form-control"  id="icon-right2" name="icon_right2" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
-                                    <span class="input-group-append">
-                                        <button class="btn btn-outline-secondary" data-icon="fas fa-home" id="btn-icon-right2"></button>
-                                    </span>
-                                </div>
+                            <div class="form-group">
+                                <label for="name-edit" class="col-form-label">Name</label>
+                                <input type="text" class="form-control" id="name-edit" name="name" value="{{old('name-edit')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
 
-                                <div class="modal-footer col-md-12 justify-content-center">
+                            <label for="banner" class="col-form-label">Image Banner</label>
 
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" id="submitEditForm" class="btn btn-primary">Update</button>
+                            {{--  ini untuk upload multiple image  menggunakan library upload cek di master js dan css nya --}}
+                            {{--  <div class="input-group mb-3">
+                                <input id="input-fa" name="file" type="file"  class="form-control file" data-max-file-count="1" data-browse-on-zone-click="true">
+                            </div>  --}}
+                        {{--  upload single image  --}}
+                            <div class="form-group col-md-12">
+                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image-edit" name="image-edit">
+                                <label class="custom-file-label" id="image-source" for="image">Upload Image</label>
+                                <img src="" id="priviewImg-edit"  style="max-height: 150px;width: 100%;margin-top:30px"/>
+                                {{--  <input type="text" name="image-source" id="image-source" />  --}}
+                            </div>
 
-                                </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="status-edit" name="status edit" wire:model="active" value="1">
+                                <label class="form-check-label" for="status-edit">Active</label>
+                            </div>
+
+                            <div class="modal-footer col-md-12 justify-content-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" id="submit-form-edit" class="btn btn-primary">Update</button>
+                            </div>
 
                         </form>
                     </div>

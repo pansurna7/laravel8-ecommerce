@@ -27,65 +27,102 @@ $(document).ready( function () {
     })
 
 
-    //Add modal window
+    // show modal tambah category
+
     $('#btn-category-add').click(function(){
-        // alert('ok')
+
         var modal=$('#modal-tambah-category')
         var $el = $('#CategoryForm');
         modal.modal('show');
-        // $('#modal-tambah-category').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+        $('#modal-tambah-category').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
         $el.wrap('<form>').closest('form').get(0).reset();
         $el.unwrap();
-
-    });
-    // show icon upload image
-    $("#input-fa").fileinput({
-        theme:"fa",
-        uploadUrl:"/file"
+        $('#priviewImg').attr('src', '');
     })
 
-    // POST DATA TO CategoryCONTROLLER(store)
+    // POST DATA
+    $('#CategoryForm').submit(function(e) {
 
-    $('#CategoryForm').on('submit',function(e) {
         e.preventDefault();
 
-            $.ajax({
-                type: "post",
-                url: "store",
-                data: $('#CategoryForm').serialize(),
-                // cache: false,
-                // contentType:false,
-                // processData:false,
-                dataType:"JSON",
+        var formData = new FormData(this);
 
-                success: function (res) {
-                    console.log(res.data)
+        $.ajax({
+           type:'POST',
+           url: "store",
+           data: formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           success: (res) => {
+                iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                    title: 'Success',
+                    message: res.massage,
+                    position: 'topRight'
+                });
+                $('#modal-tambah-category').modal('hide');
+                $('#CategoryForm').find('input[type="text"]').val('');
+                $('#tbl-category').DataTable().ajax.reload(null,false);
+                // window.location.reload();
+            },
 
-                    //   swal({
-                    //     type:"Success",
-                    //     title: "Success",
-                    //     text: res.text,
-                    //     icon: "success", //built in icons: success, warning, error, info
-                    //     timer: 3000, //timeOut for auto-close
-                    //     })
-                    iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
-                        title: 'Success',
-                        message: res.massage,
-                        position: 'bottomRight'
-                    });
-                    $('#modal-tambah-category').modal('hide');
-                    $('#CategoryForm').find('input[type="text"]').val('');
-                    $('#tbl-category').DataTable().ajax.reload(null,false);
-                    // window.location.reload();
-                },
-                // error: function (data) { //jika error tampilkan error pada console
-                //     console.log('Error:', data);
-                //     $('#submit-form').html('Save');
-                // }
-            });
+            error: function (data) { //jika error tampilkan error pada console
+                console.log('Error:', data);
+                $('#submit-form').html('Save');
+            }
+        });
+    });
+
+    //Edit modal window
+    $('body').on('click', '.edit-category', function () {
+        var id = $(this).attr('category-id');
+        var modal=$('#modal-edit-category');
+        var SITEURL = "{{URL::to('')}}";
+
+        modal.modal('show');
+        $('#modal-edit-category').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+        $.get("edit/"+id, function (cat) {
+            $('#id').val(cat.data.id);
+            $('#name-edit').val(cat.data.name);
+            $('#status-edit').prop('checked',cat.data.status);
+            $('#image-source').empty();
+            $('#image-source').append(cat.data.banner);
+            $('#priviewImg-edit').attr('src','/Source/back/dist/img/category/'+cat.data.banner);
+        })
 
     });
 
+    // SAVE EDIT DATA
+    $('#category-edit-form').submit(function(e) {
+        e.preventDefault();
+        let id=$('#category-edit-form').find('#id').val()
+        var formData = new FormData(this);
+
+        $.ajax({
+           type:'PATCH',
+           url: "update/" +id,
+           data: formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           success: (res) => {
+                iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                    title: 'Success',
+                    message: res.massage,
+                    position: 'topRight'
+                });
+                $('#modal-tambah-category').modal('hide');
+                $('#CategoryForm').find('input[type="text"]').val('');
+                $('#tbl-category').DataTable().ajax.reload(null,false);
+                // window.location.reload();
+            },
+
+            error: function (data) { //jika error tampilkan error pada console
+                console.log('Error:', data);
+
+            }
+        });
+    });
 
 })
  //+++++++++++END CATEGORY++++++++++++++++++++++++++++++++++++++//

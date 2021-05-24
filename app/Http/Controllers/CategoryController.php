@@ -16,13 +16,13 @@ class CategoryController extends Controller
             return datatables()->of($dbCategory)
             ->addColumn('action', function($data){
                 if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Category']['edit'])){
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  category-id="'.$data->id.'"  Category-name="'.$data->Category.'" data-original-title="Edit"  class="edit-Category btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>';
+                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  category-id="'.$data->id.'"  Category-name="'.$data->Category.'" data-original-title="Edit"  class="edit-category btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>';
                 }else{
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  category-id="'.$data->id.'" data-original-title="Edit" class="edit-Category btn btn-info btn-sm edit-Category disabled" aria-disabled="true"><i class="far fa-edit"></i> Edit</a>';
+                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  category-id="'.$data->id.'" data-original-title="Edit" class="edit-category btn btn-info btn-sm edit-category disabled" aria-disabled="true"><i class="far fa-edit"></i> Edit</a>';
                 }
                 $button .= '&nbsp;&nbsp;';
                 if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['Category']['delete'])){
-                    $button .= '<a  href="javascript:void(0)" Category-id="'.$data->id.'" category-name="'.$data->Category.'" id="'.$data->id.'" class="delete-Category btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>';
+                    $button .= '<a  href="javascript:void(0)" Category-id="'.$data->id.'" category-name="'.$data->Category.'" id="'.$data->id.'" class="delete-category btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>';
                 }else{
                     $button .= '<a href="javascript:void(0)"  manu-id="'.$data->id.'" class="delete-category btn btn-danger btn-sm disabled" aria-disabled="true"><i class="far fa-trash-alt"></i> Delete</a>';
                 }
@@ -37,61 +37,59 @@ class CategoryController extends Controller
 
 
     }
+    public function store(Request $request){
+        request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    public function store(Request $request)
-    {
-        $category= new Category();
-        $name = $request->name;
-        $category->name=$request->name;
-        $category->slug=$request->name;
-        $category->status=$request->status;
-        // $image=$request->file('file');
-        // $imageName=$request->name.'.'.$image->extension();
-        // $image->move(public_path('/Source/back/dist/img/category'),$imageName);
-        // // $user->image=$imageName;
-        // $category->banner=$imageName;
-        if ($request->file === null) {
-            $request['file'] = $category->banner;
-        } else {
-            $image = $request->file('file');
-            $imageName = $name . '.' . $image->extension();
-            $image->move(public_path('/Source/back/dist/img/category'), $imageName);
-            $category->banner = $imageName;
+        if ($files = $request->file('image')) {
+
+            $fileName =  "image-".time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->storeAs('banner', $fileName);
+            $files->move(public_path('/Source/back/dist/img/category'), $fileName);
+            $category = new Category();
+            $category->name=$request->name;
+            $category->slug=$request->name;
+            $category->status=$request->status;
+            $category->banner = $fileName;
+            $simpan=$category->save();
+
+            if($simpan){
+                return response()->json(['data'=>$simpan,
+                'massage'=>'Category Created Success Fully'],200);
+            }else{
+                return response()->json(['data'=>$simpan,
+                'massage'=>'Error']);
+            }
+
         }
+    }
 
+    public function edit($id)
+    {
+        $data=Category::find($id);
+        // dd($data);
+        return response()->json(['data' => $data]);
+    }
+    public function update(Request $request)
+    {
+
+        if ($request->file === null) {
+            $request['image'] = $category->banner;
+        }else{
+
+        }
+        
         $save=$category->save();
+
         if($save){
             return response()->json(['data'=>$category,
-            'massage'=>'Category Created Success Fully'],200);
+            'massage'=>'Category UpdateSuccess Fully'],200);
         }else{
             return response()->json(['data'=>$category,
             'massage'=>'Error']);
         }
-
     }
-    // public function edit($id)
-    // {
-    //     $data=Category::find($id);
-    //     // dd($data);
-    //     return response()->json(['data' => $data]);
-    // }
-    // public function update(Request $request)
-    // {
-
-    //     $Category=Category::find($request->id);
-    //     $Category->Category=$request->name2;
-    //     $Category->icon_left=$request->icon_left2;
-    //     $Category->icon_right=$request->icon_right2;
-    //     $save=$Category->save();
-
-    //     if($save){
-    //         return response()->json(['data'=>$Category,
-    //         'msg'=>'Category UpdateSuccess Fully'],200);
-    //     }else{
-    //         return response()->json(['data'=>$Category,
-    //         'msg'=>'Error']);
-    //     }
-    // }
     // public function destroy($id)
     // {
 

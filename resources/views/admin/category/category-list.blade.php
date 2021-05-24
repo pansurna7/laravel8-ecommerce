@@ -64,41 +64,42 @@
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
                         <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
-
+        
                     </div>
                     <div class="modal-body">
-
+        
                         <form  id="CategoryForm" enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
                             <div class="form-group">
                                 <label for="name" class="col-form-label">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
-
-
                             <label for="banner" class="col-form-label">Image Banner</label>
-
-                            {{--  ini untuk upload multiple image  menggunakan library upload cek di master js dan css nya --}}
+                                    {{--  ini untuk upload multiple image  menggunakan library upload cek di master js dan css nya --}}
                             {{--  <div class="input-group mb-3">
                                 <input id="input-fa" name="file" type="file"  class="form-control file" data-max-file-count="1" data-browse-on-zone-click="true">
                             </div>  --}}
-                        {{--  upload single image  --}}
+                            {{--  upload single image  --}}
                             <div class="form-group col-md-12">
-                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image" name="image">
+                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image" name="image" required>
+                                @error('image')
+                                    <div class="alert alert-danger mb-2 mr-sm-2">{{ $message }}</div>
+                                @enderror
                                 <label class="custom-file-label" for="image">Upload Image</label>
-                                <img src="" id="priviewImg"  style="max-height: 150px;width: 100%;margin-top:30px"/>
+                                <img src="https://www.riobeauty.co.uk/images/product_image_not_found.gif" id="priviewImg"  style="max-height: 250px;margin-top:30px"/>
+                               
                             </div>
-
+        
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="status" name="status" wire:model="active" value="1">
                                 <label class="form-check-label" for="status">Active</label>
                             </div>
-
+        
                             <div class="modal-footer col-md-12 justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" id="submit-form" class="btn btn-primary">Save</button>
                             </div>
-
+        
                         </form>
                     </div>
                 </div>
@@ -112,39 +113,33 @@
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
                         <h5 class="modal-title" id="staticBackdropLabel">Edit Category</h5>
-
                     </div>
                     <div class="modal-body">
-
-                        <form  id="category-edit-form" enctype="multipart/form-data" action="javascript:void(0)">
-
+                        <form  id="category-edit-form"  enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
-
                             <div class="form-group">
                                 <label for="id" class="col-form-label">id</label>
                                 <input type="text" class="form-control" id="id" name="id" value="{{old('id')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="name-edit" class="col-form-label">Name</label>
-                                <input type="text" class="form-control" id="name-edit" name="name" value="{{old('name-edit')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                <input type="text" class="form-control" id="name-edit" name="name_edit" value="{{old('name-edit')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
 
                             <label for="banner" class="col-form-label">Image Banner</label>
-
-                            {{--  ini untuk upload multiple image  menggunakan library upload cek di master js dan css nya --}}
-                            {{--  <div class="input-group mb-3">
-                                <input id="input-fa" name="file" type="file"  class="form-control file" data-max-file-count="1" data-browse-on-zone-click="true">
-                            </div>  --}}
-                        {{--  upload single image  --}}
+                          
                             <div class="form-group col-md-12">
-                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image-edit" name="image-edit">
-                                <label class="custom-file-label" id="image-source" for="image">Upload Image</label>
-                                <img src="" id="priviewImg-edit"  style="max-height: 150px;width: 100%;margin-top:30px"/>
-                                {{--  <input type="text" name="image-source" id="image-source" />  --}}
+                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image_edit" name="image_edit">
+                                <label class="custom-file-label" id="image-source" for="image_edit">upload Image</label>
+                                <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                                alt="preview image" style="max-height: 250px;margin-top:30px">
+                             </div>
+                            <div class="col-md-12 mb-2">
+                               
                             </div>
 
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="status-edit" name="status edit" wire:model="active" value="1">
+                                <input type="checkbox" class="form-check-input" id="status-edit" name="status_edit" wire:model="active" value="1">
                                 <label class="form-check-label" for="status-edit">Active</label>
                             </div>
 
@@ -159,7 +154,7 @@
             </div>
         </div>
         {{-- end modal Edit--}}
-    {{--  End Menu  --}}
+    {{--  End category  --}}
 @endsection
 
 

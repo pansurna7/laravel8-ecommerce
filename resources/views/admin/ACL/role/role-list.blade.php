@@ -12,9 +12,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-
-                                <a href="{{route('role.index')}}" class="card-title">Role List</a>
-
+                            <a href="{{route('role.index')}}" class="card-title">Role List</a>
                         </li>
                         <li class="breadcrumb-item active">Manage</li>
                     </ol>

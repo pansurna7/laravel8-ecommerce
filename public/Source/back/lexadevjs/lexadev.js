@@ -384,9 +384,7 @@ $(document).ready( function () {
 
              }
         });
-      });
-
-
+    });
       //Delete Record
       $('body').on('click', '.delete-sbmenu', function () {
         var sbmenu_id=$(this).attr('sbmenu-id');
@@ -422,7 +420,7 @@ $(document).ready( function () {
 
 
 
-    });
+        });
 
 
 });

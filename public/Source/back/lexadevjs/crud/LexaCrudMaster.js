@@ -38,15 +38,13 @@ $(document).ready( function () {
         $el.wrap('<form>').closest('form').get(0).reset();
         $el.unwrap();
         $('#priviewImg').attr('src', '');
+        
     })
 
     // POST DATA
     $('#CategoryForm').submit(function(e) {
-
         e.preventDefault();
-
         var formData = new FormData(this);
-
         $.ajax({
            type:'POST',
            url: "store",
@@ -65,29 +63,33 @@ $(document).ready( function () {
                 $('#tbl-category').DataTable().ajax.reload(null,false);
                 // window.location.reload();
             },
-
             error: function (data) { //jika error tampilkan error pada console
                 console.log('Error:', data);
                 $('#submit-form').html('Save');
             }
         });
     });
-
+    //priview image
+    $('#image_edit').change(function(){
+        let reader = new FileReader();
+        reader.onload = (e) => { 
+            $('#preview-image-before-upload').attr('src', e.target.result); 
+        }
+        reader.readAsDataURL(this.files[0]); 
+    });
     //Edit modal window
     $('body').on('click', '.edit-category', function () {
         var id = $(this).attr('category-id');
         var modal=$('#modal-edit-category');
-        var SITEURL = "{{URL::to('')}}";
-
         modal.modal('show');
         $('#modal-edit-category').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
         $.get("edit/"+id, function (cat) {
             $('#id').val(cat.data.id);
             $('#name-edit').val(cat.data.name);
             $('#status-edit').prop('checked',cat.data.status);
-            $('#image-source').empty();
-            $('#image-source').append(cat.data.banner);
-            $('#priviewImg-edit').attr('src','/Source/back/dist/img/category/'+cat.data.banner);
+            // $('#image-source').empty();
+            // $("#image-source").html(cat.data.banner);
+            $('#preview-image-before-upload').attr('src','/Source/back/dist/img/category/'+cat.data.banner);
         })
 
     });
@@ -97,9 +99,8 @@ $(document).ready( function () {
         e.preventDefault();
         let id=$('#category-edit-form').find('#id').val()
         var formData = new FormData(this);
-
         $.ajax({
-           type:'PATCH',
+           type:'POST',
            url: "update/" +id,
            data: formData,
            cache:false,
@@ -108,11 +109,11 @@ $(document).ready( function () {
            success: (res) => {
                 iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
                     title: 'Success',
-                    message: res.massage,
+                    message: res.msg,
                     position: 'topRight'
                 });
-                $('#modal-tambah-category').modal('hide');
-                $('#CategoryForm').find('input[type="text"]').val('');
+                $('#modal-edit-category').modal('hide');
+                $('#category-edit-form').find('input[type="text"]').val('');
                 $('#tbl-category').DataTable().ajax.reload(null,false);
                 // window.location.reload();
             },
@@ -123,6 +124,43 @@ $(document).ready( function () {
             }
         });
     });
+
+    // Delete Category
+    $('body').on('click', '.delete-category', function () {
+        var category_id=$(this).attr('category-id');
+        var category_name=$(this).attr('category-name');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete category " + category_id + "?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          })
+
+          .then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "get",
+                    url: "destroy/"+category_id,
+                    data: {id:category_id},
+                    success: function (res) {
+                        $('#tbl-category').DataTable().ajax.reload(null,false);
+                        // window.location.reload();
+                        iziToast.success({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                            title: 'Success',
+                            message: res.msg,
+                            position: 'bottomRight'
+                        });
+                    }
+                });
+            }
+          })
+
+
+
+        });
 
 })
  //+++++++++++END CATEGORY++++++++++++++++++++++++++++++++++++++//

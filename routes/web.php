@@ -105,8 +105,8 @@ Route::prefix('category')->group(function(){
     Route::get('/show-all-category',[CategoryController::class,'index'])->name('category.index');
     Route::post('/store',[CategoryController::class,'store'])->name('category.store');
     Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
-    Route::patch('/update/{id}',[CategoryController::class,'update'])->name('category.update');
-    // Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
+    Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
+    Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
 
 
 });

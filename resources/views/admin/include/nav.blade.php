@@ -8,7 +8,7 @@
           </li>
       </ul>
 
-        <marquee style="color: yellowgreen; font-weight: bold; font-size=40px"> Welcome {{Auth::guard('admin')->user()->name}} To Lexadev Management System   </marquee>
+        <marquee style="color: yellowgreen; font-weight: bold; font-size=40px"> Welcome {{Auth::guard('admin')->user()->name}} To Lexadev Ecommerce  </marquee>
 
 
       <ul class="navbar-nav ml-auto">

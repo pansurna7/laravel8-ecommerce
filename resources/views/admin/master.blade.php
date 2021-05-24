@@ -14,9 +14,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="{{asset('/Source/back/lexadevcss')}}/googlefont.css">
         <link rel="stylesheet" href="{{asset('/Source/back')}}/plugins/bootstrap/css/bootstrap.min.css"/>
         {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>  --}}
-         <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevfont/fontawesome/css/all.css"/> 
+         <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevfont/fontawesome/css/all.css"/>
          {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/css/bootstrap-iconpicker.min.css"/>  --}}
-         <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bootstrap-iconpicker.min.css"/> 
+         <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bootstrap-iconpicker.min.css"/>
 
         {{-- <!-- Theme style --> --}}
         <link rel="stylesheet" href="{{asset('/Source/back')}}/dist/css/adminlte.min.css">
@@ -27,11 +27,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css">
-        {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/iziToast.css"> --}}
+        {{--  <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/iziToast.css">  --}}
+        <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bootstrap-fileinput-min.css">
 
+        {{--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css">  --}}
 
-
-
+        <style>
+            .file-input{
+                width: 100%
+            }
+        </style>
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
         <div class="wrapper">
@@ -70,10 +75,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <footer class="main-footer">
                 <!-- To the right -->
                 <div class="float-right d-none d-sm-inline">
-                Anything you want
+                Lexadev Panggabean
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; {{date("Y")}} <a href="https://lexadev.id">lexadev.id</a>.</strong> All rights reserved.
             </footer>
 
         </div>
@@ -85,10 +90,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script type="text/javascript" src="{{asset('/Source/back/lexadevjs')}}/jquery-3.3.1.min.js"></script>
             <!-- Bootstrap CDN -->
             <script type="text/javascript" src="{{asset('/Source/back')}}/plugins/bootstrap/js/bootstrap.bundle.js"></script>
-            
+
             <!-- Bootstrap-Iconpicker Bundle -->
             <script src="{{asset('/Source/back/lexadevjs')}}/bootstrap-iconpicker.bundle.min.js"></script>
-                         
+
         <!-- AdminLTE App -->
             <script src="{{asset('/Source/back')}}/dist/js/adminlte.min.js"></script>
             <!-- DataTables  & Plugins -->
@@ -109,10 +114,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.min.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/lexadev.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/iziToast.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs/crud')}}/LexaCrudMaster.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs')}}/bootstrap-fileinput.min.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs')}}/bootsrap-fileinput-theme.min.js"></script>
+
             <script>
                 $(function () {
                   $("#tblMaster").DataTable({
-                    "responsive": true, "lengthChange": true, "autoWidth": false,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
                     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
                   }).buttons().container().appendTo('#tblMaster_wrapper .col-md-6:eq(0)');
                   $('#example2').DataTable({
@@ -121,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     "searching": false,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": false,
+                    "autoWidth": true,
                     "responsive": true,
                   });
                 })

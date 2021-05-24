@@ -51,7 +51,7 @@
                                                 <td>{{$i++}}</td>
                                                 <td>{{$parmission->role->name}}</td>
                                             <td>{{json_encode($parmission->parmission)}}</td>
-                                            
+
                                                <td>
                                                 @if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Parmission']['edit']))
                                                     <a href="{{route('parmission.edit',$parmission->id)}}" title="Edit" class="btn text-success">
@@ -83,7 +83,7 @@
                                         <th>#</th>
                                         <th>Role</th>
                                         <th>Parmission</th>
-                                        <th>Action</th>
+                                        <th width="100px">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>

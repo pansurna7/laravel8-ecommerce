@@ -27,15 +27,15 @@ use Illuminate\Http\Request;
 |
 */
 // // ===========route  ini untuk memisahkan login admin dan tamu===========//
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 // ===========route  ini untuk memisahkan login admin dan tamu===========//
 
 // =================aktifkan route ini untuk aplikasi yang tidak butuh login tamu==============================//
 // ini route home jika tidak memisahkan user dan admin
 
-Route::get('/',[AdminController::class,'index'])->name('login_form');
+// Route::get('/',[AdminController::class,'index'])->name('login_form');
 
 
 
@@ -43,7 +43,7 @@ Route::get('/',[AdminController::class,'index'])->name('login_form');
 
 // ========Admin Route=========== //
 Route::prefix('admin')->group(function(){
-    Route::get('/show/login/form',[AdminController::class,'index'])->name('login_form');
+    Route::get('/login-admin',[AdminController::class,'index'])->name('login-admin');
     Route::post('/login/owner',[AdminController::class,'login'])->name('admin.sing-in');
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard')->middleware('admin');
     Route::get('/dashboard/logout',[AdminController::class,'logout'])->name('admin.logout')->middleware('admin');
@@ -52,26 +52,7 @@ Route::prefix('admin')->group(function(){
 
 
 
-// Route::group(['middleware'=>'admin'],function(){
 
-//     Route::prefix('category')->group(function(){
-//         Route::get('/show/form',[CategoryController::class, 'show'])->name('category.add');
-//         Route::post('/store/data',[CategoryController::class,'store'])->name('category.store');
-//         Route::get('/manage',[CategoryController::class,'manage'])->name('category.manage');
-//         Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
-//         Route::get('/hide/{id}',[CategoryController::class,'hide'])->name('category.hide');
-//         Route::get('/public/{id}',[CategoryController::class,'public'])->name('category.public');
-//         Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
-//     });
-
-//     Route::prefix('items')->group(function(){
-//         Route::get('/show/form',[ItemController::class,'index'])->name('show.items.form');
-//         Route::get('/manage',[ItemController::class,'manage'])->name('items.manage');
-
-//     });
-
-
-// });
 
 //===========================ACL=====================================//
 Route::prefix('user')->group(function(){
@@ -120,6 +101,15 @@ Route::prefix('parmission')->group(function(){
 
 });
 
+Route::prefix('category')->group(function(){
+    Route::get('/show-all-category',[CategoryController::class,'index'])->name('category.index');
+    Route::post('/store',[CategoryController::class,'store'])->name('category.store');
+    // Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
+    // Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
+    // Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
+
+});
+
 
 Route::prefix('profile')->group(function(){
     Route::get('/show-profile',[ProfileController::class,'index'])->name('profile.index');
@@ -131,15 +121,12 @@ Route::prefix('xendit')->group(function(){
     Route::post('/invoice',[XenditController::class,'create']);
     Route::post('/callback',[XenditController::class,'callbackVa']);
 
-
-
-
 });
 
 
-Route::get('/token', function () {
-    return csrf_token();
-});
+// Route::get('/token', function () {
+//     return csrf_token();
+// });
 
 //==============P============END ACL=====================================//
 
@@ -157,12 +144,12 @@ view()->composer('*', function ($view) {
 // ========End admin Route=========== //
 
 // // =============route ini untuk dashboard login tamu klu tidak ada login tamu non aktifkan saja======//
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
-// require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
 
 
 

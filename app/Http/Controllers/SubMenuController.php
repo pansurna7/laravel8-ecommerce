@@ -11,7 +11,7 @@ class SubMenuController extends Controller
     public function index(Request $request)
     {
         // $sbmenu=SubMenu::all();
-        $sbmenu=Submenu::latest()->get();
+        $sbmenu=Submenu::orderBy('id','ASC')->get();
         //  dd($data);
 
         if($request->ajax()){

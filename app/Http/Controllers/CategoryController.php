@@ -4,65 +4,99 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    public function manage()
+    public function index(Request $request)
     {
-        $categories=Category::latest()->get();
-        return view('admin.category.manage',compact('categories'));
+        $dbCategory=Category::all();
+
+         if($request->ajax()){
+            return datatables()->of($dbCategory)
+            ->addColumn('action', function($data){
+                if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Category']['edit'])){
+                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  category-id="'.$data->id.'"  Category-name="'.$data->Category.'" data-original-title="Edit"  class="edit-Category btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>';
+                }else{
+                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  category-id="'.$data->id.'" data-original-title="Edit" class="edit-Category btn btn-info btn-sm edit-Category disabled" aria-disabled="true"><i class="far fa-edit"></i> Edit</a>';
+                }
+                $button .= '&nbsp;&nbsp;';
+                if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['Category']['delete'])){
+                    $button .= '<a  href="javascript:void(0)" Category-id="'.$data->id.'" category-name="'.$data->Category.'" id="'.$data->id.'" class="delete-Category btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>';
+                }else{
+                    $button .= '<a href="javascript:void(0)"  manu-id="'.$data->id.'" class="delete-category btn btn-danger btn-sm disabled" aria-disabled="true"><i class="far fa-trash-alt"></i> Delete</a>';
+                }
+                return $button;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+
+         }
+                return view('admin.category.category-list');
+
+
     }
-    public function show()
-    {
-        return view('admin.category.add_form');
-    }
+
     public function store(Request $request)
     {
+        $category= new Category();
+        $name = $request->name;
+        $category->name=$request->name;
+        $category->slug=$request->name;
+        $category->status=$request->status;
+        // $image=$request->file('file');
+        // $imageName=$request->name.'.'.$image->extension();
+        // $image->move(public_path('/Source/back/dist/img/category'),$imageName);
+        // // $user->image=$imageName;
+        // $category->banner=$imageName;
+        if ($request->file === null) {
+            $request['file'] = $category->banner;
+        } else {
+            $image = $request->file('file');
+            $imageName = $name . '.' . $image->extension();
+            $image->move(public_path('/Source/back/dist/img/category'), $imageName);
+            $category->banner = $imageName;
+        }
 
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-
-        ]);
-        $categories=new Category();
-        $categories->name = $request->name;
-        $categories->slug = strtolower(str_replace('','_',$request->slug));
-        $categories->save();
-        return redirect()->route('category.manage')->with('sms','Category Created');
-
-    }
-    public function hide($id)
-    {
-        $cate=Category::find($id);
-        $cate->status=0;
-        $cate->save();
-        return back()->with('sms','Category unavailable in public');
-
-    }
-    public function public($id)
-    {
-        $cate=Category::find($id);
-        $cate->status=1;
-        $cate->save();
-        return back()->with('sms','Category available in public');
-
-    }
-    public function update(Request $request)
-    {
-
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-
-        ]);
-        $cate=Category::find($request->id);
-        $cate->name= $request->name;
-        $cate->update();
-        return back()->with('sms','Role Updated');
+        $save=$category->save();
+        if($save){
+            return response()->json(['data'=>$category,
+            'massage'=>'Category Created Success Fully'],200);
+        }else{
+            return response()->json(['data'=>$category,
+            'massage'=>'Error']);
+        }
 
     }
-    public function destroy($id)
-    {
-        Category::destroy($id);
-        return back()->with('sms','Category Deleted');
+    // public function edit($id)
+    // {
+    //     $data=Category::find($id);
+    //     // dd($data);
+    //     return response()->json(['data' => $data]);
+    // }
+    // public function update(Request $request)
+    // {
 
-    }
+    //     $Category=Category::find($request->id);
+    //     $Category->Category=$request->name2;
+    //     $Category->icon_left=$request->icon_left2;
+    //     $Category->icon_right=$request->icon_right2;
+    //     $save=$Category->save();
+
+    //     if($save){
+    //         return response()->json(['data'=>$Category,
+    //         'msg'=>'Category UpdateSuccess Fully'],200);
+    //     }else{
+    //         return response()->json(['data'=>$Category,
+    //         'msg'=>'Error']);
+    //     }
+    // }
+    // public function destroy($id)
+    // {
+
+    // Category::destroy($id);
+    // return response()->json(['msg'=>'Record Deleted SuccessFully']);
+
+    // }
 }

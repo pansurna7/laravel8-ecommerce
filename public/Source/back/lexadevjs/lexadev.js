@@ -113,12 +113,14 @@ $(document).ready( function () {
 
 
         //Edit modal window
-        $('#edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+
 
         $('body').on('click', '.edit-menu', function () {
             var id = $(this).attr('menu-id');
+            var modal=$('#edit-modal')
+            modal.modal('show');
+            $('#edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
             $.get("edit/"+id, function (menu) {
-                $('#edit-modal').modal('show');
                 $('#id').val(menu.data.id);
                 $('#name2').val(menu.data.menu);
                 $('#icon-right2').val(menu.data.icon_right);
@@ -243,6 +245,7 @@ $(document).ready( function () {
         selectedClass: 'btn-success',
         unselectedClass: ''
     });
+    // view index
     $("#tbl-submenu").DataTable({
         processing:true,
         serverSide:true,
@@ -264,7 +267,7 @@ $(document).ready( function () {
           {data:"parent", name:"parent"},
           {data:"slug", name:"slug"},
           {data:"icon", name:"icon"},
-          {data:"action", name:"action",orderable: false}
+          {data:"action", name:"action",orderable: false,autoWidth:true}
 
         ]
     })
@@ -322,7 +325,7 @@ $(document).ready( function () {
     });
 
     //Edit modal window
-    $('#edit-modal').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+    $('#sub-menu-modal-edit').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
 
     $('body').on('click', '.edit-sbmenu', function () {
         var id = $(this).attr('sbmenu-id');

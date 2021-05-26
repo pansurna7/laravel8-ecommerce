@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
 class AdminController extends Controller
@@ -37,6 +38,7 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $request->session()->flush();
         return redirect(route('login-admin'));
 
     }

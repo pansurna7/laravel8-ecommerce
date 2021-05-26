@@ -46,19 +46,17 @@ $route = Route::current()->getName();
                 </p>
                 </a>
                 @foreach(\App\Models\SubMenu::where('menu_id',$menu->id)->get() as $sbmenu)
-                @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$sbmenu->title]['list'])
-                    <ul class="nav nav-treeview">
-
-                        <li class="nav-item">
-                            <a href="{{url($sbmenu->slug)}}" class="nav-link">
-                            <i class="{{$sbmenu->icon}}"></i>
-                            <p>{{$sbmenu->title}}</p>
-                            </a>
-                      </li>
-
-                  </ul>
-                  @endisset
-                  @endforeach
+                    @isset(Auth::guard('admin')->user()->role->parmission['parmission'][$sbmenu->title]['list'])
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url($sbmenu->slug)}}" class="nav-link">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="nav-icon {{$sbmenu->icon}}"></i>
+                                <p>{{$sbmenu->title}}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    @endisset
+                @endforeach
 
             </li>
             @endisset
@@ -95,7 +93,7 @@ $route = Route::current()->getName();
 
         <li class="nav-item">
             <a href="{{route('admin.logout')}}" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i>
+                <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
                     Logout
 

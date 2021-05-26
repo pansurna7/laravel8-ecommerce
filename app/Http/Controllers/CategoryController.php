@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 
 class CategoryController extends Controller
@@ -44,14 +45,14 @@ class CategoryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($files = $request->file('image')) { 
+        if ($files = $request->file('image')) {
            $fileName =  "banner-".time().'.'.$request->image->getClientOriginalExtension();
             $request->image->storeAs('banner', $fileName);
             $files->move(public_path('/Source/back/dist/img/category'), $fileName);
             $category = new Category();
             $category->name=$request->name;
             $category->slug=Str::slug($request->name);
-            $category->status=$request->status;
+            $category->status=$request->status ? 1 : 0 ?? 0;
             $category->banner = $fileName;
             $simpan=$category->save();
 
@@ -74,7 +75,7 @@ class CategoryController extends Controller
     }
     public function update(Request $request)
     {
-        
+
         $cat=Category::find($request->id);
         $cat->name=$request->name_edit;
         $cat->slug=Str::slug($request->name_edit);
@@ -82,15 +83,18 @@ class CategoryController extends Controller
         if ($request->image_edit === null) {
             $request['image_edit'] = $cat->banner;
         } else {
-            
-                unlink(public_path("/Source/back/dist/img/category/".$cat->banner));
+            $imagePath = public_path("/Source/back/dist/img/category/".$cat->banner);
+            if(File::exists($imagePath)){
+            unlink($imagePath);
+        }
+
                 $image = $request->file('image_edit');
                 $imageName = "banner-".time().'.'.$image->extension();
                 $image->move(public_path('/Source/back/dist/img/category'), $imageName);
                 $cat->banner = $imageName;
-          
+
         }
-        
+
         $save=$cat->save();
         if($save){
             return response()->json(['data'=>$cat,
@@ -102,16 +106,21 @@ class CategoryController extends Controller
     }
     public function destroy(Request $request,$id)
     {
+
         $cat=Category::find($id);
-        unlink(public_path("/Source/back/dist/img/category/".$cat->banner));
-        $delete=Category::destroy($id);
-        if($delete){
-            return response()->json(['data'=>$cat,
-            'msg'=>'Category Delete Success Fully'],200);
-        }else{
-            return response()->json(['data'=>$cat,
-            'msg'=>'Error']);
+        $imagePath = public_path("/Source/back/dist/img/category/".$cat->banner);
+        if(File::exists($imagePath)){
+            unlink($imagePath);
         }
-    
+            $delete=Category::destroy($id);
+            if($delete){
+                return response()->json(['data'=>$delete,
+                'msg'=>'Category Delete Success Fully'],200);
+            }else{
+                return response()->json(['data'=>$delete,
+                'msg'=>'Error']);
+            }
+
+
     }
 }

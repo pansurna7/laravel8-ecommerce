@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -48,6 +49,10 @@ class ProfileController extends Controller
         if ($request->file === null) {
             $request['file'] = $admin->image;
         } else {
+            $imagePath = public_path("/Source/back/dist/img/profile/".$admin->image);
+            if(File::exists($imagePath)){
+                unlink($imagePath);
+            }
             $image = $request->file('file');
             $imageName = $name . '.' . $image->extension();
             $image->move(public_path('/Source/back/dist/img/profile'), $imageName);

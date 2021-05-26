@@ -64,10 +64,10 @@
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
                         <h5 class="modal-title" id="staticBackdropLabel">Add Category</h5>
-        
+
                     </div>
                     <div class="modal-body">
-        
+
                         <form  id="CategoryForm" enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
                             <div class="form-group">
@@ -86,20 +86,20 @@
                                     <div class="alert alert-danger mb-2 mr-sm-2">{{ $message }}</div>
                                 @enderror
                                 <label class="custom-file-label" for="image">Upload Image</label>
-                                <img src="https://www.riobeauty.co.uk/images/product_image_not_found.gif" id="priviewImg"  style="max-height: 250px;margin-top:30px"/>
-                               
+                                <img src="https://www.riobeauty.co.uk/images/product_image_not_found.gif" id="priviewImg"  style="max-height: 250px;width:100%;margin-top:30px"/>
+
                             </div>
-        
+
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="status" name="status" wire:model="active" value="1">
                                 <label class="form-check-label" for="status">Active</label>
                             </div>
-        
+
                             <div class="modal-footer col-md-12 justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" id="submit-form" class="btn btn-primary">Save</button>
                             </div>
-        
+
                         </form>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="id" class="col-form-label">id</label>
-                                <input type="text" class="form-control" id="id" name="id" value="{{old('id')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                                <input type="hidden" class="form-control" id="id" name="id" value="{{old('id')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="name-edit" class="col-form-label">Name</label>
@@ -127,7 +127,7 @@
                             </div>
 
                             <label for="banner" class="col-form-label">Image Banner</label>
-                          
+
                             <div class="form-group col-md-12">
                                 <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image_edit" name="image_edit">
                                 <label class="custom-file-label" id="image-source" for="image_edit">upload Image</label>
@@ -135,7 +135,7 @@
                                 alt="preview image" style="max-height: 250px;margin-top:30px">
                              </div>
                             <div class="col-md-12 mb-2">
-                               
+
                             </div>
 
                             <div class="form-check">

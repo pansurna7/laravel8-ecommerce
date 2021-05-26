@@ -19,9 +19,19 @@ $(document).ready( function () {
           },
           {data:"id", name:"id",visible:false},
           {data:"name", name:"name"},
-          {data:"banner", name:"banner"},
+        //   {data:"banner", name:"banner"},
+        {data:"banner","sortable":false,
+            render: function(data){
+              return '<img src="/Source/back/dist/img/category/'+data+'" width="150" height="150">'
+            }
+        },
           {data:"slug", name:"slug"},
-          {data:"status", name:"status"},
+
+        {data:"status","sortable":true,
+            render: function(data){
+              return data=='1' ? '<span class="badge badge-success">'+'Active'+'</span>' : '<span class="badge badge-danger">'+'Not Active'+'</span>'
+            }
+        },
           {data:"action", name:"action",orderable: false}
         ]
     })
@@ -38,7 +48,7 @@ $(document).ready( function () {
         $el.wrap('<form>').closest('form').get(0).reset();
         $el.unwrap();
         $('#priviewImg').attr('src', '');
-        
+
     })
 
     // POST DATA
@@ -72,10 +82,10 @@ $(document).ready( function () {
     //priview image
     $('#image_edit').change(function(){
         let reader = new FileReader();
-        reader.onload = (e) => { 
-            $('#preview-image-before-upload').attr('src', e.target.result); 
+        reader.onload = (e) => {
+            $('#preview-image-before-upload').attr('src', e.target.result);
         }
-        reader.readAsDataURL(this.files[0]); 
+        reader.readAsDataURL(this.files[0]);
     });
     //Edit modal window
     $('body').on('click', '.edit-category', function () {

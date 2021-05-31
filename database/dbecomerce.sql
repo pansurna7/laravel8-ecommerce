@@ -1,6 +1,6 @@
 /*
 SQLyog Professional v13.1.1 (64 bit)
-MySQL - 10.4.17-MariaDB : Database - admin
+MySQL - 10.4.17-MariaDB : Database - dbecommerce
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.17-MariaDB : Database - admin
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`dbecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `admin`;
+USE `dbecommerce`;
 
 /*Table structure for table `admins` */
 
@@ -45,25 +45,37 @@ insert  into `admins`(`id`,`name`,`number`,`image`,`email`,`email_verified_at`,`
 (2,'LEXADEV','88888','LEXADEV.jpg','lexadev@lexadev.com','2021-03-29 15:30:40','$2y$10$6eU01laMSLjDc2qadiQvjeDzkd29U.Zt9RJ7JebHaStn3OnAn8sCO',2,1,'2021-03-29 15:30:40','2021-04-07 01:30:57','WEBDEV','BANDUNG','ADMIN LEXADEV'),
 (5,'surya','7777777','surya.jpg','surya@gmail.com',NULL,'$2y$10$KH6IPo1UJ9nYgNwrOSaUPOlhtRhOOSouslJwZ/6kcUdWsIUo51kWy',10,0,'2021-04-03 09:39:08','2021-05-03 16:14:53','IT Support',NULL,NULL);
 
+/*Table structure for table `attributes` */
+
+DROP TABLE IF EXISTS `attributes`;
+
+CREATE TABLE `attributes` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `attributes` */
+
 /*Table structure for table `categories` */
 
 DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE `categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `banner` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `categories` */
-
-insert  into `categories`(`id`,`name`,`slug`,`status`,`created_at`,`updated_at`) values 
-(1,'Demo','',1,'2021-03-31 06:13:37','2021-03-31 08:42:56'),
-(2,'aaaaa','',1,'2021-03-31 06:15:28','2021-03-31 07:44:54');
 
 /*Table structure for table `failed_jobs` */
 
@@ -83,21 +95,6 @@ CREATE TABLE `failed_jobs` (
 
 /*Data for the table `failed_jobs` */
 
-/*Table structure for table `items` */
-
-DROP TABLE IF EXISTS `items`;
-
-CREATE TABLE `items` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total` int(10) unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `items` */
-
 /*Table structure for table `migrations` */
 
 DROP TABLE IF EXISTS `migrations`;
@@ -107,7 +104,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -116,7 +113,6 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (2,'2014_10_12_100000_create_password_resets_table',1),
 (3,'2019_08_19_000000_create_failed_jobs_table',1),
 (4,'2021_03_24_035745_create_admins_table',1),
-(5,'2021_03_28_041110_create_categories_table',1),
 (6,'2021_03_29_054406_create_items_table',1),
 (7,'2021_03_29_145730_create_roles_table',1),
 (8,'2021_03_29_145832_create_permissions_table',1),
@@ -124,7 +120,13 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (11,'2021_04_07_065322_create_user_menu',3),
 (12,'2021_04_07_065322_create_user_sub_menu',4),
 (13,'2019_12_14_000001_create_personal_access_tokens_table',5),
-(14,'2021_05_11_140042_create_students_table',6);
+(16,'2021_03_28_041110_create_categories_table',6),
+(17,'2021_05_28_115816_create_products_table',7),
+(18,'2021_05_28_124856_create_attributes_table',8),
+(19,'2021_05_28_125247_create_product_attributes_values_table',9),
+(20,'2021_05_28_130322_create_product_inventories_table',10),
+(21,'2021_05_28_131636_create_product_categories_table',11),
+(22,'2021_05_28_132005_create_product_images_table',12);
 
 /*Table structure for table `parmissions` */
 
@@ -144,7 +146,7 @@ CREATE TABLE `parmissions` (
 /*Data for the table `parmissions` */
 
 insert  into `parmissions`(`id`,`parmission`,`role_id`,`created_at`,`updated_at`) values 
-(3,'{\"System Management\":\"1\",\"Master Data\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Menu\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Item\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"User\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"}}',2,'2021-04-03 03:38:50','2021-05-03 16:53:38'),
+(3,'{\"System Management\":\"1\",\"Master Data\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Menu\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"User\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Category\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Product\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"}}',2,'2021-04-03 03:38:50','2021-05-28 13:30:33'),
 (11,'{\"System Management\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"list\":\"1\"},\"User\":{\"list\":\"1\"}}',10,'2021-05-03 16:44:47','2021-05-07 12:26:36');
 
 /*Table structure for table `password_resets` */
@@ -197,12 +199,126 @@ CREATE TABLE `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `personal_access_tokens` */
 
 insert  into `personal_access_tokens`(`id`,`tokenable_type`,`tokenable_id`,`name`,`token`,`abilities`,`last_used_at`,`created_at`,`updated_at`) values 
-(10,'App\\Models\\User',1,'token','d177c79ff8e0717616449b451ebdc2986a8fbb6e399965171b8b81da8dddf206','[\"*\"]','2021-05-11 15:05:36','2021-05-11 14:16:42','2021-05-11 15:05:36');
+(10,'App\\Models\\User',1,'token','d177c79ff8e0717616449b451ebdc2986a8fbb6e399965171b8b81da8dddf206','[\"*\"]','2021-05-17 11:19:29','2021-05-11 14:16:42','2021-05-17 11:19:29'),
+(11,'App\\Models\\User',1,'token','dba4c311a494ad053bfbf5a0cda88a8a2a450a851432c12036f453db890e3c6a','[\"*\"]',NULL,'2021-05-17 09:32:15','2021-05-17 09:32:15');
+
+/*Table structure for table `product_attributes_values` */
+
+DROP TABLE IF EXISTS `product_attributes_values`;
+
+CREATE TABLE `product_attributes_values` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `attribute_id` bigint(20) unsigned NOT NULL,
+  `text_value` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `boolean_value` tinyint(1) DEFAULT NULL,
+  `integer_value` int(11) DEFAULT NULL,
+  `fload_value` decimal(8,2) DEFAULT NULL,
+  `datetime_value` datetime DEFAULT NULL,
+  `date_value` date DEFAULT NULL,
+  `json_value` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_attributes_values_product_id_foreign` (`product_id`),
+  KEY `product_attributes_values_attribute_id_foreign` (`attribute_id`),
+  CONSTRAINT `product_attributes_values_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_attributes_values_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `product_attributes_values` */
+
+/*Table structure for table `product_categories` */
+
+DROP TABLE IF EXISTS `product_categories`;
+
+CREATE TABLE `product_categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned NOT NULL,
+  `qty` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_categories_product_id_foreign` (`product_id`),
+  KEY `product_categories_category_id_foreign` (`category_id`),
+  CONSTRAINT `product_categories_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_categories_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `product_categories` */
+
+/*Table structure for table `product_images` */
+
+DROP TABLE IF EXISTS `product_images`;
+
+CREATE TABLE `product_images` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `path` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_images_product_id_foreign` (`product_id`),
+  CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `product_images` */
+
+/*Table structure for table `product_inventories` */
+
+DROP TABLE IF EXISTS `product_inventories`;
+
+CREATE TABLE `product_inventories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `product_attribute_value_id` bigint(20) unsigned NOT NULL,
+  `qty` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_inventories_product_id_foreign` (`product_id`),
+  KEY `product_inventories_product_attribute_value_id_foreign` (`product_attribute_value_id`),
+  CONSTRAINT `product_inventories_product_attribute_value_id_foreign` FOREIGN KEY (`product_attribute_value_id`) REFERENCES `product_attributes_values` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_inventories_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `product_inventories` */
+
+/*Table structure for table `products` */
+
+DROP TABLE IF EXISTS `products`;
+
+CREATE TABLE `products` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `sku` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `price` decimal(15,2) NOT NULL,
+  `weight` decimal(10,2) NOT NULL,
+  `width` decimal(10,2) NOT NULL,
+  `height` decimal(10,2) NOT NULL,
+  `length` decimal(10,2) NOT NULL,
+  `category_id` bigint(20) unsigned NOT NULL,
+  `admin_id` bigint(20) unsigned NOT NULL,
+  `text_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `products_category_id_foreign` (`category_id`),
+  KEY `products_admin_id_foreign` (`admin_id`),
+  CONSTRAINT `products_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`),
+  CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `products` */
 
 /*Table structure for table `profiles` */
 
@@ -235,25 +351,6 @@ insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values
 (2,'Admin','2021-03-31 08:50:42','2021-03-31 08:50:42'),
 (10,'Author','2021-04-07 04:57:07','2021-04-07 04:57:23');
 
-/*Table structure for table `students` */
-
-DROP TABLE IF EXISTS `students`;
-
-CREATE TABLE `students` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_telp` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-/*Data for the table `students` */
-
-insert  into `students`(`id`,`nama`,`alamat`,`no_telp`,`created_at`,`updated_at`) values 
-(1,'surya panggabean','tangerang','081395174571','2021-05-11 14:30:09','2021-05-11 14:30:09');
-
 /*Table structure for table `user_menu` */
 
 DROP TABLE IF EXISTS `user_menu`;
@@ -272,8 +369,8 @@ CREATE TABLE `user_menu` (
 /*Data for the table `user_menu` */
 
 insert  into `user_menu`(`id`,`menu`,`icon_left`,`icon_right`,`created_at`,`updated_at`,`order`) values 
-(2,'System Management','fas fa-key','fas fa-haykal',NULL,'2021-05-03 15:51:16',1),
-(6378,'Master Data','fab fa-maxcdn','fas fa-haykal','2021-04-23 17:41:56','2021-04-23 17:41:56',NULL);
+(1,'System Management','fas fa-universal-access','fas fa-star',NULL,'2021-05-28 12:43:45',1),
+(2,'Master Data','fas fa-database','fas fa-star','2021-04-23 17:41:56','2021-05-28 12:30:31',NULL);
 
 /*Table structure for table `user_sub_menu` */
 
@@ -291,16 +388,17 @@ CREATE TABLE `user_sub_menu` (
   PRIMARY KEY (`id`),
   KEY `user_sub_menu_menu_id_foreign` (`menu_id`),
   CONSTRAINT `user_sub_menu_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `user_menu` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `user_sub_menu` */
 
 insert  into `user_sub_menu`(`id`,`menu_id`,`title`,`slug`,`icon`,`is_active`,`created_at`,`updated_at`) values 
-(1,2,'Role','/role/show-all-role','far fa-circle text-danger nav-icon',1,NULL,NULL),
-(2,2,'Parmission','/parmission/show-all-parmission','far fa-circle text-danger nav-icon',1,NULL,NULL),
-(8,2,'Menu','/menu/show-all-menu','far fa-circle text-danger nav-icon',1,'2021-04-23 12:19:54','2021-04-23 12:19:54'),
-(12,6378,'Item','item/show-all-item','fas fa-cookie-bite',1,'2021-04-23 17:42:50','2021-04-23 17:42:50'),
-(13,2,'User','/user/show-all-user','fas fa-user-friends',1,'2021-04-27 09:28:41','2021-04-27 09:28:41');
+(1,1,'Role','/role/show-all-role','far fa-circle text-danger nav-icon',1,NULL,NULL),
+(2,1,'Parmission','/parmission/show-all-parmission','far fa-circle text-danger nav-icon',1,NULL,NULL),
+(3,1,'Menu','/menu/show-all-menu','far fa-circle text-danger nav-icon',1,'2021-04-23 12:19:54','2021-04-23 12:19:54'),
+(4,1,'User','/user/show-all-user','far fa-circle text-danger nav-icon',1,'2021-04-27 09:28:41','2021-05-17 12:23:03'),
+(5,2,'Category','/category/show-all-category','fas fa-hand-point-right',1,'2021-04-23 17:42:50','2021-05-28 12:33:06'),
+(14,2,'Product','/product/show-all-product','fab fa-product-hunt',1,'2021-05-28 13:30:16','2021-05-28 13:30:16');
 
 /*Table structure for table `users` */
 

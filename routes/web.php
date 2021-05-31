@@ -12,8 +12,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\Payment\XenditController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubMenuController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ParmissionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+
 use Illuminate\Http\Request;
 
 /*
@@ -107,6 +109,17 @@ Route::prefix('category')->group(function(){
     Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
     Route::post('/update/{id}',[CategoryController::class,'update'])->name('category.update');
     Route::get('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
+
+
+});
+
+Route::prefix('product')->group(function(){
+    Route::get('/show-all-product',[ProductController::class,'index'])->name('product.index');
+    Route::get('/parmission-create',[ParmissionController::class,'create'])->name('parmission.create');
+    Route::post('/store',[ProductController::class,'store'])->name('product.store');
+    Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
+    Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('product.destroy');
 
 
 });

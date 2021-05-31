@@ -42,6 +42,7 @@ class CategoryController extends Controller
     }
     public function store(Request $request){
         request()->validate([
+            'name'  =>'required|unique:categories,name',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -61,7 +62,7 @@ class CategoryController extends Controller
                 'massage'=>'Category Created Success Fully'],200);
             }else{
                 return response()->json(['data'=>$simpan,
-                'massage'=>'Error']);
+                'massage'=>validator()]);
             }
 
         }

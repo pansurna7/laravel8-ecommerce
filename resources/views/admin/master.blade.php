@@ -29,6 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css">
         {{--  <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/iziToast.css">  --}}
         <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bootstrap-fileinput-min.css">
+        <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bs-stepper.css">
 
         {{--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css">  --}}
 
@@ -117,6 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/Source/back/lexadevjs/crud')}}/LexaCrudMaster.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/bootstrap-fileinput.min.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/bootsrap-fileinput-theme.min.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs')}}/bs-stepper.js"></script>
 
             <script>
                 $(function () {

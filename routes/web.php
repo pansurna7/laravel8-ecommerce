@@ -2,21 +2,22 @@
 
 use App\Models\Menu;
 use App\Models\SubMenu;
+use App\Models\Category;
 use Facade\FlareClient\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Api\Payment\XenditController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubMenuController;
-use App\Http\Controllers\ParmissionController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ParmissionController;
+use App\Http\Controllers\Api\Payment\XenditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,7 +116,7 @@ Route::prefix('category')->group(function(){
 
 Route::prefix('product')->group(function(){
     Route::get('/show-all-product',[ProductController::class,'index'])->name('product.index');
-    Route::get('/parmission-create',[ParmissionController::class,'create'])->name('parmission.create');
+    // Route::get('/parmission-create',[ParmissionController::class,'create'])->name('parmission.create');
     Route::post('/store',[ProductController::class,'store'])->name('product.store');
     Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
     Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
@@ -152,6 +153,10 @@ view()->composer('*', function ($view) {
 view()->composer('*', function ($view) {
     $sbmenus=SubMenu::all();
     $view->with('sbmenus',$sbmenus);
+});
+view()->composer('*', function ($view) {
+    $category=Category::all();
+    $view->with('category',$category);
 });
 
 

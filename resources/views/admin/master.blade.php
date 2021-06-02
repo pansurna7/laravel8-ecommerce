@@ -29,7 +29,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css">
         {{--  <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/iziToast.css">  --}}
         <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bootstrap-fileinput-min.css">
-        <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bs-stepper.css">
+        {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/stepper.css"> --}}
+        <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_arrows.min.css" rel="stylesheet" type="text/css" />
+
+        {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/lexavalidate.css"> --}}
 
         {{--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css">  --}}
 
@@ -37,6 +41,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             .file-input{
                 width: 100%
             }
+            .error {
+                color:red !important;
+                }
+
         </style>
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
@@ -113,12 +121,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script src="{{asset('/Source/back')}}/plugins/jquery-validation/jquery.validate.min.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.all.js"></script>
             <script src="{{asset('/vendor')}}/sweetalert/sweetalert.min.js"></script>
-            <script src="{{asset('/Source/back/lexadevjs')}}/lexadev.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/iziToast.js"></script>
-            <script src="{{asset('/Source/back/lexadevjs/crud')}}/LexaCrudMaster.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/bootstrap-fileinput.min.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/bootsrap-fileinput-theme.min.js"></script>
-            <script src="{{asset('/Source/back/lexadevjs')}}/bs-stepper.js"></script>
+            {{-- <script src="{{asset('/Source/back/lexadevjs')}}/stepper.js"></script> --}}
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
+
+
+
+            <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.js"></script>
+
+            <script src="{{asset('/Source/back/lexadevjs')}}/lexadev.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs/crud')}}/LexaCrudMaster.js"></script>
+            <script src="{{asset('/Source/back/lexadevjs')}}/jquery.number.js"></script>
 
             <script>
                 $(function () {

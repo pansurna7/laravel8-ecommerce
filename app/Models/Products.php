@@ -16,14 +16,8 @@ class Products extends Model
     }
     public function category()
     {
-        return $this->belongsTo(Categories::class,'category_id');
+        return $this->belongsTo(Category::class,'category_id');
     }
-    public function statuses(){
-        return [
-            0=>'draft',
-            1=>'active',
-            2=>'inactive',
-        ];
-    }
+
 }
 

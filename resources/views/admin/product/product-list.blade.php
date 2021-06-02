@@ -58,86 +58,108 @@
     </section>
     {{--  Product  --}}
         {{--Modal ADD--}}
-        <div class="modal fade" id="modal-tambah-product" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-tambah-product" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
                         <h5 class="modal-title" id="staticBackdropLabel">Add Product</h5>
-
                     </div>
                     <div class="modal-body">
-
                         <form  id="product-form" enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <div class="card card-default">
-                                    <div class="card-header">
-                                      <h3 class="card-title">bs-stepper</h3>
-                                    </div>
-                                    <div class="card-body p-0">
-                                      <div class="bs-stepper">
-                                        <div class="bs-stepper-header" role="tablist">
-                                          <!-- your steps here -->
-                                          <div class="step" data-target="#logins-part">
-                                            <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
-                                              <span class="bs-stepper-circle">1</span>
-                                              <span class="bs-stepper-label">Logins</span>
-                                            </button>
-                                          </div>
-                                          <div class="line"></div>
-                                          <div class="step" data-target="#information-part">
-                                            <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
-                                              <span class="bs-stepper-circle">2</span>
-                                              <span class="bs-stepper-label">Various information</span>
-                                            </button>
-                                          </div>
-                                        </div>
-                                        <div class="bs-stepper-content">
-                                          <!-- your steps content here -->
-                                          <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                            <div class="form-group">
-                                              <label for="exampleInputEmail1">Email address</label>
-                                              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="exampleInputPassword1">Password</label>
-                                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                            </div>
-                                            <button class="btn btn-primary" onclick="stepper.next()">Next</button>
-                                          </div>
-                                          <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
-                                            <div class="form-group">
-                                              <label for="exampleInputFile">File input</label>
-                                              <div class="input-group">
-                                                <div class="custom-file">
-                                                  <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                  <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                </div>
-                                                <div class="input-group-append">
-                                                  <span class="input-group-text">Upload</span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                    <div class="card-footer">
-                                      Visit <a href="https://github.com/Johann-S/bs-stepper/#how-to-use-it">bs-stepper documentation</a> for more examples and information about the plugin.
-                                    </div>
-                                  </div>
-                                  <!-- /.card -->
-                                </div>
-                              </div>
-                            <div class="modal-footer col-md-12 justify-content-center">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="submit-form" class="btn btn-primary">Save</button>
-                            </div>
+                            <div id="smartwizard">
+                                <ul>
+                                    <li><a href="#step-1">Step 1<br /><small>Product Info</small></a></li>
+                                    <li><a href="#step-2">Step 2<br /><small>Product Dimensi</small></a></li>
 
+
+                                </ul>
+                                <div class="mt-4">
+                                    <div id="step-1">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="sku">SKU</label>
+                                                <input type="text" class="form-control" id="sku" name="sku"placeholder="sku" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Name Product" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="price">Price</label>
+                                                <input type="text" class="form-control" id="price" placeholder="Rp" name="price" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="category">Category</label>
+                                                <select name="category" class="form-control" id="category"  required>
+                                                    <option value="">Please select category</option>
+                                                    @foreach($category as $cat)
+                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="sd">Short Description</label>
+                                                <textarea class="form-control" id="sd" name="sd" placeholder="Short Description" rows="3" required> </textarea>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-2">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="weight">Weight</label>
+                                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="length">Length</label>
+                                                <input type="text" class="form-control" id="length" name="length" placeholder="Lenght" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="width">Width</label>
+                                                <input type="text" class="form-control" id="width" name="width" placeholder="width" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="height">Height</label>
+                                                <input type="text" class="form-control" id="height" name="height" placeholder="height" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="status">Status</label>
+                                                <select name="status" class="form-control" required>
+                                                    <option value="">Please Select Status</option>
+                                                        <option value="0">Darft</option>
+                                                        <option value="1">Active</option>
+                                                        <option value="2">Inactive</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-xs-12">
+                                                <label>Submit</label>
+                                                <button type="submit" id="submit-form" class="btn btn-success btn-block">Save</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer col-md-12 justify-content-center">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -146,46 +168,112 @@
         {{-- end modal ADD--}}
 
         {{-- Modal Edit --}}
-        <div class="modal fade" id="modal-edit-product" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-edit-product" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Category</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Product</h5>
                     </div>
                     <div class="modal-body">
-                        <form  id="category-edit-form"  enctype="multipart/form-data" action="javascript:void(0)">
+                        <form  id="product-form-edit" enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
-                            <div class="form-group">
-                                <label for="id" class="col-form-label">id</label>
-                                <input type="hidden" class="form-control" id="id" name="id" value="{{old('id')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
+                            <input type="hidden" class="form-control" id="id" name="id" required>
+                            <div id="smartwizard_edit">
+                                <ul>
+                                    <li><a href="#step-1">Step 1<br /><small>Product Info</small></a></li>
+                                    <li><a href="#step-2">Step 2<br /><small>Product Dimensi</small></a></li>
+                                </ul>
+                                <div class="mt-4">
+                                    <div id="step-1">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="sku_edit">SKU</label>
+                                                <input type="text" class="form-control" id="sku_edit" name="sku_edit" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="name_edit">Name</label>
+                                                <input type="text" class="form-control" id="name_edit" name="name_edit"  required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="price_edit">Price</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                      <div class="input-group-text">Rp</div>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="price_edit" name="price_edit" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="category_edit">Category</label>
+                                                <select name="category_edit" class="form-control" id="category_edit"  required>
+                                                    <option value="">Please select category</option>
+                                                    @foreach($category as $cat)
+                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="sd_edit">Short Description</label>
+                                                <textarea class="form-control" id="sd_edit" name="sd_edit" rows="3" required> </textarea>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="description_edit">Description</label>
+                                                <textarea class="form-control" id="description_edit" name="description_edit" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-2">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="weight_edit">Weight</label>
+                                                <input type="text" class="form-control" id="weight_edit" name="weight_edit" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="length_edit">Length</label>
+                                                <input type="text" class="form-control" id="length_edit" name="length_edit" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="width_edit">Width</label>
+                                                <input type="text" class="form-control" id="width_edit" name="width_edit" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="height_edit">Height</label>
+                                                <input type="text" class="form-control" id="height_edit" name="height_edit"  required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="status_edit">Status</label>
+                                                <select name="status_edit" id="status_edit" class="form-control" required>
+                                                    <option value="">Please Select Status</option>
+                                                        <option value="0">Darft</option>
+                                                        <option value="1">Active</option>
+                                                        <option value="2">Inactive</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-xs-12">
+                                                <label>Submit</label>
+                                                <button type="submit" id="submit-form-edit" class="btn btn-success btn-block">Update</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="name-edit" class="col-form-label">Name</label>
-                                <input type="text" class="form-control" id="name-edit" name="name_edit" value="{{old('name-edit')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
-                            </div>
-
-                            <label for="banner" class="col-form-label">Image Banner</label>
-
-                            <div class="form-group col-md-12">
-                                <input type="file" class="custom-file-input" onchange="priviewFile(this)" id="image_edit" name="image_edit">
-                                <label class="custom-file-label" id="image-source" for="image_edit">upload Image</label>
-                                <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
-                                alt="preview image" style="max-height: 250px;margin-top:30px">
-                             </div>
-                            <div class="col-md-12 mb-2">
-
-                            </div>
-
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="status-edit" name="status_edit" wire:model="active" value="1">
-                                <label class="form-check-label" for="status-edit">Active</label>
-                            </div>
-
                             <div class="modal-footer col-md-12 justify-content-center">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" id="submit-form-edit" class="btn btn-primary">Update</button>
-                            </div>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
 
+                            </div>
                         </form>
                     </div>
                 </div>

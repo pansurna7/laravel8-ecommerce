@@ -88,9 +88,7 @@ class SubMenuController extends Controller
     }
     public function destroy($id)
     {
-
-    SubMenu::destroy($id);
-    return response()->json(['msg'=>'Record Deleted SuccessFully']);
-
+        SubMenu::destroy($id);
+        return response()->json(['msg'=>'Record Deleted SuccessFully']);
     }
 }

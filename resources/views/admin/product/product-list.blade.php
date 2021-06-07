@@ -70,7 +70,8 @@
                             <div id="smartwizard">
                                 <ul>
                                     <li><a href="#step-1">Step 1<br /><small>Product Info</small></a></li>
-                                    <li><a href="#step-2">Step 2<br /><small>Product Dimensi</small></a></li>
+                                    <li><a href="#step-2">Step 2<br /><small>Product Dimention</small></a></li>
+                                    <li><a href="#step-3">Step 3<br /><small>Product Image</small></a></li>
 
 
                                 </ul>
@@ -144,9 +145,20 @@
                                                         <option value="2">Inactive</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <div class="form-group col-md-6 col-xs-12">
-                                                <label>Submit</label>
+                                    <div id="step-3">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <div class="file-loading">
+                                                    <label for="file" class="col-form-label">Image Upload</label>
+                                                    <input id="image" name="image[]" type="file" class="form-contro file" multiple data-max-file-count="5" data-browse-on-zone-click="true"
+                                                    data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select{image} for upload...">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12 col-xs-12">
                                                 <button type="submit" id="submit-form" class="btn btn-success btn-block">Save</button>
                                             </div>
 
@@ -165,6 +177,8 @@
                 </div>
             </div>
         </div>
+
+
         {{-- end modal ADD--}}
 
         {{-- Modal Edit --}}

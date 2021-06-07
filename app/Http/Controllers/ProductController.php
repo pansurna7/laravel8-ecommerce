@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductImage;
 use App\Models\Products;
+use App\Models\ProductsImage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,23 +56,39 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-            $pro = new Products();
-            $pro->sku=$request->sku;
-            $pro->name=$request->name;
-            $pro['slug'] = Str::slug($pro['name']);
-            $pro['admin_id'] = Auth::guard('admin')->user()->id;
-            $pro->price=str_replace(",","",$request->price);
-            $pro->category_id=$request->category;
-            $pro->text_description=$request->sd;
-            $pro->description=$request->description;
-            $pro->weight=$request->weight;
-            $pro->length=$request->length;
-            $pro->width=$request->width;
-            $pro->height=$request->height;
-            $pro->status=$request->status;
+        request()->validate([
+
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+            // $pro = new Products();
+            // $pro->sku=$request->sku;
+            // $pro->name=$request->name;
+            // $pro['slug'] = Str::slug($pro['name']);
+            // $pro['admin_id'] = Auth::guard('admin')->user()->id;
+            // $pro->price=str_replace(",","",$request->price);
+            // $pro->category_id=$request->category;
+            // $pro->text_description=$request->sd;
+            // $pro->description=$request->description;
+            // $pro->weight=$request->weight;
+            // $pro->length=$request->length;
+            // $pro->width=$request->width;
+            // $pro->height=$request->height;
+            // $pro->status=$request->status;
+            // $simpan=$pro->save();
+
+            // store to table product_images
+
+            if ($files = $request->file('image')) {
+                $fileName =  "product-".time().'.'.$request->image->getClientOriginalExtension();
+                $request->image->storeAs('product', $fileName);
+                $files->move(public_path('/Source/back/dist/img/products'), $fileName);
+                $image = new ProductImage();
+                // $image->product_id= $pro->id;
+                $image->path= $fileName;
+                $simpan=$image->save();
+            }
 
 
-            $simpan=$pro->save();
 
             if($simpan){
                 return response()->json(['data'=>$simpan,

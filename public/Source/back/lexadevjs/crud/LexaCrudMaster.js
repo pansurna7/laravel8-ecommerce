@@ -246,6 +246,7 @@ $(document).ready( function () {
 
         $('#modal-tambah-product').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
     })
+    
 
     // STEPPER
 

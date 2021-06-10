@@ -32,8 +32,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         {{-- for file input --}}
         {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/bootstrap-fileinput-min.css"> --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/themes/explorer-fas/theme.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/css/fileinput.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/themes/explorer-fas/theme.min.css">
+
 
 
         {{-- for smart wizard or input steeper --}}
@@ -41,20 +42,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
         <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_arrows.min.css" rel="stylesheet" type="text/css" />
 
+          {{-- end for smart wizard or input steeper --}}
+
+        <link rel="stylesheet" href="{{asset('/Source/back/lexadevcss')}}/lexadev-helper.css">
+
 
         {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/lexavalidate.css"> --}}
 
+
          {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/css/fileinput.min.css"> --}}
 
-        <style>
-            .file-input{
-                width: 100%
-            }
-            .error {
-                color:red !important;
-                }
-
-        </style>
     </head>
     <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
         <div class="wrapper">
@@ -134,8 +131,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             {{-- file input --}}
             {{-- <script src="{{asset('/Source/back/lexadevjs')}}/bootstrap-fileinput.min.js"></script>
             <script src="{{asset('/Source/back/lexadevjs')}}/bootsrap-fileinput-theme.min.js"></script> --}}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/js/fileinput.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/themes/explorer-fas/theme.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/fileinput.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/js/locales/id.min.js"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.5/themes/fas/theme.min.js"></script>
+           <script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.min.js"></script>
             {{-- end file input --}}
 
             <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>

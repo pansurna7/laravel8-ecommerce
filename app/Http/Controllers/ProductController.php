@@ -56,37 +56,42 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        request()->validate([
-
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-            // $pro = new Products();
-            // $pro->sku=$request->sku;
-            // $pro->name=$request->name;
-            // $pro['slug'] = Str::slug($pro['name']);
-            // $pro['admin_id'] = Auth::guard('admin')->user()->id;
-            // $pro->price=str_replace(",","",$request->price);
-            // $pro->category_id=$request->category;
-            // $pro->text_description=$request->sd;
-            // $pro->description=$request->description;
-            // $pro->weight=$request->weight;
-            // $pro->length=$request->length;
-            // $pro->width=$request->width;
-            // $pro->height=$request->height;
-            // $pro->status=$request->status;
-            // $simpan=$pro->save();
+        
+            $pro = new Products();
+            $pro->sku=$request->sku;
+            $pro->name=$request->name;
+            $pro['slug'] = Str::slug($pro['name']);
+            $pro['admin_id'] = Auth::guard('admin')->user()->id;
+            $pro->price=str_replace(",","",$request->price);
+            $pro->category_id=$request->category;
+            $pro->text_description=$request->sd;
+            $pro->description=$request->description;
+            $pro->weight=$request->weight;
+            $pro->length=$request->length;
+            $pro->width=$request->width;
+            $pro->height=$request->height;
+            $pro->status=$request->status;
+            $simpan=$pro->save();
 
             // store to table product_images
 
-            if ($files = $request->file('image')) {
-                $fileName =  "product-".time().'.'.$request->image->getClientOriginalExtension();
-                $request->image->storeAs('product', $fileName);
-                $files->move(public_path('/Source/back/dist/img/products'), $fileName);
-                $image = new ProductImage();
-                // $image->product_id= $pro->id;
-                $image->path= $fileName;
-                $simpan=$image->save();
-            }
+            $images = $request->file('images');
+        if ($request->hasFile('images')) :
+                foreach ($images as $item):
+                    $var = date_create();
+                    $time = date_format($var, 'YmdHis');
+                    $imageName = $time . '-' . $item->getClientOriginalName();
+                    $item->move(public_path() . '/Source/back/dist/img/products/', $imageName);
+                    $arr[] = $imageName;
+                    $image = new ProductImage();
+                    $image->product_id=$pro->id;
+                    $image->path=$imageName;
+                    $simpan=$image->save();
+                endforeach;
+                $image = implode(",", $arr);
+        else:
+                $image = '';
+        endif;
 
 
 

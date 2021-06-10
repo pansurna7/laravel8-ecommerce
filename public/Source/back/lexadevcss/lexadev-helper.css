@@ -1,0 +1,12 @@
+/* priview image example category-list */
+.file-input{
+    width: 100%
+}
+/* color error for form */
+.error {
+    color:red !important;
+    }
+    /* disable upload file on priview image for bootrap-inputfile  */
+    .kv-file-upload {
+        display:none;
+     }

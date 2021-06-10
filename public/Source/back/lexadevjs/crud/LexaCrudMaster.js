@@ -243,10 +243,26 @@ $(document).ready( function () {
         $('#product-form').trigger("reset");
         modal.modal('show');
         $('#smartwizard').smartWizard("reset");
-
         $('#modal-tambah-product').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
     })
-    
+    $.fn.fileinputBsVersion = "3.3.7";
+    $("#file-1").fileinput({
+         theme:'fas',
+          language : 'id',
+          showUpload : false,
+          uploadUrl : 'https://localhost',
+          allowedFileType : ['image'],
+          allowedFileExtensions : ['jpg','jpeg','png'],
+          autoOrientImage : false,
+          showCaption : true,
+          dropZoneEnabled : true,
+          showRemove : false,
+          maxFileCount : 5,
+          maxFileSize : 10000,
+        slugCallback: function (filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
 
     // STEPPER
 
@@ -327,7 +343,7 @@ $(document).ready( function () {
                 // window.location.reload();
             },
             error: function (request,status,error) { //jika error tampilkan error pada console
-
+                console.log(request);
                 iziToast.error({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
                     title: 'Ups!!!',
                     message: request.responseText,

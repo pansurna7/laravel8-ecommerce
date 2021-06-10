@@ -59,7 +59,7 @@
     {{--  Product  --}}
         {{--Modal ADD--}}
         <div class="modal fade" id="modal-tambah-product" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header bg-primary justify-content-center">
                         <h5 class="modal-title" id="staticBackdropLabel">Add Product</h5>
@@ -118,21 +118,21 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="weight">Weight</label>
-                                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight" required>
+                                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Weight">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="length">Length</label>
-                                                <input type="text" class="form-control" id="length" name="length" placeholder="Lenght" required>
+                                                <input type="text" class="form-control" id="length" name="length" placeholder="Lenght">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="width">Width</label>
-                                                <input type="text" class="form-control" id="width" name="width" placeholder="width" required>
+                                                <input type="text" class="form-control" id="width" name="width" placeholder="width">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="height">Height</label>
-                                                <input type="text" class="form-control" id="height" name="height" placeholder="height" required>
+                                                <input type="text" class="form-control" id="height" name="height" placeholder="height">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -153,8 +153,8 @@
                                             <div class="form-group col-md-12">
                                                 <div class="file-loading">
                                                     <label for="file" class="col-form-label">Image Upload</label>
-                                                    <input id="image" name="image[]" type="file" class="form-contro file" multiple data-max-file-count="5" data-browse-on-zone-click="true"
-                                                    data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select{image} for upload...">
+                                                    <input id="file-1" name="images[]" type="file"  data-browse-on-zone-click="true" data-overwrite-initial="false" multiple>
+                                                    {{--  <input id="file-1" type="file" name="images[]" multiple class="file" data-overwrite-initial="false">  --}}
                                                 </div>
                                             </div>
 
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer col-md-12 justify-content-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Cancel/Close</button>
 
                             </div>
                         </form>

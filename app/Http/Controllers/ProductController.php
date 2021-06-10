@@ -56,7 +56,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        
+
             $pro = new Products();
             $pro->sku=$request->sku;
             $pro->name=$request->name;
@@ -74,7 +74,6 @@ class ProductController extends Controller
             $simpan=$pro->save();
 
             // store to table product_images
-
             $images = $request->file('images');
         if ($request->hasFile('images')) :
                 foreach ($images as $item):

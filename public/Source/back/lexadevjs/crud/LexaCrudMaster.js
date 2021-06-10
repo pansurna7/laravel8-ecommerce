@@ -373,6 +373,26 @@ $(document).ready( function () {
             $('#width_edit').val(pro.data.width);
             $('#height_edit').val(pro.data.height);
             $('#status_edit').val(pro.data.status);
+            $("#file-edit").fileinput({
+                theme:'fas',
+                 language : 'id',
+                 showUpload : false,
+                 uploadUrl : 'https://localhost',
+                 allowedFileType : ['image'],
+                 allowedFileExtensions : ['jpg','jpeg','png'],
+                 autoOrientImage : false,
+                 showCaption : true,
+                 dropZoneEnabled : true,
+                 showRemove : false,
+                 maxFileCount : 5,
+                 maxFileSize : 10000,
+                 initialPreview: [
+                    '/Source/back/dist/img/products/'+pro.data.path
+                 ],
+               slugCallback: function (filename) {
+                   return filename.replace('(', '_').replace(']', '_');
+               }
+           });
 
         });
 

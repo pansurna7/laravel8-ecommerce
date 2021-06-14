@@ -118,7 +118,7 @@
                         <form  id="category-edit-form"  enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
                             <div class="form-group">
-                                <label for="id" class="col-form-label">id</label>
+                                {{--  <label for="id" class="col-form-label">id</label>  --}}
                                 <input type="hidden" class="form-control" id="id" name="id" value="{{old('id')}}" placeholder="Write Title Category" required oninvalid="this.setCustomValidity('Tidak Boleh Kosong')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">

@@ -86,8 +86,8 @@ class CategoryController extends Controller
         } else {
             $imagePath = public_path("/Source/back/dist/img/category/".$cat->banner);
             if(File::exists($imagePath)){
-            unlink($imagePath);
-        }
+                unlink($imagePath);
+            }
 
                 $image = $request->file('image_edit');
                 $imageName = "banner-".time().'.'.$image->extension();

@@ -192,6 +192,7 @@ $(document).ready( function () {
 
  //+++++++++++PRODUCT++++++++++++++++++++++++++++++++++++++//
 $(document).ready( function () {
+
     // Show All Data On Data Table
     var validator = $( "#product-form" ).validate();
      $("#tbl-product").DataTable({
@@ -353,50 +354,86 @@ $(document).ready( function () {
         });
     });
 
+    // new preview multiple images
+    if (window.File && window.FileList && window.FileReader) {
+        $("#images_edit").on("change", function(e) {
+            $('#preview').removeProp('src').hide();
+          var files = e.target.files,
+            filesLength = files.length;
+          for (var i = 0; i < filesLength; i++) {
+            var f = files[i]
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+              var file = e.target;
+              $("<span class=\"pip\">" +
+                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                "<br/><span class=\"remove\">Remove image</span>" +
+                "</span>").insertAfter("#preview");
+              $(".remove").click(function(){
+                $(this).parent(".pip").remove();
+              });
+
+              // Old code here
+              /*$("<img></img>", {
+                class: "imageThumb",
+                src: e.target.result,
+                title: file.name + " | Click to remove"
+              }).insertAfter("#files").click(function(){$(this).remove();});*/
+
+            });
+            fileReader.readAsDataURL(f);
+          }
+        });
+      } else {
+        alert("Your browser doesn't support to File API")
+      }
+
     //Edit modal window
     $('body').on('click', '.edit-product', function () {
+
         var id = $(this).attr('product-id');
         var modal=$('#modal-edit-product');
         modal.modal('show');
         modal.on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
-        $.get("edit/"+id, function (pro) {
-            $('#id').val(pro.data.id);
-            $('#sku_edit').val(pro.data.sku);
-            $('#name_edit').val(pro.data.name);
-            $('#price_edit').val(pro.data.price);
+        $.get("edit/"+id, function (data) {
+            $('#id').val(data.pro.id);
+            $('#sku_edit').val(data.pro.sku);
+            $('#name_edit').val(data.pro.name);
+            $('#price_edit').val(data.pro.price);
             $('#price_edit').number(true,0)
-            $('#category_edit').val(pro.data.category_id);
-            $('#sd_edit').val(pro.data.text_description);
-            $('#description_edit').val(pro.data.description);
-            $('#weight_edit').val(pro.data.weight);
-            $('#length_edit').val(pro.data.length);
-            $('#width_edit').val(pro.data.width);
-            $('#height_edit').val(pro.data.height);
-            $('#status_edit').val(pro.data.status);
-            $("#file-edit").fileinput({
-                theme:'fas',
-                 language : 'id',
-                 showUpload : false,
-                 uploadUrl : 'https://localhost',
-                 allowedFileType : ['image'],
-                 allowedFileExtensions : ['jpg','jpeg','png'],
-                 autoOrientImage : false,
-                 showCaption : true,
-                 dropZoneEnabled : true,
-                 showRemove : false,
-                 maxFileCount : 5,
-                 maxFileSize : 10000,
-                 initialPreview: [
-                    '/Source/back/dist/img/products/'+pro.data.path
-                 ],
-               slugCallback: function (filename) {
-                   return filename.replace('(', '_').replace(']', '_');
-               }
-           });
+            $('#category_edit').val(data.pro.category_id);
+            $('#sd_edit').val(data.pro.text_description);
+            $('#description_edit').val(data.pro.description);
+            $('#weight_edit').val(data.pro.weight);
+            $('#length_edit').val(data.pro.length);
+            $('#width_edit').val(data.pro.width);
+            $('#height_edit').val(data.pro.height);
+            $('#status_edit').val(data.pro.status);
 
         });
 
+        $.get("edit/"+id, function (data) {
+            // clear preview image
+            $('#preview').html('')
+            // end clear
+            var url= '/Source/back/dist/img/products/'
+            var len = data.proimg.length;
+            for(var i=0; i<len; i++){
+                var path = url+data.proimg[i].path;
+                var name= data.proimg[i].path;
+                $('#preview').append('<img src="'+path+'" padding="10px" width="200px;" height="200px">');
+
+            }
+        });
+
+
+
     });
+
+    // button cencel
+    $('#cencel').click(function(){
+        $('#smartwizard_edit').smartWizard("reset");
+    })
 
     // Edit STEPPER
 
@@ -475,6 +512,9 @@ $(document).ready( function () {
             }
         });
     });
+
+
+
 
     // Delete Category
     $('body').on('click', '.delete-product', function () {

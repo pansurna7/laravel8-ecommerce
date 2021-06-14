@@ -191,7 +191,7 @@
                     <div class="modal-body">
                         <form  id="product-form-edit" enctype="multipart/form-data" action="javascript:void(0)">
                             @csrf
-                            <input type="hidden" class="form-control" id="id" name="id" required>
+
                             <div id="smartwizard_edit">
                                 <ul>
                                     <li><a href="#step-1">Step 1<br /><small>Product Info</small></a></li>
@@ -201,6 +201,11 @@
                                 <div class="mt-4">
                                     <div id="step-1">
                                         <div class="row">
+
+                                            <div class="form-group col-md-6">
+                                                <label for="id">ID</label>
+                                                <input type="text" class="form-control" id="id" name="id" required>
+                                            </div>
                                             <div class="form-group col-md-6">
                                                 <label for="sku_edit">SKU</label>
                                                 <input type="text" class="form-control" id="sku_edit" name="sku_edit" required>
@@ -278,13 +283,11 @@
                                     <div id="step-3">
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <div class="file-loading">
-                                                    <label for="file" class="col-form-label">Image Upload</label>
-                                                    <input id="file-edit" name="images_edit[]" type="file"  data-browse-on-zone-click="true" data-overwrite-initial="false" multiple>
-                                                    {{--  <input id="file-1" type="file" name="images[]" multiple class="file" data-overwrite-initial="false">  --}}
-                                                </div>
-                                            </div>
+                                                <label class="custom-file-label" id="images-source" for="images_edit">upload Image</label>
+                                               <input type="file" class="custom-file-input"  id="images_edit" name="images_edit[]" multiple/>
 
+                                                <div class="mt-2" id="preview"></div>
+                                            </div>
                                             <div class="form-group col-md-12 col-xs-12">
                                                 <button type="submit" id="submit-form-edit" class="btn btn-success btn-block">Save</button>
                                             </div>
@@ -295,7 +298,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer col-md-12 justify-content-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="cencel" data-dismiss="modal">Cancel</button>
 
                             </div>
                         </form>

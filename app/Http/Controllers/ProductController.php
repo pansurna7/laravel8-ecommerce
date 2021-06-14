@@ -92,8 +92,6 @@ class ProductController extends Controller
                 $image = '';
         endif;
 
-
-
             if($simpan){
                 return response()->json(['data'=>$simpan,
                 'massage'=>'Product Created Success Fully'],200);
@@ -101,7 +99,6 @@ class ProductController extends Controller
                 return response()->json(['data'=>$simpan,
                 'massage'=>validator()]);
             }
-
 
     }
 
@@ -115,9 +112,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $data=Products::find($id);
+        // $data=Products::find($id);
+        // return response()->json(['data' => $data]);
+        // $img=ProductImage::where('product_id',route('id'))->select('path')->get();
+        $pro=Products::find($id);
+        $proimg=ProductImage::where('product_id',$id)->select('path')->get();
+        // return response()->json(['pro' => $pro]);
+        return response()->json(['pro'=>$pro,'proimg' => $proimg]);
 
-        return response()->json(['data' => $data]);
     }
 
     /**
@@ -129,7 +131,6 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
-
             $pro=Products::find($request->id);
             $pro->sku=$request->sku_edit;
             $pro->name=$request->name_edit;
@@ -144,8 +145,33 @@ class ProductController extends Controller
             $pro->width=$request->width_edit;
             $pro->height=$request->height_edit;
             $pro->status=$request->status_edit;
+            $update=$pro->save();
+            // store to table product_images
+            $images = $request->file('images_edit');
+            if ($request->images_edit === null) {
+                foreach ($images as $item):
+                    $request['images_edit'] = $images->path;
+                endforeach;
+            } else {
+                if ($request->hasFile('images_edit')) :
+                        foreach ($images as $item):
+                            $var = date_create();
+                            $time = date_format($var, 'YmdHis');
+                            $imageName = $time . '-' . $item->getClientOriginalName();
+                            $item->move(public_path() . '/Source/back/dist/img/products/', $imageName);
+                            $arr[] = $imageName;
+                            $image =ProductImage::where('product_id',$pro->id)->select('path')->get();
+                            $image->product_id=$pro->id;
+                            $image->path=$imageName;
+                            $update=$image->save();
+                        endforeach;
+                        $image = implode(",", $arr);
+                else:
+                        $image = '';
+                endif;
+            }
 
-        $update=$pro->save();
+
         if($update){
             return response()->json(['data'=>$update,
             'msg'=>'Product Update Success Fully'],200);

@@ -45,8 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           {{-- end for smart wizard or input steeper --}}
 
         <link rel="stylesheet" href="{{asset('/Source/back/lexadevcss')}}/lexadev-helper.css">
-
-
+       
         {{-- <link rel="stylesheet" href="{{asset('/Source/back')}}/lexadevcss/lexavalidate.css"> --}}
 
 
@@ -141,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
 
 
-
+            <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.js"></script>
 

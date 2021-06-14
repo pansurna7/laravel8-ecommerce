@@ -116,7 +116,6 @@ Route::prefix('category')->group(function(){
 
 Route::prefix('product')->group(function(){
     Route::get('/show-all-product',[ProductController::class,'index'])->name('product.index');
-    // Route::get('/parmission-create',[ParmissionController::class,'create'])->name('parmission.create');
     Route::post('/store',[ProductController::class,'store'])->name('product.store');
     Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
     Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');

@@ -24,10 +24,17 @@ class ProductController extends Controller
          if($request->ajax()){
             return datatables()->of($dbproduct)
             ->addColumn('action', function($data){
-                if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Product']['edit'])){
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  product-id="'.$data->id.'"  product-name="'.$data->Category.'" data-original-title="Edit"  class="edit-product btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>';
+                if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['Product']['view'])){
+                    $button = '<a  href="javascript:void(0)" product-id="'.$data->id.'" product-name="'.$data->name.'" id="'.$data->id.'" class="detail-product btn btn-success btn-sm"><i class="fas fa-info-circle"></i> View Detail</a>';
                 }else{
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  product-id="'.$data->id.'" data-original-title="Edit" class="edit-product btn btn-info btn-sm edit-product disabled" aria-disabled="true"><i class="far fa-edit"></i> Edit</a>';
+                    $button = '<a href="javascript:void(0)"  product-id="'.$data->id.'" class="detail-product btn btn-success btn-sm disabled" aria-disabled="true"><i class="fas fa-info-circle"></i> View Detail</a>';
+                }
+
+                $button .= '&nbsp;&nbsp;';
+                if (@isset(Auth::guard('admin')->user()->role->parmission['parmission']['Product']['edit'])){
+                    $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  product-id="'.$data->id.'"  product-name="'.$data->name.'" data-original-title="Edit"  class="edit-product btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>';
+                }else{
+                    $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  product-id="'.$data->id.'" data-original-title="Edit" class="edit-product btn btn-info btn-sm edit-product disabled" aria-disabled="true"><i class="far fa-edit"></i> Edit</a>';
                 }
                 $button .= '&nbsp;&nbsp;';
                 if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['Product']['delete'])){
@@ -57,6 +64,7 @@ class ProductController extends Controller
      */
     public function store(Request $request){
 
+
             $pro = new Products();
             $pro->sku=$request->sku;
             $pro->name=$request->name;
@@ -71,11 +79,18 @@ class ProductController extends Controller
             $pro->width=$request->width;
             $pro->height=$request->height;
             $pro->status=$request->status;
+
+            if ($files = $request->file('imageBanner')) {
+                $fileName =  "banner-".time().'.'.$request->imageBanner->getClientOriginalExtension();
+                $request->imageBanner->storeAs('banner', $fileName);
+                $files->move(public_path('/Source/back/dist/img/products/banner'), $fileName);
+                $pro->banner = $fileName;
+            }
             $simpan=$pro->save();
 
             // store to table product_images
             $images = $request->file('images');
-        if ($request->hasFile('images')) :
+            if ($request->hasFile('images')) :
                 foreach ($images as $item):
                     $var = date_create();
                     $time = date_format($var, 'YmdHis');
@@ -88,9 +103,9 @@ class ProductController extends Controller
                     $simpan=$image->save();
                 endforeach;
                 $image = implode(",", $arr);
-        else:
-                $image = '';
-        endif;
+            else:
+                    $image = '';
+            endif;
 
             if($simpan){
                 return response()->json(['data'=>$simpan,
@@ -102,8 +117,6 @@ class ProductController extends Controller
 
     }
 
-
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -112,14 +125,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        // $data=Products::find($id);
-        // return response()->json(['data' => $data]);
-        // $img=ProductImage::where('product_id',route('id'))->select('path')->get();
         $pro=Products::find($id);
         $proimg=ProductImage::where('product_id',$id)->select('path')->get();
-        // return response()->json(['pro' => $pro]);
         return response()->json(['pro'=>$pro,'proimg' => $proimg]);
-
     }
 
     /**
@@ -145,32 +153,56 @@ class ProductController extends Controller
             $pro->width=$request->width_edit;
             $pro->height=$request->height_edit;
             $pro->status=$request->status_edit;
+
+            if ($request->imageBannerEdit === null) {
+                $request['imageBannerEdit'] = $pro->banner;
+            } else {
+                $imagePath = public_path("/Source/back/dist/img/products/banner/".$pro->banner);
+                if(File::exists($imagePath)){
+                    unlink($imagePath);
+                }
+                    $image = $request->file('imageBannerEdit');
+                    $imageName = "banner-".time().'.'.$image->extension();
+                    $image->move(public_path('/Source/back/dist/img/products/banner'), $imageName);
+                    $pro->banner = $imageName;
+
+            }
             $update=$pro->save();
             // store to table product_images
-            $images = $request->file('images_edit');
+            $path =ProductImage::where('product_id',$pro->id)->select('path')->get();
             if ($request->images_edit === null) {
-                foreach ($images as $item):
-                    $request['images_edit'] = $images->path;
+                foreach ($path as $item):
+                    $request['images_edit'] = $item->path;
                 endforeach;
             } else {
-                if ($request->hasFile('images_edit')) :
-                        foreach ($images as $item):
-                            $var = date_create();
-                            $time = date_format($var, 'YmdHis');
-                            $imageName = $time . '-' . $item->getClientOriginalName();
-                            $item->move(public_path() . '/Source/back/dist/img/products/', $imageName);
-                            $arr[] = $imageName;
-                            $image =ProductImage::where('product_id',$pro->id)->select('path')->get();
-                            $image->product_id=$pro->id;
-                            $image->path=$imageName;
-                            $update=$image->save();
-                        endforeach;
-                        $image = implode(",", $arr);
-                else:
-                        $image = '';
-                endif;
-            }
+                foreach ($path as $item):
 
+                    $imagePath = public_path("/Source/back/dist/img/products/".$item->path);
+                    if(File::exists($imagePath)){
+                        unlink($imagePath);
+                        ProductImage::where('path',$item->path)->delete();
+                    }
+                endforeach;
+                $images = $request->file('images_edit');
+                if ($request->hasFile('images_edit')) :
+                    foreach ($images as $item):
+                        $var = date_create();
+                        $time = date_format($var, 'YmdHis');
+                        $imageName = $time . '-' . $item->getClientOriginalName();
+                        $item->move(public_path() . '/Source/back/dist/img/products/', $imageName);
+                        $arr[] = $imageName;
+                        $image = new ProductImage();
+                        $image->product_id=$pro->id;
+                        $image->path=$imageName;
+                        $update=$image->save();
+                    endforeach;
+                    $image = implode(",", $arr);
+                else:
+                    $image = '';
+                endif;
+
+
+            }
 
         if($update){
             return response()->json(['data'=>$update,
@@ -182,7 +214,18 @@ class ProductController extends Controller
     }
     public function destroy($id)
     {
-
+        $path =ProductImage::where('product_id',$id)->select('path')->get();
+        foreach ($path as $item):
+            $imagePath = public_path("/Source/back/dist/img/products/".$item->path);
+            if(File::exists($imagePath)){
+                unlink($imagePath);
+            }
+        endforeach;
+        $pro=Products::find($id);
+        $imagePath = public_path("/Source/back/dist/img/products/banner/".$pro->banner);
+        if(File::exists($imagePath)){
+            unlink($imagePath);
+        }
         $delete=Products::destroy($id);
         if($delete)
         {
@@ -193,6 +236,14 @@ class ProductController extends Controller
                 'msg'=>'Error']);
             }
 
+
+    }
+    public function detail($id)
+    {
+        $pro=Products::find($id);
+        $proimg=ProductImage::where('product_id',$id)->select('path')->get();
+        $data = ['pro','proimg'];
+        return view('product-detail',compact('data'));
 
     }
 }

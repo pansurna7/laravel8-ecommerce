@@ -3,6 +3,7 @@
 use App\Models\Menu;
 use App\Models\SubMenu;
 use App\Models\Category;
+use App\Models\Products;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubMenuController;
-use App\Http\Controllers\CategoryController;
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ParmissionController;
 use App\Http\Controllers\Api\Payment\XenditController;
+use App\Models\ProductImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +122,8 @@ Route::prefix('product')->group(function(){
     Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
     Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
     Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('product.destroy');
+    Route::get('/detail/{id}',[ProductController::class,'detail'])->name('product.detail');
+    // Route::get('/show-detail',[ProductController::class,'index'])->name('product.detail.index');
 
 
 });
@@ -157,6 +161,7 @@ view()->composer('*', function ($view) {
     $category=Category::all();
     $view->with('category',$category);
 });
+
 
 
 // ========End admin Route=========== //

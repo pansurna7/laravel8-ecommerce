@@ -87,7 +87,7 @@ $(document).ready( function () {
         });
     });
 
-    //priview image
+    //priview image category
     $('#image_edit').change(function(){
         let reader = new FileReader();
         reader.onload = (e) => {
@@ -246,24 +246,72 @@ $(document).ready( function () {
         $('#smartwizard').smartWizard("reset");
         $('#modal-tambah-product').on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
     })
-    $.fn.fileinputBsVersion = "3.3.7";
-    $("#file-1").fileinput({
-         theme:'fas',
-          language : 'id',
-          showUpload : false,
-          uploadUrl : 'https://localhost',
-          allowedFileType : ['image'],
-          allowedFileExtensions : ['jpg','jpeg','png'],
-          autoOrientImage : false,
-          showCaption : true,
-          dropZoneEnabled : true,
-          showRemove : false,
-          maxFileCount : 5,
-          maxFileSize : 10000,
-        slugCallback: function (filename) {
-            return filename.replace('(', '_').replace(']', '_');
-        }
-    });
+    // new preview banner images for new
+    if (window.File && window.FileList && window.FileReader) {
+        $("#imageBanner").on("change", function(e) {
+            $('#previewBanner').removeProp('src').hide();
+          var files = e.target.files,
+            filesLength = files.length;
+          for (var i = 0; i < filesLength; i++) {
+            var f = files[i]
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+              var file = e.target;
+              $("<span class=\"pip\">" +
+                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                "<br/><span class=\"remove\">Remove image</span>" +
+                "</span>").insertAfter("#previewBanner");
+              $(".remove").click(function(){
+                $(this).parent(".pip").remove();
+              });
+
+              // Old code here
+              /*$("<img></img>", {
+                class: "imageThumb",
+                src: e.target.result,
+                title: file.name + " | Click to remove"
+              }).insertAfter("#files").click(function(){$(this).remove();});*/
+
+            });
+            fileReader.readAsDataURL(f);
+          }
+        });
+      } else {
+        alert("Your browser doesn't support to File API")
+      }
+    // new preview multiple images for new
+    if (window.File && window.FileList && window.FileReader) {
+        $("#images").on("change", function(e) {
+            $('#preview').removeProp('src').hide();
+          var files = e.target.files,
+            filesLength = files.length;
+          for (var i = 0; i < filesLength; i++) {
+            var f = files[i]
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+              var file = e.target;
+              $("<span class=\"pip\">" +
+                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                "<br/><span class=\"remove\">Remove image</span>" +
+                "</span>").insertAfter("#preview");
+              $(".remove").click(function(){
+                $(this).parent(".pip").remove();
+              });
+
+              // Old code here
+              /*$("<img></img>", {
+                class: "imageThumb",
+                src: e.target.result,
+                title: file.name + " | Click to remove"
+              }).insertAfter("#files").click(function(){$(this).remove();});*/
+
+            });
+            fileReader.readAsDataURL(f);
+          }
+        });
+      } else {
+        alert("Your browser doesn't support to File API")
+      }
 
     // STEPPER
 
@@ -354,10 +402,10 @@ $(document).ready( function () {
         });
     });
 
-    // new preview multiple images
+    // new preview banner images for Edit
     if (window.File && window.FileList && window.FileReader) {
-        $("#images_edit").on("change", function(e) {
-            $('#preview').removeProp('src').hide();
+        $("#imageBannerEdit").on("change", function(e) {
+            $('#previewBannerEdit').removeProp('src').hide();
           var files = e.target.files,
             filesLength = files.length;
           for (var i = 0; i < filesLength; i++) {
@@ -368,7 +416,41 @@ $(document).ready( function () {
               $("<span class=\"pip\">" +
                 "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
                 "<br/><span class=\"remove\">Remove image</span>" +
-                "</span>").insertAfter("#preview");
+                "</span>").insertAfter("#previewBannerEdit");
+              $(".remove").click(function(){
+                $(this).parent(".pip").remove();
+              });
+
+              // Old code here
+              /*$("<img></img>", {
+                class: "imageThumb",
+                src: e.target.result,
+                title: file.name + " | Click to remove"
+              }).insertAfter("#files").click(function(){$(this).remove();});*/
+
+            });
+            fileReader.readAsDataURL(f);
+          }
+        });
+      } else {
+        alert("Your browser doesn't support to File API")
+      }
+
+    // new preview multiple images for edit
+    if (window.File && window.FileList && window.FileReader) {
+        $("#images_edit").on("change", function(e) {
+            $('#preview_edit').removeProp('src').hide();
+          var files = e.target.files,
+            filesLength = files.length;
+          for (var i = 0; i < filesLength; i++) {
+            var f = files[i]
+            var fileReader = new FileReader();
+            fileReader.onload = (function(e) {
+              var file = e.target;
+              $("<span class=\"pip\">" +
+                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                "<br/><span class=\"remove\">Remove image</span>" +
+                "</span>").insertAfter("#preview_edit");
               $(".remove").click(function(){
                 $(this).parent(".pip").remove();
               });
@@ -390,11 +472,11 @@ $(document).ready( function () {
 
     //Edit modal window
     $('body').on('click', '.edit-product', function () {
-
         var id = $(this).attr('product-id');
         var modal=$('#modal-edit-product');
         modal.modal('show');
         modal.on('shown.bs.modal', function (e) { $(document).off('focusin.modal'); });
+        // get data product
         $.get("edit/"+id, function (data) {
             $('#id').val(data.pro.id);
             $('#sku_edit').val(data.pro.sku);
@@ -409,30 +491,43 @@ $(document).ready( function () {
             $('#width_edit').val(data.pro.width);
             $('#height_edit').val(data.pro.height);
             $('#status_edit').val(data.pro.status);
+            $('#previewBannerEdit').append(
+                $("<span class=\"pip\">" +
+                "<img class=\"imageThumb\" src=/Source/back/dist/img/products/banner/" + data.pro.banner + ">" +
+                 +"</span>")
+                );
 
-        });
-
-        $.get("edit/"+id, function (data) {
+            // get data product_image
             // clear preview image
-            $('#preview').html('')
+            $('#preview_edit').html('')
             // end clear
             var url= '/Source/back/dist/img/products/'
             var len = data.proimg.length;
             for(var i=0; i<len; i++){
                 var path = url+data.proimg[i].path;
                 var name= data.proimg[i].path;
-                $('#preview').append('<img src="'+path+'" padding="10px" width="200px;" height="200px">');
-
+                $('#preview_edit').append(
+                $("<span class=\"pip\">" +
+                "<img class=\"imageThumb\" src=\"" + path + "\" title=\"" + name + "\"/>" +
+                 +"</span>")
+                );
             }
+
         });
-
-
-
     });
 
     // button cencel
     $('#cencel').click(function(){
         $('#smartwizard_edit').smartWizard("reset");
+        $('#preview_edit').html('');
+        $('#previewBannerEdit').html('');
+        $('#product-form-edit').trigger("reset");
+        $('#modal-edit-product').modal('hide');
+        $('#smartwizard_edit').smartWizard("reset");
+        $('#preview').html('');
+        $('#preview_edit').html('');
+        $('#previewBanner').html('');
+        $('#previewBannerEdit').html('');
     })
 
     // Edit STEPPER
@@ -496,12 +591,18 @@ $(document).ready( function () {
                 $('#product-form-edit').trigger("reset");
                 $('#modal-edit-product').modal('hide');
                 $('#smartwizard_edit').smartWizard("reset");
+                $('#preview').html('');
+                $('#preview_edit').html('');
+                $('#previewBanner').html('');
+                $('#previewBannerEdit').html('');
                 $('#tbl-product').DataTable().ajax.reload(null,false);
+
+
                 // window.location.reload();
             },
 
             error: function (request,status,error) { //jika error tampilkan error pada console
-
+                console.log(request)
                 iziToast.error({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
                     title: 'Ups!!!',
                     message: request.responseText,
@@ -513,11 +614,8 @@ $(document).ready( function () {
         });
     });
 
-
-
-
-    // Delete Category
-    $('body').on('click', '.delete-product', function () {
+    // Delete Row Product
+   $('body').on('click', '.delete-product', function () {
         var product_id=$(this).attr('product-id');
         var product_name=$(this).attr('product-name');
         Swal.fire({
@@ -550,7 +648,28 @@ $(document).ready( function () {
         })
     });
 
+    // Detail Product
+    // if modal click close
+    $('.close').on('click',function () {
+        $('#mainImage').html('')
+        $('#activeImage').html('')
 
+
+    })
+
+    $('body').on('click', '.detail-product', function () {
+
+    
+
+    })
+    // slide image
+    $('.product-image-thumb').on('click', function () {
+        var $image_element = $(this).find('img')
+        $('.product-image').prop('src', $image_element.attr('src'))
+        $('.product-image-thumb.active').removeClass('active')
+        $(this).addClass('active')
+    })
+    // end detail product
 })
 
 

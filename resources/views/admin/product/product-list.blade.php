@@ -44,7 +44,7 @@
                                             <th>Name</th>
                                             <th>Price</th>
                                             <th>Status</th>
-                                            <th width="140px">Action</th>
+                                            <th width="250px">Action</th>
                                         </tr>
                                     </thead>
 
@@ -151,16 +151,22 @@
                                     <div id="step-3">
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <div class="file-loading">
-                                                    <label for="file" class="col-form-label">Image Upload</label>
-                                                    <input id="file-1" name="images[]" type="file"  data-browse-on-zone-click="true" data-overwrite-initial="false" multiple>
-                                                    {{--  <input id="file-1" type="file" name="images[]" multiple class="file" data-overwrite-initial="false">  --}}
-                                                </div>
+                                                <label class="custom-file-label"for="imageBanner">upload Banner Product Image</label>
+                                                <input type="file" class="custom-file-input"  id="imageBanner" name="imageBanner">
+                                                <div class="mt-2" id="previewBanner"></div>
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="custom-file-label" id="images-source" for="images">upload Multi Product Image</label>
+                                                <input type="file" class="custom-file-input"  id="images" name="images[]" multiple/>
+                                                <div class="mt-2" id="preview"></div>
+                                            </div>
+                                        </div>
 
-                                            <div class="form-group col-md-12 col-xs-12">
-                                                <button type="submit" id="submit-form" class="btn btn-success btn-block">Save</button>
-                                            </div>
+                                        <div class="form-group col-md-12 col-xs-12">
+                                            <button type="submit" id="submit-form" class="btn btn-success btn-block">Save</button>
+                                        </div>
 
                                         </div>
                                     </div>
@@ -177,8 +183,6 @@
                 </div>
             </div>
         </div>
-
-
         {{-- end modal ADD--}}
 
         {{-- Modal Edit --}}
@@ -202,10 +206,10 @@
                                     <div id="step-1">
                                         <div class="row">
 
-                                            <div class="form-group col-md-6">
-                                                <label for="id">ID</label>
-                                                <input type="text" class="form-control" id="id" name="id" required>
-                                            </div>
+                                            {{--  <div class="form-group col-md-6">  --}}
+                                                {{--  <label for="id">ID</label>  --}}
+                                                <input type="hidden" class="form-control" id="id" name="id" required>
+                                            {{--  </div>  --}}
                                             <div class="form-group col-md-6">
                                                 <label for="sku_edit">SKU</label>
                                                 <input type="text" class="form-control" id="sku_edit" name="sku_edit" required>
@@ -251,21 +255,21 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="weight_edit">Weight</label>
-                                                <input type="text" class="form-control" id="weight_edit" name="weight_edit" required>
+                                                <input type="text" class="form-control" id="weight_edit" name="weight_edit">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="length_edit">Length</label>
-                                                <input type="text" class="form-control" id="length_edit" name="length_edit" required>
+                                                <input type="text" class="form-control" id="length_edit" name="length_edit">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="width_edit">Width</label>
-                                                <input type="text" class="form-control" id="width_edit" name="width_edit" required>
+                                                <input type="text" class="form-control" id="width_edit" name="width_edit">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="height_edit">Height</label>
-                                                <input type="text" class="form-control" id="height_edit" name="height_edit"  required>
+                                                <input type="text" class="form-control" id="height_edit" name="height_edit">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -283,10 +287,16 @@
                                     <div id="step-3">
                                         <div class="row">
                                             <div class="form-group col-md-12">
+                                                <label class="custom-file-label"for="imageBannerEdit">upload Banner Product Image</label>
+                                                <input type="file" class="custom-file-input"  id="imageBannerEdit" name="imageBannerEdit">
+                                                <div class="mt-2" id="previewBannerEdit"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
                                                 <label class="custom-file-label" id="images-source" for="images_edit">upload Image</label>
-                                               <input type="file" class="custom-file-input"  id="images_edit" name="images_edit[]" multiple/>
-
-                                                <div class="mt-2" id="preview"></div>
+                                                <input type="file" class="custom-file-input"  id="images_edit" name="images_edit[]" multiple/>
+                                                <div class="mt-2" id="preview_edit"></div>
                                             </div>
                                             <div class="form-group col-md-12 col-xs-12">
                                                 <button type="submit" id="submit-form-edit" class="btn btn-success btn-block">Save</button>
@@ -307,6 +317,9 @@
             </div>
         </div>
         {{-- end modal Edit--}}
+
+        
+
     {{--  End product  --}}
 @endsection
 

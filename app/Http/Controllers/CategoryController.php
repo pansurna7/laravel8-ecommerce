@@ -47,7 +47,7 @@ class CategoryController extends Controller
         ]);
 
         if ($files = $request->file('image')) {
-           $fileName =  "banner-".time().'.'.$request->image->getClientOriginalExtension();
+            $fileName =  "banner-".time().'.'.$request->image->getClientOriginalExtension();
             $request->image->storeAs('banner', $fileName);
             $files->move(public_path('/Source/back/dist/img/category'), $fileName);
             $category = new Category();
@@ -88,7 +88,6 @@ class CategoryController extends Controller
             if(File::exists($imagePath)){
                 unlink($imagePath);
             }
-
                 $image = $request->file('image_edit');
                 $imageName = "banner-".time().'.'.$image->extension();
                 $image->move(public_path('/Source/back/dist/img/category'), $imageName);
@@ -107,7 +106,6 @@ class CategoryController extends Controller
     }
     public function destroy(Request $request,$id)
     {
-
         $cat=Category::find($id);
         $imagePath = public_path("/Source/back/dist/img/category/".$cat->banner);
         if(File::exists($imagePath)){

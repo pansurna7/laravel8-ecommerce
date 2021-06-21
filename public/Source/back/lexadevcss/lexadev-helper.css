@@ -6,10 +6,7 @@
 .error {
     color:red !important;
     }
-    /* disable upload file on priview image for bootrap-inputfile  */
-    .kv-file-upload {
-        display:none;
-     }
+   
 /* priview multiple images */
 input[type="file"] {
     display: block;

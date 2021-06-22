@@ -45,6 +45,23 @@ insert  into `admins`(`id`,`name`,`number`,`image`,`email`,`email_verified_at`,`
 (2,'LEXADEV','88888','LEXADEV.jpg','lexadev@lexadev.com','2021-03-29 15:30:40','$2y$10$6eU01laMSLjDc2qadiQvjeDzkd29U.Zt9RJ7JebHaStn3OnAn8sCO',2,1,'2021-03-29 15:30:40','2021-04-07 01:30:57','WEBDEV','BANDUNG','ADMIN LEXADEV'),
 (5,'surya','7777777','surya.jpg','surya@gmail.com',NULL,'$2y$10$KH6IPo1UJ9nYgNwrOSaUPOlhtRhOOSouslJwZ/6kcUdWsIUo51kWy',10,0,'2021-04-03 09:39:08','2021-05-03 16:14:53','IT Support',NULL,NULL);
 
+/*Table structure for table `attribute_options` */
+
+DROP TABLE IF EXISTS `attribute_options`;
+
+CREATE TABLE `attribute_options` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `attribute_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `attribute_options_attribute_id_foreign` (`attribute_id`),
+  CONSTRAINT `attribute_options_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `attribute_options` */
+
 /*Table structure for table `attributes` */
 
 DROP TABLE IF EXISTS `attributes`;
@@ -62,9 +79,12 @@ CREATE TABLE `attributes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `attributes` */
+
+insert  into `attributes`(`id`,`code`,`name`,`type`,`validation`,`is_required`,`is_unique`,`is_filterable`,`is_configurable`,`created_at`,`updated_at`) values 
+(4,'dsfsd','masterdata','3','number',0,0,1,1,'2021-06-22 17:02:07','2021-06-22 17:02:07');
 
 /*Table structure for table `categories` */
 
@@ -115,7 +135,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -137,7 +157,8 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (19,'2021_05_28_125247_create_product_attributes_values_table',9),
 (20,'2021_05_28_130322_create_product_inventories_table',10),
 (21,'2021_05_28_131636_create_product_categories_table',11),
-(22,'2021_05_28_132005_create_product_images_table',12);
+(22,'2021_05_28_132005_create_product_images_table',12),
+(23,'2021_06_22_130004_create_attribute_options_table',13);
 
 /*Table structure for table `parmissions` */
 
@@ -157,7 +178,7 @@ CREATE TABLE `parmissions` (
 /*Data for the table `parmissions` */
 
 insert  into `parmissions`(`id`,`parmission`,`role_id`,`created_at`,`updated_at`) values 
-(3,'{\"System Management\":\"1\",\"Master Data\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Menu\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"User\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Category\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Product\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"}}',2,'2021-04-03 03:38:50','2021-05-28 13:30:33'),
+(3,'{\"System Management\":\"1\",\"Master Data\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Menu\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"User\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Category\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Product\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Attribute\":{\"add\":\"1\",\"edit\":\"1\",\"view\":\"1\",\"delete\":\"1\",\"list\":\"1\"}}',2,'2021-04-03 03:38:50','2021-06-22 13:25:44'),
 (11,'{\"System Management\":\"1\",\"Role\":{\"add\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"list\":\"1\"},\"Parmission\":{\"list\":\"1\"},\"User\":{\"list\":\"1\"}}',10,'2021-05-03 16:44:47','2021-05-07 12:26:36');
 
 /*Table structure for table `password_resets` */
@@ -417,7 +438,7 @@ CREATE TABLE `user_sub_menu` (
   PRIMARY KEY (`id`),
   KEY `user_sub_menu_menu_id_foreign` (`menu_id`),
   CONSTRAINT `user_sub_menu_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `user_menu` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `user_sub_menu` */
 
@@ -427,7 +448,8 @@ insert  into `user_sub_menu`(`id`,`menu_id`,`title`,`slug`,`icon`,`is_active`,`c
 (3,1,'Menu','/menu/show-all-menu','far fa-circle text-danger nav-icon',1,'2021-04-23 12:19:54','2021-04-23 12:19:54'),
 (4,1,'User','/user/show-all-user','far fa-circle text-danger nav-icon',1,'2021-04-27 09:28:41','2021-05-17 12:23:03'),
 (5,2,'Category','/category/show-all-category','fas fa-hand-point-right',1,'2021-04-23 17:42:50','2021-05-28 12:33:06'),
-(14,2,'Product','/product/show-all-product','fab fa-product-hunt',1,'2021-05-28 13:30:16','2021-05-28 13:30:16');
+(14,2,'Product','/product/show-all-product','fab fa-product-hunt',1,'2021-05-28 13:30:16','2021-05-28 13:30:16'),
+(15,2,'Attribute','/attribute/show-all-attribute','fab fa-creative-commons-by',1,'2021-06-22 13:25:26','2021-06-22 14:31:32');
 
 /*Table structure for table `users` */
 

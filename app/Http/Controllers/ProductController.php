@@ -25,7 +25,7 @@ class ProductController extends Controller
             return datatables()->of($dbproduct)
             ->addColumn('action', function($data){
                 if(isset(Auth::guard('admin')->user()->role->parmission['parmission']['Product']['view'])){
-                    $button = '<a  href="javascript:void(0)" product-id="'.$data->id.'" product-name="'.$data->name.'" id="'.$data->id.'" class="detail-product btn btn-success btn-sm"><i class="fas fa-info-circle"></i> View Detail</a>';
+                    $button = '<a  href="javascript:void(0)" product-id="'.$data->id.'" product-name="'.$data->name.'" id="product-detail" class="detail-product btn btn-success btn-sm"><i class="fas fa-info-circle"></i> View Detail</a>';
                 }else{
                     $button = '<a href="javascript:void(0)"  product-id="'.$data->id.'" class="detail-product btn btn-success btn-sm disabled" aria-disabled="true"><i class="fas fa-info-circle"></i> View Detail</a>';
                 }
@@ -242,8 +242,9 @@ class ProductController extends Controller
     {
         $pro=Products::find($id);
         $proimg=ProductImage::where('product_id',$id)->select('path')->get();
-        $data = ['pro','proimg'];
-        return view('product-detail',compact('data'));
+        $data = ['pro'=>$pro,'proimg'=>$proimg];
+        // dd($data);
+        return view('admin.product.product-detail',compact('data'));
 
     }
 }

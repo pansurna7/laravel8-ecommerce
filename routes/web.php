@@ -3,21 +3,20 @@
 use App\Models\Menu;
 use App\Models\SubMenu;
 use App\Models\Category;
-use App\Models\Products;
-use Facade\FlareClient\View;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemController;
+
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ParmissionController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubMenuController;
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ParmissionController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AttributeController;
+
+
 use App\Http\Controllers\Api\Payment\XenditController;
 use App\Models\ProductImage;
 
@@ -124,7 +123,13 @@ Route::prefix('product')->group(function(){
     Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('product.destroy');
     Route::get('/detail/{id}',[ProductController::class,'detail'])->name('product.detail');
     // Route::get('/show-detail',[ProductController::class,'index'])->name('product.detail.index');
-
+});
+Route::prefix('attribute')->group(function(){
+    Route::get('/show-all-attribute',[AttributeController::class,'index'])->name('attribute.index');
+    Route::post('/store',[AttributeController::class,'store'])->name('attribute.store');
+    Route::get('/edit/{id}',[AttributeController::class,'edit'])->name('attribute.edit');
+    Route::post('/update/{id}',[AttributeController::class,'update'])->name('attribute.update');
+    Route::get('/destroy/{id}',[AttributeController::class,'destroy'])->name('attribute.destroy');
 
 });
 
